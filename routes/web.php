@@ -43,3 +43,14 @@ Route::post('/events', [App\Http\Controllers\CalendarController::class, 'index']
 Route::resource('jadwals', App\Http\Controllers\jadwalController::class);
 Route::resource('rekom-dtks', App\Http\Controllers\rekomDtksController::class);
 Route::resource('suket-dtks', App\Http\Controllers\suketDtksController::class);
+Route::resource('pengaduans', App\Http\Controllers\PengaduanController::class);
+Route::resource('rekomendasi_pengangkatan_anaks', App\Http\Controllers\rekomendasi_pengangkatan_anakController::class);
+Route::resource('rekomendasi_terdaftar_yayasans', App\Http\Controllers\rekomendasi_terdaftar_yayasanController::class);
+Route::resource('rekomendasi_pub', App\Http\Controllers\rekomendasi_pengumpulan_undian_berhadiahController::class);
+Route::resource('rekomendasi_bantuan_pendidikans', App\Http\Controllers\rekomendasi_bantuan_pendidikanController::class);
+Route::resource('rekomendasi_rekativasi_pbi_jks', App\Http\Controllers\rekomendasi_rekativasi_pbi_jkController::class);
+Route::resource('rekomendasi_admin_kependudukans', App\Http\Controllers\rekomendasi_admin_kependudukanController::class);
+Route::resource('rekomendasi_rehabilitasi_sosials', App\Http\Controllers\rekomendasi_rehabilitasi_sosialController::class);
+Route::resource('rekomendasi_terdaftar_dtks', App\Http\Controllers\rekomendasi_terdaftar_dtksController::class);
+Route::resource('rekomendasi_biaya_perawatans', App\Http\Controllers\rekomendasi_biaya_perawatanController::class);
+Route::resource('rekomendasi_keringanan_pbbs', App\Http\Controllers\rekomendasi_keringanan_pbbController::class);

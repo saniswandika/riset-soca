@@ -20,7 +20,7 @@
     <!-- Custom styles for this template-->
     <link href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css" rel="stylesheet">
-    <link href="{{ asset('css/sb-admin-2.min.css') }}" rel="stylesheet" type="text/css" >
+    <link href="{{ asset('css/sb-admin-2.min.css') }}" rel="stylesheet" type="text/css">
 
 </head>
 
@@ -33,7 +33,8 @@
         <ul class="navbar-nav  sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html" style="
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html"
+                style="
             background-color: white;
             margin-bottom: -3%;">
                 <div class="sidebar-brand-icon">
@@ -45,38 +46,107 @@
             <hr class="sidebar-divider my-2">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item {{ (request()->is('home')) ? 'active' : '' }}">
+            <li class="nav-item {{ request()->is('home') ? 'active' : '' }}">
                 <a class="nav-link active" href="/home">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
             <hr class="sidebar-divider">
             {{-- menu kelurahan --}}
-                <div class="sidebar-heading">
-                    Kelurahan
-                </div>
-                <li class="nav-item {{ (request()->is('users')) ? 'active' : '' }}">
-                    <a class="nav-link" href="/users">
-                        <i class="fas fa-fw fa-table"></i>
-                        <span>Pengaduan & Rujukan</span></a>
-                </li>
+            <div class="sidebar-heading">
+                Kelurahan
+            </div>
+            <li class="nav-item {{ request()->is('users') ? 'active' : '' }}">
+                <a class="nav-link" href="/users">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Pengaduan & Rujukan</span></a>
+            </li>
             {{-- menu kelurahan --}}
+            <li class="nav-item {{ request()->is('home') ? 'active' : '' }}">
+                <a class="nav-link active" href="/pengaduans">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Pengaduan</span></a>
+            </li>
+
+            {{-- menu Rekomendasi --}}
+
+            <li class="nav-item {{ request()->is('home') ? 'active' : '' }}">
+                <a class="nav-link active" href="rekomendasi_admin_kependudukans">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Rekomendasi Admin Kependudukan</span></a>
+            </li>
+
+            <li class="nav-item {{ request()->is('home') ? 'active' : '' }}">
+                <a class="nav-link active" href="rekomendasi_bantuan_pendidikans">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Rekomendasi Bantuan Pendidikan</span></a>
+            </li>
+
+            <li class="nav-item {{ request()->is('home') ? 'active' : '' }}">
+                <a class="nav-link active" href="rekomendasi_biaya_perawatans">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Rekomendasi Biaya Perawatan</span></a>
+            </li>
+
+            <li class="nav-item {{ request()->is('home') ? 'active' : '' }}">
+                <a class="nav-link active" href="rekomendasi_keringanan_pbbs">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Rekomendasi Keringanan PBB</span></a>
+            </li>
+
+            <li class="nav-item {{ request()->is('home') ? 'active' : '' }}">
+                <a class="nav-link active" href="rekomendasi_pengangkatan_anaks">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Rekomendasi Pengangkatan Anak</span></a>
+            </li>
+
+            <li class="nav-item {{ request()->is('home') ? 'active' : '' }}">
+                <a class="nav-link active" href="rekomendasi_pub">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Rekomendasi Pengumpulan Undian Berhadiah</span></a>
+            </li>
+
+            <li class="nav-item {{ request()->is('home') ? 'active' : '' }}">
+                <a class="nav-link active" href="rekomendasi_rehabilitasi_sosials">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Rekomendasi Rehabilitasi Sosial</span></a>
+            </li>
+
+            <li class="nav-item {{ request()->is('home') ? 'active' : '' }}">
+                <a class="nav-link active" href="rekomendasi_rekativasi_pbi_jks">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Rekomendasi Rekativasi PBI JK</span></a>
+            </li>
+
+            <li class="nav-item {{ request()->is('home') ? 'active' : '' }}">
+                <a class="nav-link active" href="rekomendasi_terdaftar_dtks">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Rekomendasi Terdaftar DTKS</span></a>
+            </li>
+            
+            <li class="nav-item {{ request()->is('home') ? 'active' : '' }}">
+                <a class="nav-link active" href="rekomendasi_terdaftar_yayasans">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Rekomendasi Terdaftar Yayasan</span></a>
+            </li>
+
+            {{-- menu Rekomendasi --}}
             {{-- Pengaturan Akun dan Hak Ases --}}
-                <hr class="sidebar-divider">
-                    <div class="sidebar-heading">
-                        Pengaturan Akun dan Hak Ases
-                    </div>
-                    <!-- Nav Item - Tables -->
-                    <li class="nav-item {{ (request()->is('roles')) ? 'active' : '' }}">
-                        <a class="nav-link" href="/roles">
-                            <i class="fas fa-fw fa-table"></i>
-                            <span>Management Role User</span></a>
-                    </li>
-                    <li class="nav-item {{ (request()->is('users')) ? 'active' : '' }}">
-                        <a class="nav-link" href="/users">
-                            <i class="fas fa-fw fa-table"></i>
-                            <span>management akun</span></a>
-                    </li>
+            <hr class="sidebar-divider">
+            <div class="sidebar-heading">
+                Pengaturan Akun dan Hak Ases
+            </div>
+            <!-- Nav Item - Tables -->
+            <li class="nav-item {{ request()->is('roles') ? 'active' : '' }}">
+                <a class="nav-link" href="/roles">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Management Role User</span></a>
+            </li>
+            <li class="nav-item {{ request()->is('users') ? 'active' : '' }}">
+                <a class="nav-link" href="/users">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>management akun</span></a>
+            </li>
             {{-- Pengaturan Akun dan Hak Ases --}}
         </ul>
         <!-- End of Sidebar -->
@@ -96,18 +166,18 @@
                     </button>
 
                     <!-- Topbar Search -->
-                    @if(Route::is('laporanTamu') )
+                    @if (Route::is('laporanTamu'))
                         <div class="mt-4">
                             <h5 class="card-title">Menu Laporan Tamu</h5>
                         </div>
                     @endif
-                    @if(Route::is('home') )
+                    @if (Route::is('home'))
                         <div class="mt-4">
                             <h5 class="card-title">Menu Dashboard</h5>
                         </div>
                     @endif
-                    
-                   
+
+
                     {{-- <form
                         class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                         <div class="input-group">
@@ -271,7 +341,8 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"> {{ Auth::user()->name }} </span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"> {{ Auth::user()->name }}
+                                </span>
                                 <img class="img-profile rounded-circle"
                                     src="{{ asset('assets/img/undraw_profile.svg') }}">
                             </a>
@@ -297,9 +368,9 @@
                                     {{ __('Logout') }}
                                 </a>
 
-                             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                 @csrf
-                             </form>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    @csrf
+                                </form>
                             </div>
                         </li>
 
@@ -708,16 +779,16 @@
     <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.js"></script>
     <script type="text/javascript">
-    $(document).ready(function () {
-        $('#datablepemakaian').DataTable();
-    });
+        $(document).ready(function() {
+            $('#datablepemakaian').DataTable();
+        });
     </script>
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             $('#tableuser').DataTable();
         });
     </script>
-    
+
 </body>
 
 </html>

@@ -9,7 +9,7 @@
 @if($config->options->localized)
                         {{ $config->modelNames->human }} Details
 @else
-                    @@lang('models/{!! $config->modelNames->camelPlural !!}.singular') @@lang('crud.detail')
+                    @@lang('models/{!! $config->modelNames->camelPlural !!}.singular') @
 @endif
                     </h1>
                 </div>
@@ -19,7 +19,7 @@
                         @if($config->options->localized)
                             Back
                         @else
-                            @@lang('crud.back')
+                            @@lang('back')
                         @endif
                     </a>
                 </div>

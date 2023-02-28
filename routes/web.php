@@ -38,4 +38,8 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('users', UserController::class);
     Route::resource('products', ProductController::class);
 });
+// Route::post('/calendar', [App\Http\Controllers\CalendarController::class, 'index']);
+Route::post('/events', [App\Http\Controllers\CalendarController::class, 'index']);
 Route::resource('jadwals', App\Http\Controllers\jadwalController::class);
+Route::resource('rekom-dtks', App\Http\Controllers\rekomDtksController::class);
+Route::resource('suket-dtks', App\Http\Controllers\suketDtksController::class);

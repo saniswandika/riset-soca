@@ -27,7 +27,7 @@
             </div>
         </div>
 
-        <!-- Pie Chart -->
+        {{-- <!-- Pie Chart -->
         <div class="col-xl-4 col-lg-5">
                 <!-- Card Header - Dropdown -->
                 <div class="card shadow mb-4">
@@ -55,7 +55,7 @@
                         </div>
                     </div>
                 </div>
-        </div>
+        </div> --}}
     </div>
 
 </div>

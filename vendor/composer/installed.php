@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'laravel/laravel',
-        'pretty_version' => 'dev-master',
-        'version' => 'dev-master',
-        'reference' => '100b61b192d21af1836a3c9f3753588a47a95b55',
+        'pretty_version' => 'dev-main',
+        'version' => 'dev-main',
+        'reference' => '344494ca5ecc5391d268b272a21ea9ecaeda9341',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -46,6 +46,24 @@
             'reference' => 'f41715465d65213d644d3141a6a93081be5d3549',
             'type' => 'library',
             'install_path' => __DIR__ . '/../dflydev/dot-access-data',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'doctrine/collections' => array(
+            'pretty_version' => '1.8.0',
+            'version' => '1.8.0.0',
+            'reference' => '2b44dd4cbca8b5744327de78bafef5945c7e7b5e',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../doctrine/collections',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'doctrine/deprecations' => array(
+            'pretty_version' => 'v1.0.0',
+            'version' => '1.0.0.0',
+            'reference' => '0e2a4f1f8cdfc7a92ec3b01c9334898c806b30de',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../doctrine/deprecations',
             'aliases' => array(),
             'dev_requirement' => false,
         ),
@@ -376,6 +394,15 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
+        'infyomlabs/laravel-calendar-events' => array(
+            'pretty_version' => 'v1.1.1',
+            'version' => '1.1.1.0',
+            'reference' => '741f33f484478ec9e47b26e85a6a3308efdc3882',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../infyomlabs/laravel-calendar-events',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'infyomlabs/laravel-generator' => array(
             'pretty_version' => 'v5.4.2',
             'version' => '5.4.2.0',
@@ -437,9 +464,9 @@
             'dev_requirement' => false,
         ),
         'laravel/laravel' => array(
-            'pretty_version' => 'dev-master',
-            'version' => 'dev-master',
-            'reference' => '100b61b192d21af1836a3c9f3753588a47a95b55',
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
+            'reference' => '344494ca5ecc5391d268b272a21ea9ecaeda9341',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -790,8 +817,8 @@
         'psr/log-implementation' => array(
             'dev_requirement' => false,
             'provided' => array(
-                0 => '1.0|2.0|3.0',
-                1 => '1.0.0 || 2.0.0 || 3.0.0',
+                0 => '1.0.0 || 2.0.0 || 3.0.0',
+                1 => '1.0|2.0|3.0',
             ),
         ),
         'psr/simple-cache' => array(
@@ -994,6 +1021,15 @@
             'install_path' => __DIR__ . '/../sebastian/version',
             'aliases' => array(),
             'dev_requirement' => true,
+        ),
+        'simshaun/recurr' => array(
+            'pretty_version' => 'v5.0.1',
+            'version' => '5.0.1.0',
+            'reference' => '6887b7bd7075de97c8c69835e0939ff68d23c47e',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../simshaun/recurr',
+            'aliases' => array(),
+            'dev_requirement' => false,
         ),
         'spatie/backtrace' => array(
             'pretty_version' => '1.2.2',

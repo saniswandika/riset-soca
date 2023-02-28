@@ -28,10 +28,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $baik = laporan_tamu::where('penilaian_tamu','sangat puas')->count();
-        $Cukup = laporan_tamu::where('penilaian_tamu','puas')->count();
-        $Buruk = laporan_tamu::where('penilaian_tamu','tidak puas')->count();
-        // dd($baik);
         $users = laporan_tamu::select(DB::raw("COUNT(*) as count"), DB::raw("MONTHNAME(created_at) as month_name"))
         ->whereYear('created_at', date('Y'))
         ->groupBy(DB::raw("month_name"))
@@ -41,7 +37,7 @@ class HomeController extends Controller
         $labels = $users->keys();
         $data = $users->values();
         
-        return view('home', compact('labels', 'data','baik','Cukup','Buruk'));
+        return view('home', compact('labels', 'data'));
         // return view('home');
         // return view('home');
     }

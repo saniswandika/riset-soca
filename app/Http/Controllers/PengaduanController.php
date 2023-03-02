@@ -7,6 +7,7 @@ use App\Http\Requests\UpdatePengaduanRequest;
 use App\Http\Controllers\AppBaseController;
 use App\Repositories\PengaduanRepository;
 use Illuminate\Http\Request;
+use app\Models\Pengaduan;
 use Flash;
 
 class PengaduanController extends AppBaseController
@@ -22,12 +23,25 @@ class PengaduanController extends AppBaseController
     /**
      * Display a listing of the Pengaduan.
      */
+
+    
     public function index(Request $request)
     {
-        $pengaduans = $this->pengaduanRepository->paginate(10);
+        // $pengaduans = pengaduan::where([
+        //     ['no_pendaftaran', '!=', Null],
+        //     [function ($query) use ($request) {
+        //         if (($s = $request->s)) {
+        //             $query->orWhere('name', 'LIKE', '%' . $s . '%')
+        //                 ->orWhere('email', 'LIKE', '%' . $s . '%')
+        //                 ->get();
+        //         }
+        //     }]
+        // ])->paginate(5);
 
-        return view('pengaduans.index')
-            ->with('pengaduans', $pengaduans);
+        $pengaduans = pengaduan::latest()->paginate(5);
+
+        return view('pengaduans.index', compact('pengaduans'))
+            ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
     /**

@@ -1,5 +1,11 @@
 @extends('layouts.masterTemplate')
 
+@push('style')
+@livewireStyles
+@endpush
+@push('script')
+@livewireScripts
+@endpush
 @section('content')
     <section class="content-header">
         <div class="container-fluid">
@@ -22,10 +28,9 @@
         @include('flash::message')
 
         <div class="clearfix"></div>
-
-        <div class="card">
+        @livewire('pengaduan-table')
+        {{-- <div class="card">
             @include('pengaduans.table')
-        </div>
+        </div> --}}
     </div>
-
 @endsection

@@ -8,6 +8,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\LaporanTamuController;
+use app\Models\Pengaduan;
+use App\Http\Controllers\PengaduanController;
 use App\Http\Controllers\FormTamuController;
 use Symfony\Component\HttpKernel\Profiler\Profile;
 /*
@@ -61,3 +63,16 @@ Route::resource('rekomendasi_rehabilitasi_sosials', App\Http\Controllers\rekomen
 Route::resource('rekomendasi_terdaftar_dtks', App\Http\Controllers\rekomendasi_terdaftar_dtksController::class);
 Route::resource('rekomendasi_biaya_perawatans', App\Http\Controllers\rekomendasi_biaya_perawatanController::class);
 Route::resource('rekomendasi_keringanan_pbbs', App\Http\Controllers\rekomendasi_keringanan_pbbController::class);
+
+Route::any ( '/search', function () {
+    $q = Input::get ( 'q' );
+    if($q != ""){
+    $pengaduans = pengaduan::where ( 'name', 'LIKE', '%' . $q . '%' )->orWhere ( 'email', 'LIKE', '%' . $q . '%' )->paginate (5)->setPath ( '' );
+    $pagination = $pengaduans->appends ( array (
+       'q' => Input::get ( 'q' ) 
+     ) );
+    if (count ( $pengaduans ) > 0)
+     return view ( 'pengaduans.index' )->withDetails ( $pengaduans )->withQuery ( $q );
+    }
+     return view ( 'pengaduans.index' )->withMessage ( 'No Details found. Try to search again !' );
+   } );

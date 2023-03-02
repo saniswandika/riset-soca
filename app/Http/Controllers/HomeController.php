@@ -27,17 +27,8 @@ class HomeController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index()
-    {
-        $users = laporan_tamu::select(DB::raw("COUNT(*) as count"), DB::raw("MONTHNAME(created_at) as month_name"))
-        ->whereYear('created_at', date('Y'))
-        ->groupBy(DB::raw("month_name"))
-        ->orderBy('id','ASC')
-        ->pluck('count', 'month_name');
-
-        $labels = $users->keys();
-        $data = $users->values();
-        
-        return view('home', compact('labels', 'data'));
+    {   
+        return view('home');
         // return view('home');
         // return view('home');
     }

@@ -5,9 +5,11 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\LaporanTamuController;
 use App\Http\Controllers\FormTamuController;
+use Symfony\Component\HttpKernel\Profiler\Profile;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -30,6 +32,7 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::resource('roles', RoleController::class);
+
 Route::group(['middleware' => ['auth']], function() {
     // Route::resource('students', StudentController::class);
     Route::post('/tamu/{id}', [App\Http\Controllers\FormTamuController::class, 'destroy'])->name('tamu.destroy');
@@ -37,6 +40,10 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('laporanTamu', LaporanTamuController::class);
     Route::resource('users', UserController::class);
     Route::resource('products', ProductController::class);
+    Route::resource('profile', ProfileController::class);
+    Route::post('profilepassword', [ProfileController::class, 'password_action'])->name('password.action');
+    Route::post('profilenama', [ProfileController::class, 'name_action'])->name('nama.action');
+    Route::post('profileemail', [ProfileController::class, 'email_action'])->name('email.action');
 });
 // Route::post('/calendar', [App\Http\Controllers\CalendarController::class, 'index']);
 Route::post('/events', [App\Http\Controllers\CalendarController::class, 'index']);

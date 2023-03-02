@@ -51,6 +51,7 @@
                     <i class="fas fa-fw fa-tachometer-alt" style="font-size: 120%"></i>
                     <span style="font-size: 120%">Dashboard</span></a>
             </li>
+            
             <hr class="sidebar-divider">
             {{-- menu kelurahan --}}
             <div class="sidebar-heading"  style="font-size: 60%">
@@ -164,10 +165,10 @@
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
-                                {{-- <a class="dropdown-item" href="#">
+                                <a class="dropdown-item" href="/profile">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Profile
-                                </a>
+                                </a>{{-- 
                                 <a class="dropdown-item" href="#">
                                     <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Settings
@@ -177,6 +178,7 @@
                                     Activity Log
                                 </a> --}}
                                 <div class="dropdown-divider"></div>
+                                
                                 <a class="dropdown-item" href="{{ route('logout') }}"
                                     onclick="event.preventDefault();
                                                 document.getElementById('logout-form').submit();">

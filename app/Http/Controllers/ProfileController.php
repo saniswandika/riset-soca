@@ -105,8 +105,7 @@ class ProfileController extends Controller
         $user->password = Hash::make($request->new_password);
         $user->save();
         $request->session()->regenerate();
-        return redirect()->route('profile.index')
-                        ->with('success','Password Berhasil Di Ganti');
+        return redirect('profile')->withSuccess('Password Anda Berhasil Di Ganti');
 
     }
     public function name_action(Request $request)
@@ -115,8 +114,7 @@ class ProfileController extends Controller
         $user->name = $request->new_name;
         $user->save();
         $request->session()->regenerate();
-        return redirect()->route('profile.index')
-                        ->with('success','Nama Berhasil Di Ganti');
+        return redirect('profile')->withSuccess('Nama Anda Berhasil Di Ganti');
 
     }
     public function email_action(Request $request)
@@ -125,8 +123,7 @@ class ProfileController extends Controller
         $user->email = $request->new_email;
         $user->save();
         $request->session()->regenerate();
-        return redirect()->route('profile.index')
-                        ->with('success','Email Berhasil Di Ganti');
+        return redirect('profile')->withSuccess('Email Anda Berhasil Di Ganti');
 
     }
     

@@ -2,10 +2,7 @@
 
 
 @section('content')
-    @if (session('success'))
-        <p class="alert alert-success">{{ session('success') }}</p>
-    @endif
-    <div class="container rounded bg-white mt-5 mb-5">
+    <div class="container rounded bg-white shadow-lg card">
         <div class="row">
             <div class="col-md-2 border-right">
                 <img src="{{ asset('assets/img/undraw_profile.svg') }}" class="rounded-circle mt-5" width="150">
@@ -13,7 +10,7 @@
             <div class="col">
                 <div class="p-3 py-5">
                     <div class="d-flex justify-content-between align-items-center mb-3">
-                        <h4 class="text-right">Profile Settings</h4>
+                        <h4 class="text-right">Profile {{ Auth::user()->name }}</h4>
                     </div>
                     {!! Form::open(['route' => 'nama.action', 'method' => 'POST']) !!}
                     <div class="form-group">
@@ -55,10 +52,13 @@
                         <label>Konfirmasi Password <span class="text-danger">*</span></label>
                         <input class="form-control" type="password" name="new_password_confirmation" />
                     </div>
-                    <button class="btn btn-primary float-right mt-5">Ganti password</button>
+                    <div class="form-group">
+                        <button class="btn btn-primary float-right mt-3">Ganti password</button>
+                    </div>
                     <br>
                     {!! Form::close() !!}
                 </div>
             </div>
         </div>
+        
     @endsection

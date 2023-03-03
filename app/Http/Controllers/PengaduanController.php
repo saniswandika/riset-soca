@@ -7,6 +7,7 @@ use App\Http\Requests\UpdatePengaduanRequest;
 use App\Http\Controllers\AppBaseController;
 use App\Repositories\PengaduanRepository;
 use Illuminate\Http\Request;
+use app\Models\Pengaduan;
 use Flash;
 
 class PengaduanController extends AppBaseController
@@ -22,12 +23,25 @@ class PengaduanController extends AppBaseController
     /**
      * Display a listing of the Pengaduan.
      */
+
+
     public function index(Request $request)
     {
-        $pengaduans = $this->pengaduanRepository->paginate(10);
+        // $pengaduans = pengaduan::where([
+        //     ['no_pendaftaran', '!=', Null],
+        //     [function ($query) use ($request) {
+        //         if (($s = $request->s)) {
+        //             $query->orWhere('name', 'LIKE', '%' . $s . '%')
+        //                 ->orWhere('email', 'LIKE', '%' . $s . '%')
+        //                 ->get();
+        //         }
+        //     }]
+        // ])->paginate(5);
 
-        return view('pengaduans.index')
-            ->with('pengaduans', $pengaduans);
+        $pengaduans = pengaduan::latest()->paginate(5);
+
+        return view('pengaduans.index', compact('pengaduans'))
+            ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
     /**
@@ -57,7 +71,7 @@ class PengaduanController extends AppBaseController
      */
     public function show($id)
     {
-        $pengaduan = $this->pengaduanRepository->find($id);
+        $pengaduan = $this->pengaduanRepository->find( (int)$id);
 
         if (empty($pengaduan)) {
             Flash::error('Pengaduan not found');
@@ -124,5 +138,37 @@ class PengaduanController extends AppBaseController
         Flash::success('Pengaduan deleted successfully.');
 
         return redirect(route('pengaduans.index'));
+    }
+    public function draft()
+    {
+        $pengaduans = Pengaduan::latest()->paginate(5);
+        return view('pengaduans.index', compact('pengaduans'));
+    }
+
+    public function diproses()
+    {
+        $pengaduans = Pengaduan::latest()->paginate(5);
+        return view('pengaduans.index', compact('pengaduans'));
+    }
+
+    public function dikembalikan()
+    {
+        $pengaduans = Pengaduan::latest()->paginate(5);
+        return view('pengaduans.index', compact('pengaduans'));
+    }
+
+    public function selesai()
+    {
+        $pengaduans = Pengaduan::latest()->paginate(5);
+        return view('pengaduans.index', compact('pengaduans'));
+    }
+
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+        $data = Pengaduan::where('name', 'like', '%' . $query . '%')
+            ->orWhere('status', 'like', '%' . $query . '%')
+            ->paginate(10);
+        return view('pengaduans.index', compact('data'));
     }
 }

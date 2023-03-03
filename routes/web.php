@@ -8,6 +8,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\LaporanTamuController;
+use App\Http\Controllers\PengaduanController;
+use app\Models\Pengaduan;
 use App\Http\Controllers\FormTamuController;
 use Symfony\Component\HttpKernel\Profiler\Profile;
 /*
@@ -50,8 +52,8 @@ Route::post('/events', [App\Http\Controllers\CalendarController::class, 'index']
 Route::resource('jadwals', App\Http\Controllers\jadwalController::class);
 Route::resource('rekom-dtks', App\Http\Controllers\rekomDtksController::class);
 Route::resource('suket-dtks', App\Http\Controllers\suketDtksController::class);
-Route::resource('pengaduans', App\Http\Controllers\PengaduanController::class);
 Route::resource('rekomendasi_pengangkatan_anaks', App\Http\Controllers\rekomendasi_pengangkatan_anakController::class);
+Route::resource('pengaduans', App\Http\Controllers\PengaduanController::class);
 Route::resource('rekomendasi_terdaftar_yayasans', App\Http\Controllers\rekomendasi_terdaftar_yayasanController::class);
 Route::resource('rekomendasi_pub', App\Http\Controllers\rekomendasi_pengumpulan_undian_berhadiahController::class);
 Route::resource('rekomendasi_bantuan_pendidikans', App\Http\Controllers\rekomendasi_bantuan_pendidikanController::class);
@@ -61,3 +63,13 @@ Route::resource('rekomendasi_rehabilitasi_sosials', App\Http\Controllers\rekomen
 Route::resource('rekomendasi_terdaftar_dtks', App\Http\Controllers\rekomendasi_terdaftar_dtksController::class);
 Route::resource('rekomendasi_biaya_perawatans', App\Http\Controllers\rekomendasi_biaya_perawatanController::class);
 Route::resource('rekomendasi_keringanan_pbbs', App\Http\Controllers\rekomendasi_keringanan_pbbController::class);
+
+
+Route::get('/pengaduans/draft', [PengaduanController::class, 'draft'])->name('pengaduans.draft');
+Route::get('/pengaduans/diproses', [PengaduanController::class, 'diproses'])->name('pengaduans.diproses');
+Route::get('/pengaduans/dikembalikan', [PengaduanController::class, 'dikembalikan'])->name('pengaduans.dikembalikan');
+Route::get('/pengaduans/selesai', [PengaduanController::class, 'selesai'])->name('pengaduans.selesai');
+// Route::get('/pengaduans/create', [PengaduanController::class, 'create'])->name('pengaduans.create');
+Route::get('/pengaduans/search', [PengaduanController::class, 'search'])->name('pengaduans.search');
+// Route::get('/pengaduans/destroy', [PengaduanController::class, 'destroy'])->name('pengaduans.destroy');
+

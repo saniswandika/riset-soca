@@ -21,6 +21,7 @@
     <link href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css" rel="stylesheet">
     <link href="{{ asset('css/sb-admin-2.min.css') }}" rel="stylesheet" type="text/css">
+    @stack('style')
 
 </head>
 
@@ -272,7 +273,8 @@
             $('#tableuser').DataTable();
         });
     </script>
-
+@include('sweetalert::alert')
+@stack('script')
 </body>
 
 </html>

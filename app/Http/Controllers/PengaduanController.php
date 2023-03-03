@@ -24,7 +24,7 @@ class PengaduanController extends AppBaseController
      * Display a listing of the Pengaduan.
      */
 
-    
+
     public function index(Request $request)
     {
         // $pengaduans = pengaduan::where([
@@ -71,7 +71,7 @@ class PengaduanController extends AppBaseController
      */
     public function show($id)
     {
-        $pengaduan = $this->pengaduanRepository->find($id);
+        $pengaduan = $this->pengaduanRepository->find( (int)$id);
 
         if (empty($pengaduan)) {
             Flash::error('Pengaduan not found');
@@ -138,5 +138,37 @@ class PengaduanController extends AppBaseController
         Flash::success('Pengaduan deleted successfully.');
 
         return redirect(route('pengaduans.index'));
+    }
+    public function draft()
+    {
+        $pengaduans = Pengaduan::latest()->paginate(5);
+        return view('pengaduans.index', compact('pengaduans'));
+    }
+
+    public function diproses()
+    {
+        $pengaduans = Pengaduan::latest()->paginate(5);
+        return view('pengaduans.index', compact('pengaduans'));
+    }
+
+    public function dikembalikan()
+    {
+        $pengaduans = Pengaduan::latest()->paginate(5);
+        return view('pengaduans.index', compact('pengaduans'));
+    }
+
+    public function selesai()
+    {
+        $pengaduans = Pengaduan::latest()->paginate(5);
+        return view('pengaduans.index', compact('pengaduans'));
+    }
+
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+        $data = Pengaduan::where('name', 'like', '%' . $query . '%')
+            ->orWhere('status', 'like', '%' . $query . '%')
+            ->paginate(10);
+        return view('pengaduans.index', compact('data'));
     }
 }

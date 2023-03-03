@@ -142,6 +142,7 @@ class PengaduanController extends AppBaseController
     public function draft()
     {
         $pengaduans = Pengaduan::latest()->paginate(5);
+        dd($pengaduans);
         return view('pengaduans.index', compact('pengaduans'));
     }
 

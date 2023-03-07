@@ -7,25 +7,25 @@
     <div class="form-group row">
         <label class="col-sm-2 col-form-label">Provinsi</label>
         <div class="col-sm-5">
-            <input type="text" readonly class="form-control" value="{{ $item->name_prov }}"  value="Provinsi" name="provinsi">
+            <input type="text" readonly class="form-control" value="{{ $item->name_prov }}" name="id_provinsi">
         </div>
     </div>
     <div class="form-group row">
         <label class="col-sm-2 col-form-label">Kab/Kota</label>
         <div class="col-sm-5">
-            <input type="text" readonly class="form-control" value="{{ $item->name_cities }}" name="kab/kota">
+            <input type="text" readonly class="form-control" value="{{ $item->name_cities }}" name="id_kabkot">
         </div>
     </div>
     <div class="form-group row">
         <label class="col-sm-2 col-form-label">Kecamatan</label>
         <div class="col-sm-5">
-            <input type="text" readonly class="form-control"  value="{{ $item->name_districts }}" name="kecamatan">
+            <input type="text" readonly class="form-control"  value="{{ $item->name_districts }}" name="id_kecamatan">
         </div>
     </div>
     <div class="form-group row">
         <label class="col-sm-2 col-form-label">Kelurahan</label>
         <div class="col-sm-5">
-            <input type="text" readonly class="form-control"  value="{{ $item->name_village }}" name="kelurahan">
+            <input type="text" readonly class="form-control"  value="{{ $item->name_village }}" name="id_kelurahan">
         </div>
     </div>
     <br>
@@ -148,6 +148,12 @@
     </div>
 </div>
 <div class="form-group row">
+    <label class="col-sm-2 col-form-label">Alamat <span class="text-danger">*</label>
+    <div class="col-sm-5">
+        <textarea class="form-control" name="alamat" required></textarea>
+    </div>
+</div>
+<div class="form-group row">
     <label class="col-sm-2 col-form-label">Telpon <span class="text-danger">*</label>
     <div class="col-sm-5">
         <input type="tel" class="form-control" name="telpon" required>
@@ -170,7 +176,7 @@
 </div>
 
 {{-- layanan --}}
-<div form-group row>
+{{-- <div form-group row>
     <h4><b>LAYANAN</b></h4>
 </div>
 <div class="form-group row">
@@ -183,7 +189,7 @@
             <option value="3">Three</option>
           </select>
     </div>
-</div>
+</div> --}}
 
 {{-- kepesertaan --}}
 <div form-group row>

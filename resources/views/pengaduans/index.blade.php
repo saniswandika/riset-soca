@@ -190,12 +190,13 @@
                     <th>Sektor Program</th>
                     <th>Program</th>
                     <th>Catatan</th>
-                    {{-- // <th>Status</th>
-                    // <th>Durasi (hari)</th>
-                    // <th>Aksi</th> --}}
+                    {{-- <th>Status</th>
+                    <th>Durasi (hari)</th> --}}
+                    <th>Aksi</th>
                   </tr>
                 </thead>
-              <tbody></tbody>
+              <tbody>
+              </tbody>
             </table>
           </div>
           <div class="tab-pane fade table-responsive" id="table2" role="tabpanel" aria-labelledby="tab2">
@@ -309,7 +310,14 @@
                     { data: 'no_kk', name: 'no_kk' },
                     { data: 'keluhan_id_program', name: 'keluhan_id_program' },
                     { data: 'keluhan_detail', name: 'keluhan_detail' },
-                    { data: 'tl_catatan', name: 'tl_catatan' }
+                    { data: 'tl_catatan', name: 'tl_catatan' },
+                    { data : null, 
+                      className: "dt-center editor-delete",
+                      orderable: false,
+                      "mRender" : function ( data, type, row ) {
+                        return '<div class="input-group-append"><a href="/pengaduans/'+data.id +'/edit" class="btn btn-secondary btn-sm">Edit</a><a href="/pengaduans/'+data.id +'/delete" class="btn btn-danger btn-sm">Delete</a></div>';
+                    }
+                    }
                 ],
             });
       });

@@ -12,6 +12,7 @@ use App\Models\wilayah;
 use Illuminate\Support\Facades\DB;
 use Flash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class PengaduanController extends AppBaseController
 {
@@ -31,7 +32,7 @@ class PengaduanController extends AppBaseController
     public function index(Request $request)
     {
         // if($request->ajax()){
-           
+
         return view('pengaduans.index');
     }
 
@@ -50,12 +51,12 @@ class PengaduanController extends AppBaseController
             'w.status_wilayah',
             'w.createdby',
         )
-        ->leftjoin('indonesia_provinces as prov', 'prov.code', '=', 'w.province_id')
-        ->leftjoin('indonesia_cities as kota', 'kota.code', '=', 'w.kota_id')
-        ->leftjoin('indonesia_districts as kecamatan', 'kecamatan.code', '=', 'w.kecamatan_id')
-        ->leftjoin('indonesia_villages as b', 'b.code', '=', 'w.kelurahan_id')
-        ->where('status_wilayah', '1')
-        ->where('w.createdby', $userid)->get();
+            ->leftjoin('indonesia_provinces as prov', 'prov.code', '=', 'w.province_id')
+            ->leftjoin('indonesia_cities as kota', 'kota.code', '=', 'w.kota_id')
+            ->leftjoin('indonesia_districts as kecamatan', 'kecamatan.code', '=', 'w.kecamatan_id')
+            ->leftjoin('indonesia_villages as b', 'b.code', '=', 'w.kelurahan_id')
+            ->where('status_wilayah', '1')
+            ->where('w.createdby', $userid)->get();
         // dd($wilayah);
         return view('pengaduans.create', compact('wilayah'));
     }
@@ -63,15 +64,49 @@ class PengaduanController extends AppBaseController
     /**
      * Store a newly created Pengaduan in storage.
      */
-    public function store(CreatePengaduanRequest $request)
+    public function store(Request $request)
     {
-        $input = $request->all();
+        // request()->validate([
+        //     'id_provinsi' => 'required',
+        //     'id_kabkot' => 'required',
+        //     'id_kecamatan' => 'required',
+        //     'id_kelurahan' => 'required',
+        // ]);
+    
+        // laporan_tamu::create($request->all());
+        $pengaduan = new Pengaduan([
+            'id_alur' => '1',
+            'no_pendaftaran' => Str::random($length = 10),
+            'id_provinsi' => $request->get('id_provinsi'),
+            'id_kabkot' => $request->get('id_kabkot'),
+            'id_kecamatan' => $request->get('id_kecamatan'),
+            'id_kelurahan' => $request->get('id_kelurahan'),
+            'jenis_pelapor' => $request->get('jenis_pelaporan'),
+            'ada_nik' => $request->get('memiliki_nik'),
+            'nik' => $request->get('nik'),
+            'no_kk' => $request->get('no_kk'),
+            'no_kis' => $request->get('no_kis'),
+            'nama' => $request->get('nama'),
+            'tgl_lahir' => $request->get('tempat_lahir'),
+            'alamat' => $request->get('alamat'),
+            'telp' => $request->get('telpon'),
+            'email' => $request->get('email'),
+            'hubungan_terlapor' => $request->get('hubungan_terlapor'),
+            'file_penunjang' => $request->get('file_penunjang'),
+            'keluhan_tipe' => $request->get('Progam_pengaduan'),
+            'keluhan_id_program' => $request->get('Progam_pengaduan'),
+            'keluhan_detail' => $request->get('detail_pengaduan'),
+            'keluhan_foto' => $request->get('detail_pengaduan'),
+            'tl_catatan' => $request->get('detail_pengaduan'),
+            'tl_file' => $request->get('detail_pengaduan'),
+            'ada_dtks' => $request->get('no_dtks'),
+            'createdby' => Auth::user()->name,
+            'updatedby' => Auth::user()->name
+        ]);
 
-        $pengaduan = $this->pengaduanRepository->create($input);
+        $pengaduan->save();
 
-        Flash::success('Pengaduan saved successfully.');
-
-        return redirect(route('pengaduans.index'));
+        return redirect('pengaduans')->withSuccess('Data Berhasil Disimpan');
     }
 
     /**
@@ -79,7 +114,7 @@ class PengaduanController extends AppBaseController
      */
     public function show($id)
     {
-        $pengaduan = $this->pengaduanRepository->find( (int)$id);
+        $pengaduan = $this->pengaduanRepository->find((int) $id);
 
         if (empty($pengaduan)) {
             Flash::error('Pengaduan not found');
@@ -109,21 +144,39 @@ class PengaduanController extends AppBaseController
     /**
      * Update the specified Pengaduan in storage.
      */
-    public function update($id, UpdatePengaduanRequest $request)
+    public function update(Request $request)
     {
-        $pengaduan = $this->pengaduanRepository->find($id);
+        $pengaduan = Pengaduan::find($request->hidden_id);
 
-        if (empty($pengaduan)) {
-            Flash::error('Pengaduan not found');
+        $pengaduan->id_provinsi = $request->get('id_provinsi');
+        $pengaduan->id_kabkot = $request->get('id_kabkot');
+        $pengaduan->id_kecamatan = $request->get('id_kecamatan');
+        $pengaduan->id_kelurahan = $request->get('id_kelurahan');
+        $pengaduan->jenis_pelapor = $request->get('jenis_pelaporan');
+        $pengaduan->ada_nik = $request->get('memiliki_nik');
+        $pengaduan->nik = $request->get('nik');
+        $pengaduan->no_kk = $request->get('no_kk');
+        $pengaduan->no_kis = $request->get('no_kis');
+        $pengaduan->nama = $request->get('nama');
+        $pengaduan->tgl_lahir = $request->get('tempat_lahir');
+        $pengaduan->alamat = $request->get('alamat');
+        $pengaduan->telp = $request->get('telpon');
+        $pengaduan->email = $request->get('email');
+        $pengaduan->hubungan_terlapor = $request->get('hubungan_terlapor');
+        $pengaduan->file_penunjang = $request->get('file_penunjang');
+        $pengaduan->keluhan_tipe = $request->get('Progam_pengaduan');
+        $pengaduan->keluhan_id_program = $request->get('Progam_pengaduan');
+        $pengaduan->keluhan_detail = $request->get('detail_pengaduan');
+        $pengaduan->keluhan_foto = $request->get('detail_pengaduan');
+        $pengaduan->tl_catatan = $request->get('detail_pengaduan');
+        $pengaduan->tl_file = $request->get('detail_pengaduan');
+        $pengaduan->ada_dtks = $request->get('no_dtks');
+        $pengaduan->createdby = Auth::user()->name;
+        $pengaduan->updatedby = Auth::user()->name;
 
-            return redirect(route('pengaduans.index'));
-        }
+        $pengaduan->save();
 
-        $pengaduan = $this->pengaduanRepository->update($request->all(), $id);
-
-        Flash::success('Pengaduan updated successfully.');
-
-        return redirect(route('pengaduans.index'));
+        return redirect('pengaduans')->withSuccess('Data Berhasil Diubah');
     }
 
     /**
@@ -138,14 +191,14 @@ class PengaduanController extends AppBaseController
         if (empty($pengaduan)) {
             Flash::error('Pengaduan not found');
 
-            return redirect(route('pengaduans.index'));
+            return redirect('pengaduans')->withSuccess('Data Berhasil Dihapus');
         }
 
         $this->pengaduanRepository->delete($id);
 
         Flash::success('Pengaduan deleted successfully.');
 
-        return redirect(route('pengaduans.index'));
+        return redirect('pengaduans')->withSuccess('Data Berhasil Dihapus');
     }
     public function draft(Request $request)
     {
@@ -163,9 +216,9 @@ class PengaduanController extends AppBaseController
             'tl_catatan',
             'createdby',
         ];
-    
+
         $query = Pengaduan::where('id_alur', '1');
-    
+
         // menambahkan kondisi pencarian jika ada
         if ($request->has('search')) {
             $searchValue = $request->search['value'];
@@ -175,25 +228,25 @@ class PengaduanController extends AppBaseController
                 }
             });
         }
-    
+
         // menambahkan kondisi sortir jika ada
         if ($request->has('order')) {
             $orderColumn = $columns[$request->order[0]['column']];
             $orderDirection = $request->order[0]['dir'];
             $query->orderBy($orderColumn, $orderDirection);
         }
-    
+
         // mengambil data sesuai dengan paginasi yang diminta
         $perPage = $request->length ?: config('app.pagination.per_page');
         $currentPage = $request->start ? ($request->start / $perPage) + 1 : 1;
         $data = $query->paginate($perPage, ['*'], 'page', $currentPage);
-    
+
         // memformat data untuk dikirim ke client
         $formattedData = [];
         foreach ($data as $item) {
             $formattedData[] = [
                 'id' => $item->id,
-                'no_pendaftaran'=> $item->no_pendaftaran,
+                'no_pendaftaran' => $item->no_pendaftaran,
                 'id_kelurahan' => $item->id_kelurahan,
                 'jenis_pelapor' => $item->jenis_pelapor,
                 'nik' => $item->nik,
@@ -203,16 +256,16 @@ class PengaduanController extends AppBaseController
                 'keluhan_detail' => $item->keluhan_detail,
                 'tl_catatan' => $item->tl_catatan,
                 'createdby' => $item->createdby,
-                'created_at' => $item->created_at,
+                'created_at' => $item->created_at
             ];
         }
-    
+
         // mengembalikan data dalam format JSON
         return response()->json([
             'draw' => $request->draw,
             'recordsTotal' => Pengaduan::count(),
             'recordsFiltered' => $data->total(),
-            'data' => $formattedData,
+            'data' => $formattedData
         ]);
     }
 
@@ -232,9 +285,9 @@ class PengaduanController extends AppBaseController
             'tl_catatan',
             'createdby',
         ];
-    
+
         $query = Pengaduan::where('id_alur', '36');
-    
+
         // menambahkan kondisi pencarian jika ada
         if ($request->has('search')) {
             $searchValue = $request->search['value'];
@@ -244,25 +297,25 @@ class PengaduanController extends AppBaseController
                 }
             });
         }
-    
+
         // menambahkan kondisi sortir jika ada
         if ($request->has('order')) {
             $orderColumn = $columns[$request->order[0]['column']];
             $orderDirection = $request->order[0]['dir'];
             $query->orderBy($orderColumn, $orderDirection);
         }
-    
+
         // mengambil data sesuai dengan paginasi yang diminta
         $perPage = $request->length ?: config('app.pagination.per_page');
         $currentPage = $request->start ? ($request->start / $perPage) + 1 : 1;
         $data = $query->paginate($perPage, ['*'], 'page', $currentPage);
-    
+
         // memformat data untuk dikirim ke client
         $formattedData = [];
         foreach ($data as $item) {
             $formattedData[] = [
                 'id' => $item->id,
-                'no_pendaftaran'=> $item->no_pendaftaran,
+                'no_pendaftaran' => $item->no_pendaftaran,
                 'id_kelurahan' => $item->id_kelurahan,
                 'jenis_pelapor' => $item->jenis_pelapor,
                 'nik' => $item->nik,
@@ -275,7 +328,7 @@ class PengaduanController extends AppBaseController
                 'created_at' => $item->created_at,
             ];
         }
-    
+
         // mengembalikan data dalam format JSON
         return response()->json([
             'draw' => $request->draw,
@@ -301,9 +354,9 @@ class PengaduanController extends AppBaseController
             'tl_catatan',
             'createdby',
         ];
-    
+
         $query = Pengaduan::where('id_alur', '36');
-    
+
         // menambahkan kondisi pencarian jika ada
         if ($request->has('search')) {
             $searchValue = $request->search['value'];
@@ -313,25 +366,25 @@ class PengaduanController extends AppBaseController
                 }
             });
         }
-    
+
         // menambahkan kondisi sortir jika ada
         if ($request->has('order')) {
             $orderColumn = $columns[$request->order[0]['column']];
             $orderDirection = $request->order[0]['dir'];
             $query->orderBy($orderColumn, $orderDirection);
         }
-    
+
         // mengambil data sesuai dengan paginasi yang diminta
         $perPage = $request->length ?: config('app.pagination.per_page');
         $currentPage = $request->start ? ($request->start / $perPage) + 1 : 1;
         $data = $query->paginate($perPage, ['*'], 'page', $currentPage);
-    
+
         // memformat data untuk dikirim ke client
         $formattedData = [];
         foreach ($data as $item) {
             $formattedData[] = [
                 'id' => $item->id,
-                'no_pendaftaran'=> $item->no_pendaftaran,
+                'no_pendaftaran' => $item->no_pendaftaran,
                 'id_kelurahan' => $item->id_kelurahan,
                 'jenis_pelapor' => $item->jenis_pelapor,
                 'nik' => $item->nik,
@@ -344,7 +397,7 @@ class PengaduanController extends AppBaseController
                 'created_at' => $item->created_at,
             ];
         }
-    
+
         // mengembalikan data dalam format JSON
         return response()->json([
             'draw' => $request->draw,
@@ -370,9 +423,9 @@ class PengaduanController extends AppBaseController
             'tl_catatan',
             'createdby',
         ];
-    
+
         $query = Pengaduan::where('id_alur', '36');
-    
+
         // menambahkan kondisi pencarian jika ada
         if ($request->has('search')) {
             $searchValue = $request->search['value'];
@@ -382,25 +435,25 @@ class PengaduanController extends AppBaseController
                 }
             });
         }
-    
+
         // menambahkan kondisi sortir jika ada
         if ($request->has('order')) {
             $orderColumn = $columns[$request->order[0]['column']];
             $orderDirection = $request->order[0]['dir'];
             $query->orderBy($orderColumn, $orderDirection);
         }
-    
+
         // mengambil data sesuai dengan paginasi yang diminta
         $perPage = $request->length ?: config('app.pagination.per_page');
         $currentPage = $request->start ? ($request->start / $perPage) + 1 : 1;
         $data = $query->paginate($perPage, ['*'], 'page', $currentPage);
-    
+
         // memformat data untuk dikirim ke client
         $formattedData = [];
         foreach ($data as $item) {
             $formattedData[] = [
                 'id' => $item->id,
-                'no_pendaftaran'=> $item->no_pendaftaran,
+                'no_pendaftaran' => $item->no_pendaftaran,
                 'id_kelurahan' => $item->id_kelurahan,
                 'jenis_pelapor' => $item->jenis_pelapor,
                 'nik' => $item->nik,
@@ -413,7 +466,7 @@ class PengaduanController extends AppBaseController
                 'created_at' => $item->created_at,
             ];
         }
-    
+
         // mengembalikan data dalam format JSON
         return response()->json([
             'draw' => $request->draw,

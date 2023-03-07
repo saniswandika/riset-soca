@@ -1,4 +1,3 @@
-{{-- lokasi --}}
 <div form-group row>
     <h4><b>LOKASI</b></h4>
 </div>

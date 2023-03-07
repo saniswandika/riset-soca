@@ -6,14 +6,14 @@
             <div class="row mb-2">
                 <div class="col-sm-12">
                     <h1>
-                    Create Pengaduan
+                    Buat Pengaduan
                     </h1>
                 </div>
             </div>
         </div>
     </section>
 
-    <div class="content px-3">
+    <div class="content px-3 shadow-lg">
 
         @include('adminlte-templates::common.errors')
 
@@ -21,17 +21,17 @@
 
             {!! Form::open(['route' => 'pengaduans.store']) !!}
 
-            <div class="card-body">
+            <div class="card-body shadow-lg">
 
-                <div class="row">
                     @include('pengaduans.fields')
-                </div>
 
             </div>
 
             <div class="card-footer">
+                <a href="{{ route('pengaduans.index') }}" class="btn btn-default"> Batal </a>
+                {!! Form::submit('Draft', ['class' => 'btn btn-default']) !!}
                 {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
-                <a href="{{ route('pengaduans.index') }}" class="btn btn-default"> Cancel </a>
+                
             </div>
 
             {!! Form::close() !!}

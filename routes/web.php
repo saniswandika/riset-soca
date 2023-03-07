@@ -77,10 +77,10 @@ Route::resource('rekomendasi_biaya_perawatans', App\Http\Controllers\rekomendasi
 Route::resource('rekomendasi_keringanan_pbbs', App\Http\Controllers\rekomendasi_keringanan_pbbController::class);
 
 
-Route::get('/pengaduans/draft', [PengaduanController::class, 'draft'])->name('pengaduans.draft');
-Route::get('/pengaduans/diproses', [PengaduanController::class, 'diproses'])->name('pengaduans.diproses');
-Route::get('/pengaduans/dikembalikan', [PengaduanController::class, 'dikembalikan'])->name('pengaduans.dikembalikan');
-Route::get('/pengaduans/selesai', [PengaduanController::class, 'selesai'])->name('pengaduans.selesai');
+Route::get('getdata', [PengaduanController::class, 'draft'])->name('getdata');
+Route::get('diproses', [PengaduanController::class, 'diproses'])->name('diproses');
+Route::get('dikembalikan', [PengaduanController::class, 'dikembalikan'])->name('dikembalikan');
+Route::get('/selesai', [PengaduanController::class, 'selesai'])->name('selesai');
 // Route::get('/pengaduans/create', [PengaduanController::class, 'create'])->name('pengaduans.create');
 Route::get('/pengaduans/search', [PengaduanController::class, 'search'])->name('pengaduans.search');
 // Route::get('/pengaduans/destroy', [PengaduanController::class, 'destroy'])->name('pengaduans.destroy');

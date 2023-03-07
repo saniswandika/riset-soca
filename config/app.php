@@ -163,6 +163,7 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
+        Laravolt\Indonesia\ServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -191,6 +192,7 @@ return [
     */
 
     'aliases' => Facade::defaultAliases()->merge([
+        'Indonesia' => Laravolt\Indonesia\Facade::class,
         // 'ExampleClass' => App\Example\ExampleClass::class,
         'Alert' => RealRashid\SweetAlert\Facades\Alert::class,
         'Input' => Illuminate\Support\Facades\Request::class,

@@ -11,6 +11,8 @@ use App\Http\Controllers\LaporanTamuController;
 use App\Http\Controllers\PengaduanController;
 use app\Models\Pengaduan;
 use App\Http\Controllers\FormTamuController;
+use App\Http\Controllers\PengaturanWilayahController;
+use App\Http\Controllers\DependantDropdownController;
 use Symfony\Component\HttpKernel\Profiler\Profile;
 /*
 |--------------------------------------------------------------------------
@@ -47,11 +49,21 @@ Route::group(['middleware' => ['auth']], function() {
     Route::post('profilenama', [ProfileController::class, 'name_action'])->name('nama.action');
     Route::post('profileemail', [ProfileController::class, 'email_action'])->name('email.action');
 });
+//wilayah
+Route::post('/get-kota', [PengaturanWilayahController::class, 'getKota'])->name('getKota');
+Route::get('/kecamatan/getByRegency/{regencyId}', [PengaturanWilayahController::class, 'getKecamatanByRegency']);
+Route::get('/kelurahan/getByRegency/{kelurahanId}', [PengaturanWilayahController::class, 'getKelurahanByRegency']);
+Route::get('/Pengaturan_wilayah', [PengaturanWilayahController::class, 'listwilayah'])->name('Pengaturan_wilayah');
+Route::get('/tambah-wilayah', [PengaturanWilayahController::class, 'create'])->name('rubahwilayah');
+Route::get('/status/update', [PengaturanWilayahController::class, 'updateStatus'])->name('users.update.status');
+Route::post('/add-wilayah', [PengaturanWilayahController::class, 'store'])->name('add_wilayah.store');
+//tutup wilayah
 // Route::post('/calendar', [App\Http\Controllers\CalendarController::class, 'index']);
 Route::post('/events', [App\Http\Controllers\CalendarController::class, 'index']);
 Route::resource('jadwals', App\Http\Controllers\jadwalController::class);
 Route::resource('rekom-dtks', App\Http\Controllers\rekomDtksController::class);
 Route::resource('suket-dtks', App\Http\Controllers\suketDtksController::class);
+Route::resource('pengaduans', App\Http\Controllers\PengaduanController::class);
 Route::resource('rekomendasi_pengangkatan_anaks', App\Http\Controllers\rekomendasi_pengangkatan_anakController::class);
 Route::resource('pengaduans', App\Http\Controllers\PengaduanController::class);
 Route::resource('rekomendasi_terdaftar_yayasans', App\Http\Controllers\rekomendasi_terdaftar_yayasanController::class);
@@ -65,10 +77,10 @@ Route::resource('rekomendasi_biaya_perawatans', App\Http\Controllers\rekomendasi
 Route::resource('rekomendasi_keringanan_pbbs', App\Http\Controllers\rekomendasi_keringanan_pbbController::class);
 
 
-Route::get('/pengaduans/draft', [PengaduanController::class, 'draft'])->name('pengaduans.draft');
-Route::get('/pengaduans/diproses', [PengaduanController::class, 'diproses'])->name('pengaduans.diproses');
-Route::get('/pengaduans/dikembalikan', [PengaduanController::class, 'dikembalikan'])->name('pengaduans.dikembalikan');
-Route::get('/pengaduans/selesai', [PengaduanController::class, 'selesai'])->name('pengaduans.selesai');
+Route::get('getdata', [PengaduanController::class, 'draft'])->name('getdata');
+Route::get('diproses', [PengaduanController::class, 'diproses'])->name('diproses');
+Route::get('dikembalikan', [PengaduanController::class, 'dikembalikan'])->name('dikembalikan');
+Route::get('/selesai', [PengaduanController::class, 'selesai'])->name('selesai');
 // Route::get('/pengaduans/create', [PengaduanController::class, 'create'])->name('pengaduans.create');
 Route::get('/pengaduans/search', [PengaduanController::class, 'search'])->name('pengaduans.search');
 // Route::get('/pengaduans/destroy', [PengaduanController::class, 'destroy'])->name('pengaduans.destroy');

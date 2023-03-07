@@ -169,6 +169,10 @@
                                 <a class="dropdown-item" href="/profile">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Profile
+                                </a>
+                                <a class="dropdown-item" href="/Pengaturan_wilayah">
+                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Pengaturan Wilayah
                                 </a>{{-- 
                                 <a class="dropdown-item" href="#">
                                     <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>

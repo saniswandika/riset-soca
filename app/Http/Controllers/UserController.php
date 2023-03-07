@@ -6,12 +6,30 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Spatie\Permission\Models\Role;
-use DB;
-use Hash;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Arr;
+use App\Exports\UsersExport;
+use App\Imports\DtkssImport;
+// use App\Models\Event;
+use Maatwebsite\Excel\Facades\Excel;
+use Maatwebsite\Excel\HeadingRowImport;
+        
     
 class UserController extends Controller
 {
+     /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    function __construct()
+    {
+         $this->middleware('permission:role-list|role-create|role-edit|role-delete', ['only' => ['index','store']]);
+         $this->middleware('permission:role-create', ['only' => ['create','store']]);
+         $this->middleware('permission:role-edit', ['only' => ['edit','update']]);
+         $this->middleware('permission:role-delete', ['only' => ['destroy']]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -19,8 +37,13 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
+        // $jadwals = Event::all();
         $data = User::orderBy('id','DESC')->paginate(5);
-        return view('users.index',compact('data'))
+      
+        $roles = DB::table('roles')->get();
+        // dd($roles);
+        // $roles = Role::pluck('name','name')->all();
+        return view('users.index',compact('data','roles'))
             ->with('i', ($request->input('page', 1) - 1) * 5);
     }
     
@@ -31,6 +54,7 @@ class UserController extends Controller
      */
     public function create()
     {
+        //= Event::all();
         $roles = Role::pluck('name','name')->all();
         return view('users.create',compact('roles'));
     }
@@ -46,18 +70,22 @@ class UserController extends Controller
         $this->validate($request, [
             'name' => 'required',
             'email' => 'required|email|unique:users,email',
-            'password' => 'required|same:confirm-password'
-            // 'roles' => 'required'
+            'password' => 'required|same:confirm-password',
+            'roles' => 'required'
         ]);
+        $input['email'] = $request->input('email');
     
         $input = $request->all();
         $input['password'] = Hash::make($input['password']);
     
         $user = User::create($input);
-        // $user->assignRole($request->input('roles'));
-    
-        return redirect()->route('users.index')
-                        ->with('success','User created successfully');
+        $user->assignRole($request->input('roles'));
+        
+        if($user){
+            return redirect()->route('users.index')
+            ->with('masuk','User created successfully');
+        }
+        
     }
     
     /**
@@ -99,7 +127,8 @@ class UserController extends Controller
         $this->validate($request, [
             'name' => 'required',
             'email' => 'required|email|unique:users,email,'.$id,
-            'password' => 'same:confirm-password'
+            'password' => 'same:confirm-password',
+            'roles' => 'required'
         ]);
     
         $input = $request->all();
@@ -111,9 +140,9 @@ class UserController extends Controller
     
         $user = User::find($id);
         $user->update($input);
-        // DB::table('model_has_roles')->where('model_id',$id)->delete();
+        DB::table('model_has_roles')->where('model_id',$id)->delete();
     
-        // $user->assignRole($request->input('roles'));
+        $user->assignRole($request->input('roles'));
     
         return redirect()->route('users.index')
                         ->with('success','User updated successfully');
@@ -131,4 +160,23 @@ class UserController extends Controller
         return redirect()->route('users.index')
                         ->with('success','User deleted successfully');
     }
+      /**
+    * @return \Illuminate\Support\Collection
+    */
+//     public function export() 
+//     {
+//         return Excel::download(new UsersExport, 'users.xlsx');
+//     }
+//   /**
+//     * @return \Illuminate\Support\Collection
+//     */
+//     public function import(Request $request) 
+//     {
+//         if ($request->file('file')) {
+//             $data = Excel::import(new DtkssImport(), request()->file('file'));
+//             // dd($data);
+//             return redirect()->route('Dtks.index');
+//         }
+        
+//     }
 }

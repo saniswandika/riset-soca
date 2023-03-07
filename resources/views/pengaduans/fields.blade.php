@@ -3,32 +3,33 @@
     <h4><b>LOKASI</b></h4>
 </div>
 <br>
-<div class="form-group row">
-    <label class="col-sm-2 col-form-label">Provinsi</label>
-    <div class="col-sm-5">
-        <input type="text" readonly class="form-control"  value="Provinsi" name="provinsi">
+@foreach ($wilayah as $item)
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label">Provinsi</label>
+        <div class="col-sm-5">
+            <input type="text" readonly class="form-control" value="{{ $item->name_prov }}"  value="Provinsi" name="provinsi">
+        </div>
     </div>
-</div>
-<div class="form-group row">
-    <label class="col-sm-2 col-form-label">Kab/Kota</label>
-    <div class="col-sm-5">
-        <input type="text" readonly class="form-control"  value="Kab/Kota" name="kab/kota">
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label">Kab/Kota</label>
+        <div class="col-sm-5">
+            <input type="text" readonly class="form-control" value="{{ $item->name_cities }}" name="kab/kota">
+        </div>
     </div>
-</div>
-<div class="form-group row">
-    <label class="col-sm-2 col-form-label">Kecamatan</label>
-    <div class="col-sm-5">
-        <input type="text" readonly class="form-control"  value="Kecamatan" name="kecamatan">
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label">Kecamatan</label>
+        <div class="col-sm-5">
+            <input type="text" readonly class="form-control"  value="{{ $item->name_districts }}" name="kecamatan">
+        </div>
     </div>
-</div>
-<div class="form-group row">
-    <label class="col-sm-2 col-form-label">Kelurahan</label>
-    <div class="col-sm-5">
-        <input type="text" readonly class="form-control"  value="Kelurahan" name="kelurahan">
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label">Kelurahan</label>
+        <div class="col-sm-5">
+            <input type="text" readonly class="form-control"  value="{{ $item->name_village }}" name="kelurahan">
+        </div>
     </div>
-</div>
-<br>
-
+    <br>
+@endforeach
 {{-- terlapor --}}
 <div form-group row>
     <h4><b>TERLAPOR</b></h4>

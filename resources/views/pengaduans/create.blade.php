@@ -19,7 +19,7 @@
 
         <div class="card">
 
-            {!! Form::open(['route' => 'pengaduans.store']) !!}
+            {!! Form::open(['route' => 'pengaduans.store','method' => 'POST']) !!}
 
             <div class="card-body shadow-lg">
 
@@ -29,8 +29,7 @@
 
             <div class="card-footer">
                 <a href="{{ route('pengaduans.index') }}" class="btn btn-default"> Batal </a>
-                {!! Form::submit('Draft', ['class' => 'btn btn-default']) !!}
-                {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
+                <button class="btn btn-primary" type="submit">Save</button>
                 
             </div>
 

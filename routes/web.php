@@ -83,5 +83,6 @@ Route::get('dikembalikan', [PengaduanController::class, 'dikembalikan'])->name('
 Route::get('/selesai', [PengaduanController::class, 'selesai'])->name('selesai');
 // Route::get('/pengaduans/create', [PengaduanController::class, 'create'])->name('pengaduans.create');
 Route::get('/pengaduans/search', [PengaduanController::class, 'search'])->name('pengaduans.search');
+Route::get('/pengaduans/{pengaduan}/delete', [PengaduanController::class, 'destroy'])->name('pengaduans.delet2');
 // Route::get('/pengaduans/destroy', [PengaduanController::class, 'destroy'])->name('pengaduans.destroy');
 

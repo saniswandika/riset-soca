@@ -1,22 +1,8 @@
 @extends('layouts.masterTemplate')
 
+@section('title', 'Buat Pengaduan')
+
 @section('content')
-    <section class="content-header">
-        <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-sm-12">
-                    <h1>
-                    Buat Pengaduan
-                    </h1>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <div class="content px-3 shadow-lg">
-
-        @include('adminlte-templates::common.errors')
-
         <div class="card">
 
             {!! Form::open(['route' => 'pengaduans.store','method' => 'POST']) !!}
@@ -344,15 +330,16 @@
             </div>
                     {{-- @include('pengaduans.fields') --}}
 
+                    <a href="{{ route('pengaduans.index') }}" class="btn btn-warning"> Batal </a>
+                    <a href="#" class="btn btn-secondary"> Draft </a>
+                    <button class="btn btn-primary" type="submit">Save</button>
             </div>
-
             <div class="card-footer">
                 <a href="{{ route('pengaduans.index') }}" class="btn btn-default"> Batal </a>
                 <button class="btn btn-primary" id="draft" type="submit" disabled>simpan ke draft</button>
                 <button class="btn btn-primary" id="btn-submit"  type="submit" disabled>kirim</button>
                 
-            </div>
-
+         
             {!! Form::close() !!}
 
         </div>

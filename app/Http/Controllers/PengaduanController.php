@@ -66,46 +66,41 @@ class PengaduanController extends AppBaseController
      */
     public function store(Request $request)
     {
-        // request()->validate([
-        //     'id_provinsi' => 'required',
-        //     'id_kabkot' => 'required',
-        //     'id_kecamatan' => 'required',
-        //     'id_kelurahan' => 'required',
-        // ]);
-    
-        // laporan_tamu::create($request->all());
-        $pengaduan = new Pengaduan([
-            'id_alur' => '1',
-            'no_pendaftaran' => Str::random($length = 10),
-            'id_provinsi' => $request->get('id_provinsi'),
-            'id_kabkot' => $request->get('id_kabkot'),
-            'id_kecamatan' => $request->get('id_kecamatan'),
-            'id_kelurahan' => $request->get('id_kelurahan'),
-            'jenis_pelapor' => $request->get('jenis_pelaporan'),
-            'ada_nik' => $request->get('memiliki_nik'),
-            'nik' => $request->get('nik'),
-            'no_kk' => $request->get('no_kk'),
-            'no_kis' => $request->get('no_kis'),
-            'nama' => $request->get('nama'),
-            'tgl_lahir' => $request->get('tempat_lahir'),
-            'alamat' => $request->get('alamat'),
-            'telp' => $request->get('telpon'),
-            'email' => $request->get('email'),
-            'hubungan_terlapor' => $request->get('hubungan_terlapor'),
-            'file_penunjang' => $request->get('file_penunjang'),
-            'keluhan_tipe' => $request->get('Progam_pengaduan'),
-            'keluhan_id_program' => $request->get('Progam_pengaduan'),
-            'keluhan_detail' => $request->get('detail_pengaduan'),
-            'keluhan_foto' => $request->get('detail_pengaduan'),
-            'tl_catatan' => $request->get('detail_pengaduan'),
-            'tl_file' => $request->get('detail_pengaduan'),
-            'ada_dtks' => $request->get('no_dtks'),
-            'createdby' => Auth::user()->name,
-            'updatedby' => Auth::user()->name
-        ]);
-
-        $pengaduan->save();
-
+        $data = new Pengaduan;
+        $data['id_alur'] = $request->get('id_alur');
+        $data['no_pendaftaran'] = mt_rand(100, 1000);
+        $data['id_provinsi'] = $request->get('id_provinsi');
+        $data['id_kabkot'] = $request->get('id_kabkot');
+        $data['id_kecamatan'] = $request->get('id_kecamatan');
+        $data['id_kelurahan'] = $request->get('id_kelurahan');
+        $data['jenis_pelapor'] = $request->get('jenis_pelapor');
+        $data['ada_nik'] = $request->get('memiliki_nik');
+        $data['nik'] = $request->get('nik');
+        $data['no_kk'] = $request->get('no_kk');
+        $data['no_kis'] = $request->get('no_kis');
+        $data['nama'] = $request->get('nama');
+        $data['tgl_lahir'] = $request->get('tgl_lahir');
+        $data['alamat'] = $request->get('alamat');
+        $data['telp'] = $request->get('telpon');
+        $data['email'] = $request->get('email');
+        $data['hubungan_terlapor'] = $request->get('hubungan_terlapor');
+        $data['keluhan_tipe'] = $request->get('Progam_pengaduan');
+        $data['keluhan_id_program'] = $request->get('Progam_pengaduan');
+        // $data['>keluhan_detail']  = $request->get('detail_pengaduan');
+        // $data['keluhan_foto']  = $request->get('detail_pengaduan');
+        // $data['tl_catatan']  = $request->get('detail_pengaduan');
+        // $data['tl_file']  = $request->get('detail_pengaduan');
+        $data['no_dtks']  = $request->get('no_dtks');
+        $data['diteruskan'] = $request->get('diteruskan');
+        $data['status_data'] = 'diproses';
+        $data['createdby']  = Auth::user()->name;
+        $data['updatedby']  = Auth::user()->name;
+        if($data['nik'] == null){
+            $data['prelist_dtks'] = '1';
+           
+            $data['status_data'] = 'draft';
+        };
+        $data->save();
         return redirect('pengaduans')->withSuccess('Data Berhasil Disimpan');
     }
 
@@ -217,7 +212,7 @@ class PengaduanController extends AppBaseController
             'createdby',
         ];
 
-        $query = Pengaduan::where('id_alur', '1');
+        $query = Pengaduan::where('prelist_dtks', '1');
 
         // menambahkan kondisi pencarian jika ada
         if ($request->has('search')) {
@@ -286,7 +281,7 @@ class PengaduanController extends AppBaseController
             'createdby',
         ];
 
-        $query = Pengaduan::where('id_alur', '36');
+        $query = Pengaduan::where('status_data', 'diproses');
 
         // menambahkan kondisi pencarian jika ada
         if ($request->has('search')) {
@@ -355,7 +350,7 @@ class PengaduanController extends AppBaseController
             'createdby',
         ];
 
-        $query = Pengaduan::where('id_alur', '36');
+        $query = Pengaduan::where('status_data', 'dikembalikan');
 
         // menambahkan kondisi pencarian jika ada
         if ($request->has('search')) {
@@ -424,7 +419,7 @@ class PengaduanController extends AppBaseController
             'createdby',
         ];
 
-        $query = Pengaduan::where('id_alur', '36');
+        $query = Pengaduan::where('status_data', 'selesai');
 
         // menambahkan kondisi pencarian jika ada
         if ($request->has('search')) {
@@ -464,6 +459,77 @@ class PengaduanController extends AppBaseController
                 'tl_catatan' => $item->tl_catatan,
                 'createdby' => $item->createdby,
                 'created_at' => $item->created_at,
+            ];
+        }
+
+        // mengembalikan data dalam format JSON
+        return response()->json([
+            'draw' => $request->draw,
+            'recordsTotal' => Pengaduan::count(),
+            'recordsFiltered' => $data->total(),
+            'data' => $formattedData,
+        ]);
+    }
+     public function prelistDTKS(Request $request)
+    {
+        $columns = [
+            // daftar kolom yang akan ditampilkan pada tabel
+            'no_pendaftaran',
+            'created_at',
+            'jenis_pelapor',
+            'nik',
+            'no_kk',
+            'nama',
+            'id_kelurahan',
+            'keluhan_id_program',
+            'keluhan_detail',
+            'tl_catatan',
+            'createdby',
+            'prelist_dtks'
+        ];
+
+        $query = Pengaduan::where('prelist_dtks', '1');
+
+
+        // menambahkan kondisi pencarian jika ada
+        if ($request->has('search')) {
+            $searchValue = $request->search['value'];
+            $query->where(function ($query) use ($columns, $searchValue) {
+                foreach ($columns as $column) {
+                    $query->orWhere($column, 'like', '%' . $searchValue . '%');
+                }
+            });
+        }
+
+        // menambahkan kondisi sortir jika ada
+        if ($request->has('order')) {
+            $orderColumn = $columns[$request->order[0]['column']];
+            $orderDirection = $request->order[0]['dir'];
+            $query->orderBy($orderColumn, $orderDirection);
+        }
+
+        // mengambil data sesuai dengan paginasi yang diminta
+        $perPage = $request->length ?: config('app.pagination.per_page');
+        $currentPage = $request->start ? ($request->start / $perPage) + 1 : 1;
+        $data = $query->paginate($perPage, ['*'], 'page', $currentPage);
+
+        // memformat data untuk dikirim ke client
+        $formattedData = [];
+        foreach ($data as $item) {
+            $formattedData[] = [
+                'id' => $item->id,
+                'no_pendaftaran' => $item->no_pendaftaran,
+                'id_kelurahan' => $item->id_kelurahan,
+                'jenis_pelapor' => $item->jenis_pelapor,
+                'nik' => $item->nik,
+                'no_kk' => $item->no_kk,
+                'nama' => $item->nama,
+                'keluhan_id_program' => $item->keluhan_id_program,
+                'keluhan_detail' => $item->keluhan_detail,
+                'tl_catatan' => $item->tl_catatan,
+                'createdby' => $item->createdby,
+                'created_at' => $item->created_at,
+                 'prelist_dtks' => $item->prelist_dtks,
             ];
         }
 

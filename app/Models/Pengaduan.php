@@ -35,7 +35,10 @@ class Pengaduan extends Model
         'tl_file',
         'createdby',
         'updatedby',
-        'ada_dtks'
+        'ada_dtks',
+        'prelist_dtks',
+        'no_dtks',
+        'diteruskan'
     ];
 
     protected $casts = [
@@ -51,7 +54,7 @@ class Pengaduan extends Model
         'no_kk' => 'string',
         'no_kis' => 'string',
         'nama' => 'string',
-        'tgl_lahir' => 'string',
+        'tgl_lahir' => 'date',
         'alamat' => 'string',
         'telp' => 'string',
         'email' => 'string',
@@ -65,7 +68,10 @@ class Pengaduan extends Model
         'tl_file' => 'string',
         'createdby' => 'string',
         'updatedby' => 'string',
-        'ada_dtks' => 'string'
+        'ada_dtks' => 'string',
+        'prelist_dtks' => 'string',
+        'no_dtks' => 'string',
+        'diteruskan' => 'string'
     ];
 
     public static array $rules = [
@@ -77,8 +83,8 @@ class Pengaduan extends Model
         'id_kelurahan' => 'required',
         'jenis_pelapor' => 'required',
         'ada_nik' => 'required',
-        'nik' => 'required',
-        'no_kk' => 'required',
+        // 'nik' => 'required',
+        // 'no_kk' => 'required',
         'no_kis' => 'required',
         'nama' => 'required',
         'tgl_lahir' => 'required',
@@ -95,7 +101,7 @@ class Pengaduan extends Model
         'tl_file' => 'required',
         'createdby' => 'required',
         'updatedby' => 'required',
-        'ada_dtks' => 'required'
+        'ada_dtks' => 'required',
     ];
 
     

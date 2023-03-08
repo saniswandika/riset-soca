@@ -171,6 +171,9 @@
           <li class="nav-item">
             <a class="nav-link" id="tab3" data-toggle="tab" href="#table3" role="tab" aria-controls="table3" aria-selected="false">Selesai</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" id="tab5" data-toggle="tab" href="#table5" role="tab" aria-controls="table5" aria-selected="false">Prelist DTKS</a>
+          </li>
           <li class="nav-item ml-auto">
             <a href="/pengaduans/create" class="btn btn-primary ml-2">Tambah Data</a>
           </li>
@@ -271,6 +274,30 @@
                   </tbody>
               </table>
           </div>
+          <div class="tab-pane fade table-responsive" id="table5" role="tabpanel" aria-labelledby="tab3">
+            <table id="prelistDtks" class="table table-striped table-bordered  nowrap" style="width:100%">
+              <thead>
+                <tr>
+                  <th>No Pendaftaran</th>
+                  <th>Tgl Pendaftaran</th>
+                  <th>Layanan</th>
+                  <th>Faskesos</th>
+                  <th>Terlapor</th>
+                  <th>NIK Terlapor</th>
+                  <th>No. KK Terlapor</th>
+                  <th>Sektor Program</th>
+                  <th>Program</th>
+                  <th>Catatan</th>
+                  {{-- // <th>Status</th>
+                  // <th>Durasi (hari)</th>
+                  // <th>Aksi</th> --}}
+                </tr>
+              </thead>
+              <tbody>
+                {{-- di isi di ajax --}}
+              </tbody>
+          </table>
+      </div>
         </div>
       </div>
     </div>
@@ -321,7 +348,6 @@
                 ],
             });
       });
-     
       $('#mytable2').DataTable({
               processing: true,
               serverSide: true,
@@ -369,6 +395,27 @@
               serverSide: true,
               ajax: {
                   url: '/selesai',
+                  type: 'GET'
+              },
+                // ajax: "{{ route('getdata') }}",
+                columns: [
+                    { data: 'no_pendaftaran', name: 'no_pendaftaran' },
+                    { data: 'created_at', name: 'created_at' },
+                    { data: 'jenis_pelapor', name: 'jenis_pelapor' },
+                    { data: 'id_kelurahan', name: 'id_kelurahan' },
+                    { data: 'nama', name: 'nama' },
+                    { data: 'nik', name: 'nik' },
+                    { data: 'no_kk', name: 'no_kk' },
+                    { data: 'keluhan_id_program', name: 'keluhan_id_program' },
+                    { data: 'keluhan_detail', name: 'keluhan_detail' },
+                    { data: 'tl_catatan', name: 'tl_catatan' }
+                ],
+            });
+            $('#prelistDtks').DataTable({
+              processing: true,
+              serverSide: true,
+              ajax: {
+                  url: 'prelistDTKS',
                   type: 'GET'
               },
                 // ajax: "{{ route('getdata') }}",

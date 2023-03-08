@@ -10,6 +10,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\LaporanTamuController;
 use App\Http\Controllers\PengaduanController;
 use app\Models\Pengaduan;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\FormTamuController;
 use App\Http\Controllers\PengaturanWilayahController;
 use App\Http\Controllers\DependantDropdownController;
@@ -81,8 +82,21 @@ Route::get('getdata', [PengaduanController::class, 'draft'])->name('getdata');
 Route::get('diproses', [PengaduanController::class, 'diproses'])->name('diproses');
 Route::get('dikembalikan', [PengaduanController::class, 'dikembalikan'])->name('dikembalikan');
 Route::get('/selesai', [PengaduanController::class, 'selesai'])->name('selesai');
+Route::get('/prelistDTKS', [PengaduanController::class, 'prelistDTKS'])->name('prelist_DTKS');
 // Route::get('/pengaduans/create', [PengaduanController::class, 'create'])->name('pengaduans.create');
 Route::get('/pengaduans/search', [PengaduanController::class, 'search'])->name('pengaduans.search');
 Route::get('/pengaduans/{pengaduan}/delete', [PengaduanController::class, 'destroy'])->name('pengaduans.delet2');
 // Route::get('/pengaduans/destroy', [PengaduanController::class, 'destroy'])->name('pengaduans.destroy');
-
+Route::get('/cek-id/{Nik}', function($Nik) {
+    $found = false;
+    $table2 = DB::table('dtks')->where('Nik', $Nik)->first(); 
+    dd($table2);// Cari ID di tabel kedua
+    if ($table2) {
+        $found = true;
+        $Id_DTKS = $table2->Id_DTKS; // Ambil data nama jika ID ditemukan
+    }
+    return response()->json([
+        'found' => $found,
+        'Id_DTKS' => $Id_DTKS
+    ]);
+});

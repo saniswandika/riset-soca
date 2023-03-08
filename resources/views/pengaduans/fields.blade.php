@@ -99,11 +99,11 @@
     </div>
 </div>
 <div class="form-group row">
-    <div class="col-sm-2 col-form-label">
-        <label class="form-check-label" for="inlineCheckbox1">No DTKS</label>
+    <div class="col-sm-2 ">
+        <label class="form-check-label col-form-label" for="inlineCheckbox1"><b> No DTKS </b></label>
     </div>
     <div class="col-sm-5">
-        <div class="input-group">
+        <div class="input-group mb-3">
             <div class="input-group-prepend">
               <div class="input-group-text">
                 <input type="checkbox" aria-label="Checkbox for following text input">

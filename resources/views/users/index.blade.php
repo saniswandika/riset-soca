@@ -1,5 +1,7 @@
 @extends('layouts.masterTemplate')
 
+@section('title', 'Management Akun')
+
 
 @section('content')
 <div class="container">

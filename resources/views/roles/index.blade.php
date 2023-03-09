@@ -1,5 +1,8 @@
 @extends('layouts.masterTemplate')
 
+@section('title', 'management Role User')
+
+
 @section('content')
 @if ($message = Session::get('success'))
     <div class="alert alert-success">

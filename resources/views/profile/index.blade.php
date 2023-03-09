@@ -1,5 +1,7 @@
 @extends('layouts.masterTemplate')
 
+@section('title', 'Profile')
+
 
 @section('content')
     <div class="container rounded bg-white shadow-lg card">

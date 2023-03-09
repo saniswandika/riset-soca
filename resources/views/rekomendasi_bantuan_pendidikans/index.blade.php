@@ -1,5 +1,7 @@
 @extends('layouts.masterTemplate')
 
+@section('title', 'Rekomendasi Bantuan Pendidikan')
+
 @section('content')
     <section class="content-header">
         <div class="container-fluid">

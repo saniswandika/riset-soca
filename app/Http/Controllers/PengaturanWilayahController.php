@@ -35,7 +35,12 @@ class PengaturanWilayahController extends Controller
     }
     public function updateStatus(Request $request)
     {
+        $wilayahkeseluruaha = wilayah::all();
+        $user_id =  Auth::user()->id;
+        if($wilayahkeseluruaha)
         $wilayah = wilayah::findOrFail($request->wilayah_Id);
+    
+        // penambahan if sebelum update
         $wilayah->status_wilayah = $request->status_wilayah;
         $wilayah->save();
     
@@ -58,7 +63,7 @@ class PengaturanWilayahController extends Controller
         $data['kecamatan_id'] = $request->get('kecamatan_id');
         $data['kelurahan_id'] = $request->get('kelurahan_id');
         $data['createdby'] = Auth::user()->id;
-
+        // jika wilayah nya ada tidak bisa di simpan by code kelurahan sama id user login
         $post = wilayah::create($data);
         return redirect()->route('Pengaturan_wilayah')
                         ->with('success','pengaturan wilayah berhasil ditambahkan.');

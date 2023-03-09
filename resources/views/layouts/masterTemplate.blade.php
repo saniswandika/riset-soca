@@ -34,7 +34,6 @@
   <!-- CSS Files -->
   <link id="pagestyle" href="{{ asset('/assets/css/argon-dashboard.css?v=2.0.4') }}" rel="stylesheet" />
 </head>
-
 <body class="g-sidenav-show   bg-gray-100">
     {{-- sidebar --}}
   <div class="min-height-300 bg-primary position-absolute w-100"></div>
@@ -372,7 +371,7 @@
                 made with <i class="fa fa-heart"></i> by
                 <a href="https://www.creative-tim.com" class="font-weight-bold" target="_blank">Creative Tim</a>
                 for a better web.
-              </div>
+              </div>   
             </div>
             <div class="col-lg-6">
               <ul class="nav nav-footer justify-content-center justify-content-lg-end">

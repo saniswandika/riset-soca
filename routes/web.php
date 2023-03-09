@@ -90,7 +90,6 @@ Route::get('/pengaduans/{pengaduan}/delete', [PengaduanController::class, 'destr
 Route::get('/cek-id/{Nik}', function($Nik) {
     $found = false;
     $table2 = DB::table('dtks')->where('Nik', $Nik)->first(); 
-    dd($table2);// Cari ID di tabel kedua
     if ($table2) {
         $found = true;
         $Id_DTKS = $table2->Id_DTKS; // Ambil data nama jika ID ditemukan

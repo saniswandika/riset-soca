@@ -25,7 +25,7 @@ class suketDtksController extends AppBaseController
     public function index(Request $request)
     {
         $suketDtks = $this->suketDtksRepository->paginate(10);
-
+       
         return view('suket_dtks.index')
             ->with('suketDtks', $suketDtks);
     }

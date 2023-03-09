@@ -163,6 +163,7 @@
         </li>
         <hr class="horizontal dark mt-0">
         <li class="nav-item">
+
           <a class="nav-link {{ request()->is('roles') ? 'active' : '' }}" href="/roles">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-app text-info text-sm opacity-10"></i>
@@ -171,6 +172,7 @@
           </a>
         </li>
         <li class="nav-item">
+
           <a class="nav-link {{ request()->is('users') ? 'active' : '' }}" href="/users">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-world-2 text-danger text-sm opacity-10"></i>

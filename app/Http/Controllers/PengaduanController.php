@@ -14,6 +14,7 @@ use Flash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
+
 class PengaduanController extends AppBaseController
 {
     /** @var PengaduanRepository $pengaduanRepository*/
@@ -31,8 +32,7 @@ class PengaduanController extends AppBaseController
 
     public function index(Request $request)
     {
-        // if($request->ajax()){
-
+     
         return view('pengaduans.index');
     }
 
@@ -84,9 +84,9 @@ class PengaduanController extends AppBaseController
         $data['telp'] = $request->get('telpon');
         $data['email'] = $request->get('email');
         $data['hubungan_terlapor'] = $request->get('hubungan_terlapor');
-        $data['keluhan_tipe'] = $request->get('Progam_pengaduan');
-        $data['keluhan_id_program'] = $request->get('Progam_pengaduan');
-        // $data['>keluhan_detail']  = $request->get('detail_pengaduan');
+        $data['keluhan_tipe'] = $request->get('keluhan_tipe');
+        $data['keluhan_id_program'] = $request->get('keluhan_id_program');
+        $data['keluhan_detail']  = $request->get('keluhan_detail');
         // $data['keluhan_foto']  = $request->get('detail_pengaduan');
         // $data['tl_catatan']  = $request->get('detail_pengaduan');
         // $data['tl_file']  = $request->get('detail_pengaduan');
@@ -100,6 +100,7 @@ class PengaduanController extends AppBaseController
            
             $data['status_data'] = 'draft';
         };
+        // dd($data);   
         $data->save();
         return redirect('pengaduans')->withSuccess('Data Berhasil Disimpan');
     }
@@ -197,6 +198,7 @@ class PengaduanController extends AppBaseController
     }
     public function draft(Request $request)
     {
+        
         $columns = [
             // daftar kolom yang akan ditampilkan pada tabel
             'no_pendaftaran',
@@ -212,7 +214,7 @@ class PengaduanController extends AppBaseController
             'createdby',
         ];
 
-        $query = Pengaduan::where('prelist_dtks', '1');
+        $query = Pengaduan::where('status_data', 'draft');
 
         // menambahkan kondisi pencarian jika ada
         if ($request->has('search')) {
@@ -266,6 +268,8 @@ class PengaduanController extends AppBaseController
 
     public function diproses(Request $request)
     {
+        
+        
         $columns = [
             // daftar kolom yang akan ditampilkan pada tabel
             'no_pendaftaran',

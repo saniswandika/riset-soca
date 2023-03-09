@@ -68,13 +68,13 @@
                     <div class="row">
                         <div class="col">
                             <div class="form-check form-check-inline">
-                                <input type="radio" name="memiliki_nik" value="1">
+                                <input type="radio" class="form-check-input" name="memiliki_nik" value="1">
                                 <label class="form-check-label" for="inlineCheckbox1">Ya</label>
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-check form-check-inline">
-                                <input type="radio" name="memiliki_nik" value="0">
+                                <input type="radio" class="form-check-input" name="memiliki_nik" value="0">
                                 <label class="form-check-label" for="inlineCheckbox2">Tidak</label>
                             </div>
                         </div>
@@ -96,23 +96,23 @@
                     <div class="row">
                         <div class="col">
                             <div class="form-check form-check-inline">
-                                <button id="btn-check-id">Cek Data</button>
+                                <button  class="btn btn-info" id="btn-check-id">Cek Data</button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="form-group row">
-                <div class="col-sm-2 col-form-label">
-                    <label class="form-check-label"  for="inlineCheckbox1">No DTKS</label>
-                </div>
+                {{-- <div class="col-sm-2 col-form-label"> --}}
+                    <label class="col-sm-2 col-form-label"  for="inlineCheckbox1">No DTKS</label>
+               
                 <div class="col-sm-5">
                     <div class="input-group">
-                        <div class="input-group-prepend">
+                        {{-- <div class="input-group-prepend">
                           <div class="input-group-text">
                             <input type="checkbox" aria-label="Checkbox for following text input">
                           </div>
-                        </div>
+                        </div> --}}
                         <input type="text" id="name-input" class="form-control" aria-label="Text input with checkbox" id="nodtks" name="no_dtks" readonly>
                       </div>
                 </div>
@@ -231,11 +231,9 @@
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Program</label>
                 <div class="col-sm-5">
-                    <select class="custom-select" id="inputGroupSelect01" name="Progam_pengaduan">
+                    <select class="form-control form-control-lg" name="level_program">
                         <option selected>Pilih...</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
+                        <option>Large select</option>
                       </select>
                 </div>
             </div>
@@ -264,22 +262,24 @@
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Level Program</label>
                 <div class="col-sm-5">
-                    <select class="custom-select" id="inputGroupSelect01" name="level_program">
+                    <select class="form-control form-control-lg" name="keluhan_tipe">
+                        <option selected>Pilih...</option>
+                        <option>Large select</option>
+                      </select>
+                    {{-- <select class="custom-select" id="inputGroupSelect01" name="level_program">
                         <option selected>Pilih...</option>
                         <option value="1">One</option>
                         <option value="2">Two</option>
                         <option value="3">Three</option>
-                      </select>
+                      </select> --}}
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Sektor Program</label>
                 <div class="col-sm-5">
-                    <select class="custom-select" id="inputGroupSelect01" name="sektor_progam">
+                    <select class="form-control form-control-lg" name="keluhan_id_program">
                         <option selected>Pilih...</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
+                        <option value="2">Large select</option>
                       </select>
                 </div>
             </div>
@@ -292,7 +292,7 @@
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Ringkasan Pengaduan <span class="text-danger">*</label>
                 <div class="col-sm-5">
-                    <input type="text" class="form-control"  name="ringkasan_pengaduan" required>
+                    <input type="text" class="form-control"  name="keluhan_detail" required>
                 </div>
             </div>
             <div class="form-group row">
@@ -329,16 +329,12 @@
                 </div>
             </div>
                     {{-- @include('pengaduans.fields') --}}
-
-                    <a href="{{ route('pengaduans.index') }}" class="btn btn-warning"> Batal </a>
-                    <a href="#" class="btn btn-secondary"> Draft </a>
-                    <button class="btn btn-primary" type="submit">Save</button>
-            </div>
             <div class="card-footer">
                 <a href="{{ route('pengaduans.index') }}" class="btn btn-default"> Batal </a>
                 <button class="btn btn-primary" id="draft" type="submit" disabled>simpan ke draft</button>
-                <button class="btn btn-primary" id="btn-submit"  type="submit" disabled>kirim</button>
-                
+                <button class="btn btn-primary" id="btn-submit"  type="submit" disabled>kirim</button>   
+            </div>
+            
          
             {!! Form::close() !!}
 

@@ -17,9 +17,10 @@
         <div class="col-lg-12 margin-tb">
             <div class="pull-right text-left" style="margin-bottom: 20px;">
               <!-- Button trigger modal -->
-              <button type="button" class="btn btn-success" data-toggle="modal" data-target="#buatakunuser">
+              <a  class="btn btn-success" href="/users/create"></a>
+              {{-- <button type="button" class="btn btn-success" data-toggle="modal" data-target="#buatakunuser">
                 Buat Baru Akun
-              </button>
+              </button> --}}
 
               <!-- Modal -->
               <div class="modal fade" id="buatakunuser" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

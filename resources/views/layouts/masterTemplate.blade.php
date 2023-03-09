@@ -2,14 +2,11 @@
 =========================================================
 * Argon Dashboard 2 - v2.0.4
 =========================================================
-
 * Product Page: https://www.creative-tim.com/product/argon-dashboard
 * Copyright 2022 Creative Tim (https://www.creative-tim.com)
 * Licensed under MIT (https://www.creative-tim.com/license)
 * Coded by Creative Tim
-
 =========================================================
-
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 -->
 <!DOCTYPE html>
@@ -40,8 +37,10 @@
   <aside class="sidenav bg-white navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-4 " id="sidenav-main">
     <div class="sidenav-header">
       <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
-      <a class=" m-1 d-flex justify-content-center py-3" href="/home">
-        <img src="{{ asset('/assets/img/logo.png') }}" alt="main_logo" height="55px">
+      <a class="navbar-brand m-0 m-1 d-flex justify-content-center py-3" href=" https://demos.creative-tim.com/argon-dashboard/pages/dashboard.html " target="_blank">
+        {{-- <img src="{{ asset('/assets/img/logo.png') }}" alt="main_logo" height="55px"> --}}
+        <img src="{{ asset('/assets/img/logo.png') }}" class="navbar-brand-img" alt="">
+        {{-- <span class="ms-1 font-weight-bold">Argon Dashboard 2</span> --}}
       </a>
     </div>
     <hr class="horizontal dark mt-0">
@@ -209,7 +208,7 @@
         </li> --}}
       </ul>
     </div>
-    {{-- <div class="sidenav-footer mx-3 ">
+    <div class="sidenav-footer mx-3 ">
       <div class="card card-plain shadow-none" id="sidenavCard">
         <img class="w-50 mx-auto" src="./assets/img/illustrations/icon-documentation.svg" alt="sidebar_illustration">
         <div class="card-body text-center p-3 w-100 pt-0">
@@ -221,7 +220,7 @@
       </div>
       <a href="https://www.creative-tim.com/learning-lab/bootstrap/license/argon-dashboard" target="_blank" class="btn btn-dark btn-sm w-100 mb-3">Documentation</a>
       <a class="btn btn-primary btn-sm mb-0 w-100" href="https://www.creative-tim.com/product/argon-dashboard-pro?ref=sidebarfree" type="button">Upgrade to pro</a>
-    </div> --}}
+    </div>
   </aside>
   <main class="main-content position-relative border-radius-lg ">
     <!-- Navbar -->
@@ -476,9 +475,7 @@
   <script src="{{ asset('/assets/js/plugins/chartjs.min.js') }}"></script>
   <script>
     var ctx1 = document.getElementById("chart-line").getContext("2d");
-
     var gradientStroke1 = ctx1.createLinearGradient(0, 230, 0, 50);
-
     gradientStroke1.addColorStop(1, 'rgba(94, 114, 228, 0.2)');
     gradientStroke1.addColorStop(0.2, 'rgba(94, 114, 228, 0.0)');
     gradientStroke1.addColorStop(0, 'rgba(94, 114, 228, 0)');
@@ -497,7 +494,6 @@
           fill: true,
           data: [50, 40, 300, 220, 500, 250, 400, 230, 500],
           maxBarThickness: 6
-
         }],
       },
       options: {

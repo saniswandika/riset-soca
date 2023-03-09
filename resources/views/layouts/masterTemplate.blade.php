@@ -40,9 +40,8 @@
   <aside class="sidenav bg-white navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-4 " id="sidenav-main">
     <div class="sidenav-header">
       <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
-      <a class="navbar-brand m-0" href=" https://demos.creative-tim.com/argon-dashboard/pages/dashboard.html " target="_blank">
-        <img src="{{ asset('/assets/img/logo-ct-dark.png') }}" class="navbar-brand-img h-100" alt="main_logo">
-        <span class="ms-1 font-weight-bold">Argon Dashboard 2</span>
+      <a class=" m-1 d-flex justify-content-center py-3" href="/home">
+        <img src="{{ asset('/assets/img/logo.png') }}" alt="main_logo" height="55px">
       </a>
     </div>
     <hr class="horizontal dark mt-0">
@@ -56,9 +55,12 @@
             <span class="nav-link-text ms-1">Dashboard</span>
           </a>
         </li>
-
+        <li class="nav-item mt-3">
+          <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Pengaduan & Pelayanan</h6>
+        </li>
+        <hr class="horizontal dark mt-0">
         <li class="nav-item">
-            <a class="nav-link {{ request()->is('pengaduans') ? 'active' : '' }}"" href="/pengaduans">
+            <a class="nav-link {{ request()->is('pengaduans') ? 'active' : '' }}" href="/pengaduans">
               <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                 <i class="ni ni-credit-card text-success text-sm opacity-10"></i>
               </div>
@@ -76,7 +78,7 @@
         </li>
         <div class="collapse sm-2" id="collapseExample">
             <li class="nav-item">
-                <a class="nav-link " href="rekomendasi_admin_kependudukans">
+                <a class="nav-link {{ request()->is('rekomendasi_admin_kependudukans') ? 'active' : '' }}" href="rekomendasi_admin_kependudukans">
                   <div class="icon icon-shape icon-sm border-radius-md text-center me-4 d-flex align-items-center justify-content-center">
                     <i class="ni ni-credit-card text-success text-sm opacity-10"></i>
                   </div>
@@ -84,7 +86,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link " href="rekomendasi_bantuan_pendidikans">
+                <a class="nav-link {{ request()->is('rekomendasi_bantuan_pendidikans') ? 'active' : '' }}" href="rekomendasi_bantuan_pendidikans">
                   <div class="icon icon-shape icon-sm border-radius-md text-center me-4 d-flex align-items-center justify-content-center">
                     <i class="ni ni-credit-card text-success text-sm opacity-10"></i>
                   </div>
@@ -92,7 +94,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link " href="rekomendasi_biaya_perawatans">
+                <a class="nav-link {{ request()->is('rekomendasi_biaya_perawatans') ? 'active' : '' }}" href="rekomendasi_biaya_perawatans">
                   <div class="icon icon-shape icon-sm border-radius-md text-center me-4 d-flex align-items-center justify-content-center">
                     <i class="ni ni-credit-card text-success text-sm opacity-10"></i>
                   </div>
@@ -100,7 +102,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link " href="rekomendasi_keringanan_pbbs">
+                <a class="nav-link {{ request()->is('rekomendasi_keringanan_pbbs') ? 'active' : '' }}" href="rekomendasi_keringanan_pbbs">
                   <div class="icon icon-shape icon-sm border-radius-md text-center me-4 d-flex align-items-center justify-content-center">
                     <i class="ni ni-credit-card text-success text-sm opacity-10"></i>
                   </div>
@@ -108,7 +110,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link " href="rekomendasi_pengangkatan_anaks">
+                <a class="nav-link {{ request()->is('rekomendasi_pengangkatan_anaks') ? 'active' : '' }}" href="rekomendasi_pengangkatan_anaks">
                   <div class="icon icon-shape icon-sm border-radius-md text-center me-4 d-flex align-items-center justify-content-center">
                     <i class="ni ni-credit-card text-success text-sm opacity-10"></i>
                   </div>
@@ -116,15 +118,15 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link " href="rekomendasi_pub">
+                <a class="nav-link {{ request()->is('rekomendasi_pub') ? 'active' : '' }}" href="rekomendasi_pub">
                   <div class="icon icon-shape icon-sm border-radius-md text-center me-4 d-flex align-items-center justify-content-center">
                     <i class="ni ni-credit-card text-success text-sm opacity-10"></i>
                   </div>
-                  <span class="nav-link-text text-wrap">Rekomendasi PUB</span>
+                  <span class="nav-link-text text-wrap">Rekomendasi Pengumpulan Undian Berhadiah</span>
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link " href="rekomendasi_rehabilitasi_sosials">
+                <a class="nav-link {{ request()->is('rekomendasi_rehabilitasi_sosials') ? 'active' : '' }}" href="rekomendasi_rehabilitasi_sosials">
                   <div class="icon icon-shape icon-sm border-radius-md text-center me-4 d-flex align-items-center justify-content-center">
                     <i class="ni ni-credit-card text-success text-sm opacity-10"></i>
                   </div>
@@ -132,7 +134,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link " href="rekomendasi_rekativasi_pbi_jks">
+                <a class="nav-link {{ request()->is('rekomendasi_rekativasi_pbi_jks') ? 'active' : '' }}" href="rekomendasi_rekativasi_pbi_jks">
                   <div class="icon icon-shape icon-sm border-radius-md text-center me-4 d-flex align-items-center justify-content-center">
                     <i class="ni ni-credit-card text-success text-sm opacity-10"></i>
                   </div>
@@ -140,7 +142,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link " href="rekomendasi_terdaftar_dtks">
+                <a class="nav-link {{ request()->is('rekomendasi_terdaftar_dtks') ? 'active' : '' }}" href="rekomendasi_terdaftar_dtks">
                   <div class="icon icon-shape icon-sm border-radius-md text-center me-4 d-flex align-items-center justify-content-center">
                     <i class="ni ni-credit-card text-success text-sm opacity-10"></i>
                   </div>
@@ -148,25 +150,21 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link " href="rekomendasi_terdaftar_yayasans">
+                <a class="nav-link {{ request()->is('rekomendasi_terdaftar_yayasans') ? 'active' : '' }}" href="rekomendasi_terdaftar_yayasans">
                   <div class="icon icon-shape icon-sm border-radius-md text-center me-4 d-flex align-items-center justify-content-center">
                     <i class="ni ni-credit-card text-success text-sm opacity-10"></i>
                   </div>
                   <span class="nav-link-text text-wrap">Rekomendasi Terdaftar Yayasan</span>
                 </a>
               </li>
-
           </div>
-        <li class="nav-item">
-          <a class="nav-link " href="">
-            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="ni ni-credit-card text-success text-sm opacity-10"></i>
-            </div>
-            <span class="nav-link-text ms-1 text-wrap">Pengaturan Akun dan Hak Ases</span>
-          </a>
+        <li class="nav-item mt-3">
+          <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6 text-wrap">Pengaturan Akun dan Hak Akses</h6>
         </li>
+        <hr class="horizontal dark mt-0">
         <li class="nav-item">
-          <a class="nav-link " href="/roles">
+
+          <a class="nav-link {{ request()->is('roles') ? 'active' : '' }}" href="/roles">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-app text-info text-sm opacity-10"></i>
             </div>
@@ -174,14 +172,15 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link " href="/users">
+
+          <a class="nav-link {{ request()->is('users') ? 'active' : '' }}" href="/users">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-world-2 text-danger text-sm opacity-10"></i>
             </div>
             <span class="nav-link-text ms-1">management akun</span>
           </a>
         </li>
-        <li class="nav-item mt-3">
+        {{-- <li class="nav-item mt-3">
           <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Account pages</h6>
         </li>
         <li class="nav-item">
@@ -207,10 +206,10 @@
             </div>
             <span class="nav-link-text ms-1">Sign Up</span>
           </a>
-        </li>
+        </li> --}}
       </ul>
     </div>
-    <div class="sidenav-footer mx-3 ">
+    {{-- <div class="sidenav-footer mx-3 ">
       <div class="card card-plain shadow-none" id="sidenavCard">
         <img class="w-50 mx-auto" src="./assets/img/illustrations/icon-documentation.svg" alt="sidebar_illustration">
         <div class="card-body text-center p-3 w-100 pt-0">
@@ -222,7 +221,7 @@
       </div>
       <a href="https://www.creative-tim.com/learning-lab/bootstrap/license/argon-dashboard" target="_blank" class="btn btn-dark btn-sm w-100 mb-3">Documentation</a>
       <a class="btn btn-primary btn-sm mb-0 w-100" href="https://www.creative-tim.com/product/argon-dashboard-pro?ref=sidebarfree" type="button">Upgrade to pro</a>
-    </div>
+    </div> --}}
   </aside>
   <main class="main-content position-relative border-radius-lg ">
     <!-- Navbar -->
@@ -243,11 +242,104 @@
             </div>
           </div>
           <ul class="navbar-nav  justify-content-end">
-            <li class="nav-item d-flex align-items-center">
+            {{-- <li class="nav-item d-flex align-items-center">
               <a href="javascript:;" class="nav-link text-white font-weight-bold px-0">
                 <i class="fa fa-user me-sm-1"></i>
-                <span class="d-sm-inline d-none">Sign In</span>
+                <span class="d-sm-inline d-none">{{ Auth::user()->name }}</span>
               </a>
+            </li>
+            <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
+              <a href="javascript:;" class="nav-link text-white p-0" id="iconNavbarSidenav">
+                <div class="sidenav-toggler-inner">
+                  <i class="sidenav-toggler-line bg-white"></i>
+                  <i class="sidenav-toggler-line bg-white"></i>
+                  <i class="sidenav-toggler-line bg-white"></i>
+                </div>
+              </a>
+            </li> --}}
+            <li class="nav-item dropdown px-3 d-flex align-items-center">
+              <a href="javascript:;" class="nav-link text-white p-0" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                <img src="{{ asset('assets/img/undraw_profile.svg') }}" class="avatar avatar-sm  me-1">
+                {{-- <i class="fa fa-user me-sm-1"></i> --}}
+                <span class="d-sm-inline d-none">{{ Auth::user()->name }}</span>
+              </a>
+              <ul class="dropdown-menu  dropdown-menu-end  px-2 py-3 me-sm-n4" aria-labelledby="dropdownMenuButton">
+                <li class="mb-2">
+                  <a class="dropdown-item border-radius-md" href="profile">
+                    <div class="d-flex py-1">
+                      <div class="my-auto">
+                        <img src="{{ asset('assets/img/undraw_profile.svg') }}" class="avatar avatar-sm  me-1 ">
+                      </div>
+                      <div class="d-flex flex-column justify-content-center">
+                        <p class="text-sm font-weight-normal mb-1">
+                          Profile
+                        </p>
+                        {{-- <p class="text-xs text-secondary mb-0">
+                          <i class="fa fa-clock me-1"></i>
+                          13 minutes ago
+                        </p> --}}
+                      </div>
+                    </div>
+                  </a>
+                </li>
+                <li class="mb-2">
+                  <a class="dropdown-item border-radius-md" href="/Pengaturan_wilayah">
+                    <div class="d-flex py-1">
+                      <div class="my-auto">
+                        <img src="{{ asset('assets/img/geo-alt.svg') }}" class="avatar avatar-sm  me-1 ">
+                      </div>
+                      <div class="d-flex flex-column justify-content-center">
+                        <p class="text-sm font-weight-normal mb-1">
+                          Pengaturan Wilayah
+                        </p>
+                        {{-- <p class="text-xs text-secondary mb-0">
+                          <i class="fa fa-clock me-1"></i>
+                          1 day
+                        </p> --}}
+                      </div>
+                    </div>
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-item border-radius-md" href="{{ route('logout') }}"
+                  onclick="event.preventDefault();
+                              document.getElementById('logout-form').submit();">
+                  <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                    @csrf
+                  </form>
+                    <div class="d-flex py-1">
+                      {{-- <div class="avatar avatar-sm bg-gradient-secondary  me-3  my-auto">
+                        <svg width="12px" height="12px" viewBox="0 0 43 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                          <title>credit-card</title>
+                          <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                            <g transform="translate(-2169.000000, -745.000000)" fill="#FFFFFF" fill-rule="nonzero">
+                              <g transform="translate(1716.000000, 291.000000)">
+                                <g transform="translate(453.000000, 454.000000)">
+                                  <path class="color-background" d="M43,10.7482083 L43,3.58333333 C43,1.60354167 41.3964583,0 39.4166667,0 L3.58333333,0 C1.60354167,0 0,1.60354167 0,3.58333333 L0,10.7482083 L43,10.7482083 Z" opacity="0.593633743"></path>
+                                  <path class="color-background" d="M0,16.125 L0,32.25 C0,34.2297917 1.60354167,35.8333333 3.58333333,35.8333333 L39.4166667,35.8333333 C41.3964583,35.8333333 43,34.2297917 43,32.25 L43,16.125 L0,16.125 Z M19.7083333,26.875 L7.16666667,26.875 L7.16666667,23.2916667 L19.7083333,23.2916667 L19.7083333,26.875 Z M35.8333333,26.875 L28.6666667,26.875 L28.6666667,23.2916667 L35.8333333,23.2916667 L35.8333333,26.875 Z"></path>
+                                </g>
+                              </g>
+                            </g>
+                          </g>
+                        </svg>
+                      </div> --}}
+                      
+                      <div class="my-auto">
+                        <img src="{{ asset('assets/img/logout-svgrepo-com.svg') }}" class=" avatar-sm  me-2 ">
+                      </div>
+                      <div class="d-flex flex-column justify-content-center">
+                        <p class="text-sm font-weight-normal mb-1">
+                          Logout
+                        </p>
+                        {{-- <p class="text-xs text-secondary mb-0">
+                          <i class="fa fa-clock me-1"></i>
+                          2 days
+                        </p> --}}
+                      </div>
+                    </div>
+                  </a>
+                </li>
+              </ul>
             </li>
             <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
               <a href="javascript:;" class="nav-link text-white p-0" id="iconNavbarSidenav">
@@ -262,79 +354,6 @@
               <a href="javascript:;" class="nav-link text-white p-0">
                 <i class="fa fa-cog fixed-plugin-button-nav cursor-pointer"></i>
               </a>
-            </li>
-            <li class="nav-item dropdown pe-2 d-flex align-items-center">
-              <a href="javascript:;" class="nav-link text-white p-0" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                <i class="fa fa-bell cursor-pointer"></i>
-              </a>
-              <ul class="dropdown-menu  dropdown-menu-end  px-2 py-3 me-sm-n4" aria-labelledby="dropdownMenuButton">
-                <li class="mb-2">
-                  <a class="dropdown-item border-radius-md" href="javascript:;">
-                    <div class="d-flex py-1">
-                      <div class="my-auto">
-                        <img src="./assets/img/team-2.jpg" class="avatar avatar-sm  me-3 ">
-                      </div>
-                      <div class="d-flex flex-column justify-content-center">
-                        <h6 class="text-sm font-weight-normal mb-1">
-                          <span class="font-weight-bold">New message</span> from Laur
-                        </h6>
-                        <p class="text-xs text-secondary mb-0">
-                          <i class="fa fa-clock me-1"></i>
-                          13 minutes ago
-                        </p>
-                      </div>
-                    </div>
-                  </a>
-                </li>
-                <li class="mb-2">
-                  <a class="dropdown-item border-radius-md" href="javascript:;">
-                    <div class="d-flex py-1">
-                      <div class="my-auto">
-                        <img src="./assets/img/small-logos/logo-spotify.svg" class="avatar avatar-sm bg-gradient-dark  me-3 ">
-                      </div>
-                      <div class="d-flex flex-column justify-content-center">
-                        <h6 class="text-sm font-weight-normal mb-1">
-                          <span class="font-weight-bold">New album</span> by Travis Scott
-                        </h6>
-                        <p class="text-xs text-secondary mb-0">
-                          <i class="fa fa-clock me-1"></i>
-                          1 day
-                        </p>
-                      </div>
-                    </div>
-                  </a>
-                </li>
-                <li>
-                  <a class="dropdown-item border-radius-md" href="javascript:;">
-                    <div class="d-flex py-1">
-                      <div class="avatar avatar-sm bg-gradient-secondary  me-3  my-auto">
-                        <svg width="12px" height="12px" viewBox="0 0 43 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                          <title>credit-card</title>
-                          <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                            <g transform="translate(-2169.000000, -745.000000)" fill="#FFFFFF" fill-rule="nonzero">
-                              <g transform="translate(1716.000000, 291.000000)">
-                                <g transform="translate(453.000000, 454.000000)">
-                                  <path class="color-background" d="M43,10.7482083 L43,3.58333333 C43,1.60354167 41.3964583,0 39.4166667,0 L3.58333333,0 C1.60354167,0 0,1.60354167 0,3.58333333 L0,10.7482083 L43,10.7482083 Z" opacity="0.593633743"></path>
-                                  <path class="color-background" d="M0,16.125 L0,32.25 C0,34.2297917 1.60354167,35.8333333 3.58333333,35.8333333 L39.4166667,35.8333333 C41.3964583,35.8333333 43,34.2297917 43,32.25 L43,16.125 L0,16.125 Z M19.7083333,26.875 L7.16666667,26.875 L7.16666667,23.2916667 L19.7083333,23.2916667 L19.7083333,26.875 Z M35.8333333,26.875 L28.6666667,26.875 L28.6666667,23.2916667 L35.8333333,23.2916667 L35.8333333,26.875 Z"></path>
-                                </g>
-                              </g>
-                            </g>
-                          </g>
-                        </svg>
-                      </div>
-                      <div class="d-flex flex-column justify-content-center">
-                        <h6 class="text-sm font-weight-normal mb-1">
-                          Payment successfully completed
-                        </h6>
-                        <p class="text-xs text-secondary mb-0">
-                          <i class="fa fa-clock me-1"></i>
-                          2 days
-                        </p>
-                      </div>
-                    </div>
-                  </a>
-                </li>
-              </ul>
             </li>
           </ul>
         </div>
@@ -550,7 +569,7 @@
   <!-- Github buttons -->
   <script async defer src="https://buttons.github.io/buttons.js"></script>
   <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
-  <script src="{{ asset('/assets/js/argon-dashboard.min.js?v=2.0.4') }}"></script>
+  <script src="{{ asset('/assets/js/argon-dashboard.min.js') }}"></script>
     <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}" rel="stylesheet"></script>
     @include('sweetalert::alert');
 </body>

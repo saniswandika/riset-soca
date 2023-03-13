@@ -35,21 +35,30 @@ class PengaturanWilayahController extends Controller
     }
     public function updateStatus(Request $request)
     {
-        $wilayahkeseluruaha = wilayah::all();
         $user_id =  Auth::user()->id;
-        foreach ($wilayahkeseluruaha as $key => $value) {
-            if ($value->status_wilayah == '1') {
+        $wilayahkeseluruaha = wilayah::where('createdby', $user_id)->get();
+        // foreach ($wilayahkeseluruaha as $key => $value) {
+        //     if ($value->status_wilayah == '1') {
+        //         // $wilayah = wilayah::findOrFail($request->wilayah_Id);
+        //         $value->status_wilayah = '0';
+        //         $value->save();
+        //         return response()->json(['message' => 'User status updated successfully.']);
+        //     }else
+        //     $wilayah = wilayah::findOrFail($request->wilayah_Id);
+        //     $wilayah->status_wilayah = $request->status_wilayah;
+        //     $wilayah->save();
+        //     return response()->json(['message' => 'User status updated successfully.']);
+        // }
+        foreach ($wilayahkeseluruaha as $value) {
+            if ($value->id == $request->wilayah_Id) {
                 // $wilayah = wilayah::findOrFail($request->wilayah_Id);
-                $value->status_wilayah = '0';
+                $value->status_wilayah = '1';
                 $value->save();
-                return response()->json(['message' => 'User status updated successfully.']);
             }else
-            $wilayah = wilayah::findOrFail($request->wilayah_Id);
-            $wilayah->status_wilayah = $request->status_wilayah;
-            $wilayah->save();
-            return response()->json(['message' => 'User status updated successfully.']);
+            $value->status_wilayah = '0';
+            $value->save();
         }
-       
+        return response()->json(['message' => 'User status updated successfully.']);
         
     
         // penambahan if sebelum update

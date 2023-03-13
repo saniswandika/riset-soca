@@ -106,7 +106,7 @@
       <div class="card-body">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
               <li class="nav-item">
-                <a class="nav-link" id="tab1" data-toggle="tab" href="#table1" role="tab" aria-controls="table1" aria-selected="true">Draft</a>
+                <a class="nav-link" id="tab1" data-toggle="tab" href="#table1" role="tab" aria-controls="table1" aria-selected="true" >Draft</a>
               </li>
           <li class="nav-item">
             <a class="nav-link" id="tab2" data-toggle="tab" href="#table2" role="tab" aria-controls="table2" aria-selected="false">Diproses</a>
@@ -125,7 +125,7 @@
           </li>
         </ul>
         <div class="tab-content" id="myTabContent">
-          <div class="tab-pane fade show table-responsive" id="table1" role="tabpanel" aria-labelledby="tab1">
+          <div class="tab-pane fade show table-responsive" id="table1" role="tabpanel" aria-labelledby="tab1" style="margin-top: 20px;">
             <table id="datatable" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
                 <thead>
                   <tr>
@@ -148,8 +148,8 @@
               </tbody>
             </table>
           </div>
-          <div class="tab-pane fade table-responsive" id="table2" role="tabpanel" aria-labelledby="tab2">
-                <table id="mytable2" class="table table-striped dt-responsive table-bordered  nowrap" style="width:100%">
+          <div class="tab-pane fade table-responsive" id="table2" role="tabpanel" aria-labelledby="tab2" style="margin-top: 20px;">
+                <table id="mytable2" class="table table-striped dt-responsive table-bordered nowrap" style="width:100%">
                   <thead>
                     <tr>
                         <th>No Pendaftaran</th>
@@ -172,7 +172,7 @@
                   </tbody>
               </table>
           </div>
-            <div class="tab-pane fade table-responsive" id="table3" role="tabpanel" aria-labelledby="tab3">
+            <div class="tab-pane fade table-responsive" id="table3" role="tabpanel" aria-labelledby="tab3" style="margin-top: 20px;">
                 <table id="selesai" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
                   <thead>
                     <tr>
@@ -196,7 +196,7 @@
                   </tbody>
               </table>
           </div>
-           <div class="tab-pane fade table-responsive" id="table4" role="tabpanel" aria-labelledby="tab3">
+           <div class="tab-pane fade table-responsive" id="table4" role="tabpanel" aria-labelledby="tab4" style="margin-top: 20px;">
                 <table id="dikembalikan" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
                   <thead>
                     <tr>
@@ -220,7 +220,7 @@
                   </tbody>
               </table>
           </div>
-          <div class="tab-pane fade table-responsive" id="table5" role="tabpanel" aria-labelledby="tab3">
+          <div class="tab-pane fade table-responsive" id="table5" role="tabpanel" aria-labelledby="tab4" style="margin-top: 20px;">
             <table id="prelistDtks" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
               <thead>
                 <tr>
@@ -306,7 +306,7 @@
                     { data: 'no_pendaftaran', name: 'no_pendaftaran' },
                     { data: 'created_at', name: 'created_at' },
                     { data: 'jenis_pelapor', name: 'jenis_pelapor' },
-                    { data: 'id_kelurahan', name: 'id_kelurahan' },
+                    { data: 'name_village', name: 'name_village' },
                     { data: 'nama', name: 'nama' },
                     { data: 'nik', name: 'nik' },
                     { data: 'no_kk', name: 'no_kk' },

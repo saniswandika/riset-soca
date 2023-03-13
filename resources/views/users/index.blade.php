@@ -4,6 +4,18 @@
 
 
 @section('content')
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap5.css"/>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.bootstrap5.css"/>
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/js/C"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap5.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/2.3.5/js/dataTables.buttons.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.9/js/responsive.bootstrap5.js"></script>
+
+
 <div class="container">
   @if ($message = Session::get('success'))
   <div class="alert alert-success">
@@ -19,7 +31,7 @@
         <div class="col-lg-12 margin-tb">
             <div class="pull-right text-left" style="margin-bottom: 20px;">
               <!-- Button trigger modal -->
-              <a  class="btn btn-success" href="/users/create"></a>
+              <a  class="btn btn-success" href="/users/create">Create</a>
               {{-- <button type="button" class="btn btn-success" data-toggle="modal" data-target="#buatakunuser">
                 Buat Baru Akun
               </button> --}}
@@ -96,6 +108,7 @@
             </div>
         </div>
       </div>
+      <div class="tab-pane fade show table-responsive">
       <table id="tableuser" class="table table-bordered">
         <thead>
           <tr>
@@ -201,6 +214,7 @@
           </tr>
         @endforeach
         </table>
+      </div>
     </div>
     {!! $data->render() !!}
     <div class="card-footer text-muted">

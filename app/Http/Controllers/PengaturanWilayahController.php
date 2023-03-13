@@ -37,14 +37,26 @@ class PengaturanWilayahController extends Controller
     {
         $wilayahkeseluruaha = wilayah::all();
         $user_id =  Auth::user()->id;
-        if($wilayahkeseluruaha)
-        $wilayah = wilayah::findOrFail($request->wilayah_Id);
+        foreach ($wilayahkeseluruaha as $key => $value) {
+            if ($value->status_wilayah == '1') {
+                // $wilayah = wilayah::findOrFail($request->wilayah_Id);
+                $value->status_wilayah = '0';
+                $value->save();
+                return response()->json(['message' => 'User status updated successfully.']);
+            }else
+            $wilayah = wilayah::findOrFail($request->wilayah_Id);
+            $wilayah->status_wilayah = $request->status_wilayah;
+            $wilayah->save();
+            return response()->json(['message' => 'User status updated successfully.']);
+        }
+       
+        
     
         // penambahan if sebelum update
-        $wilayah->status_wilayah = $request->status_wilayah;
-        $wilayah->save();
+       
+        
     
-        return response()->json(['message' => 'User status updated successfully.']);
+       
     }
     public function create()
     {

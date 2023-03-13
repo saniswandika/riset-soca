@@ -32,7 +32,7 @@ class PengaduanController extends AppBaseController
 
     public function index(Request $request)
     {
-     
+           
         return view('pengaduans.index');
     }
 
@@ -45,6 +45,7 @@ class PengaduanController extends AppBaseController
         $wilayah = DB::table('wilayahs as w')->select(
             'w.id',
             'b.name_village',
+            'w.kelurahan_id',
             'prov.name_prov',
             'kota.name_cities',
             'kecamatan.name_districts',
@@ -57,8 +58,14 @@ class PengaduanController extends AppBaseController
             ->leftjoin('indonesia_villages as b', 'b.code', '=', 'w.kelurahan_id')
             ->where('status_wilayah', '1')
             ->where('w.createdby', $userid)->get();
+        $roleid = DB::table('roles')
+        ->where('name', 'Back Ofiice kelurahan')
+        // ->where('name', 'supervisor')
+        ->orWhere('name', 'supervisor')
+        ->get();
+        // dd($roleid);
         // dd($wilayah);
-        return view('pengaduans.create', compact('wilayah'));
+        return view('pengaduans.create', compact('wilayah','roleid'));
     }
 
     /**
@@ -198,7 +205,7 @@ class PengaduanController extends AppBaseController
     }
     public function draft(Request $request)
     {
-        
+      
         $columns = [
             // daftar kolom yang akan ditampilkan pada tabel
             'no_pendaftaran',
@@ -252,8 +259,8 @@ class PengaduanController extends AppBaseController
                 'keluhan_id_program' => $item->keluhan_id_program,
                 'keluhan_detail' => $item->keluhan_detail,
                 'tl_catatan' => $item->tl_catatan,
-                'createdby' => $item->createdby,
-                'created_at' => $item->created_at
+                'createdby' => $item->createdby
+                // 'created_at' => $item->created_at
             ];
         }
 
@@ -269,9 +276,9 @@ class PengaduanController extends AppBaseController
     public function diproses(Request $request)
     {
         
-        
         $columns = [
             // daftar kolom yang akan ditampilkan pada tabel
+            'id',
             'no_pendaftaran',
             'created_at',
             'jenis_pelapor',
@@ -281,60 +288,132 @@ class PengaduanController extends AppBaseController
             'id_kelurahan',
             'keluhan_id_program',
             'keluhan_detail',
-            'tl_catatan',
-            'createdby',
+            'tl_catatan'
+            // 'createdby',
+            // 'created_at'
         ];
+        $userid = Auth::user()->id;
+        $userWilayah = DB::table('wilayahs')
+        ->where('createdby', $userid)
+        ->where(function($query) {
+            $query->where('status_wilayah', 1);
+        })->get();
+  
+        foreach ($userWilayah as $key => $value) {
+            $query = DB::table('pengaduans')->select
+                    ('pengaduans.id',
+                    'pengaduans.no_pendaftaran',
+                    'b.name_village',
+                    'pengaduans.id_kelurahan', 
+                    'pengaduans.jenis_pelapor', 'pengaduans.nik',
+                    'pengaduans.no_kk', 'pengaduans.nama', 
+                    'pengaduans.keluhan_id_program', 
+                    'pengaduans.keluhan_detail',
+                    'pengaduans.tl_catatan',
+                    'pengaduans.created_at',
+                    'pengaduans.diteruskan')
+                    ->leftjoin('users', 'users.id', '=', 'pengaduans.diteruskan')
+                    ->leftjoin('wilayahs', 'wilayahs.createdby', '=', 'pengaduans.diteruskan')
+                    ->leftjoin('model_has_roles', 'model_has_roles.model_id', '=', 'pengaduans.diteruskan')
+                    ->leftjoin('indonesia_villages as b', 'b.code', '=','pengaduans.id_kelurahan')
+                    ->where('pengaduans.id_kelurahan', $value->kelurahan_id)
+                    ->where(function($query) {
+                        $query->where('wilayahs.status_wilayah', 1);
+                            // ->orWhere('status', 'pending');
+                    })->get();
+            // dd($query);
+                // menambahkan kondisi pencarian jika ada
+            if ($request->has('search')) {
+                $searchValue = $request->search['value'];
+                $querysearch = DB::table('pengaduans')->select
+                ('pengaduans.id',
+                'pengaduans.no_pendaftaran',
+                'b.name_village',
+                'pengaduans.id_kelurahan', 
+                'pengaduans.jenis_pelapor', 'pengaduans.nik',
+                'pengaduans.no_kk', 'pengaduans.nama', 
+                'pengaduans.keluhan_id_program', 
+                'pengaduans.keluhan_detail',
+                'pengaduans.tl_catatan',
+                'pengaduans.created_at',
+                'pengaduans.diteruskan')
+                ->leftjoin('users', 'users.id', '=', 'pengaduans.diteruskan')
+                ->leftjoin('wilayahs', 'wilayahs.createdby', '=', 'pengaduans.diteruskan')
+                ->leftjoin('indonesia_villages as b', 'b.code', '=','pengaduans.id_kelurahan')
+                ->leftjoin('model_has_roles', 'model_has_roles.model_id', '=', 'pengaduans.diteruskan')
+                ->where('pengaduans.id_kelurahan', $value->kelurahan_id)
+                ->where(function($querysearch) {
+                    $querysearch->where('wilayahs.status_wilayah', 1);
+                        // ->orWhere('status', 'pending');
+                })->where(function ($querysearch) use ($searchValue) {
+                    $querysearch->orWhere('no_pendaftaran', 'like', '%' . $searchValue . '%')
+                            ->orWhere('id_kelurahan', 'like', '%' . $searchValue . '%')
+                            ->orWhere('nik', 'like', '%' . $searchValue . '%')
+                            ->orWhere('no_kk', 'like', '%' . $searchValue . '%')
+                            ->orWhere('nama', 'like', '%' . $searchValue . '%')
+                            ->orWhere('keluhan_id_program', 'like', '%' . $searchValue . '%')
+                            ->orWhere('keluhan_detail', 'like', '%' . $searchValue . '%')
+                            ->orWhere('tl_catatan', 'like', '%' . $searchValue . '%')
+                            // ->orWhere('created_at', 'like', '%' . $searchValue . '%')
+                            ->orWhere('jenis_pelapor', 'like', '%' . $searchValue . '%');
+                })
+                ->get();
+            }
 
-        $query = Pengaduan::where('status_data', 'diproses');
-
-        // menambahkan kondisi pencarian jika ada
-        if ($request->has('search')) {
-            $searchValue = $request->search['value'];
-            $query->where(function ($query) use ($columns, $searchValue) {
-                foreach ($columns as $column) {
-                    $query->orWhere($column, 'like', '%' . $searchValue . '%');
-                }
-            });
+            // // menambahkan kondisi sortir jika ada
+            if ($request->has('order')) {
+                $queryorder = DB::table('pengaduans')->select
+                ('pengaduans.id',
+                'pengaduans.no_pendaftaran',
+                'b.name_village',
+                'pengaduans.id_kelurahan', 
+                'pengaduans.jenis_pelapor', 'pengaduans.nik',
+                'pengaduans.no_kk', 'pengaduans.nama', 
+                'pengaduans.keluhan_id_program', 
+                'pengaduans.keluhan_detail',
+                'pengaduans.tl_catatan',
+                'pengaduans.created_at',
+                'pengaduans.diteruskan')
+                ->leftjoin('users', 'users.id', '=', 'pengaduans.diteruskan')
+                ->leftjoin('indonesia_villages as b', 'b.code', '=','pengaduans.id_kelurahan')
+                ->leftjoin('wilayahs', 'wilayahs.createdby', '=', 'pengaduans.diteruskan')
+                ->where('wilayahs.createdby', $userid)
+                // ->where('pengaduans.diteruskan', $userid)
+                ->orderBy($columns[$request->order[0]['column']], $request->order[0]['dir'])
+                ->get();
+            }
+             // mengambil data sesuai dengan paginasi yang diminta
+            $perPage = $request->length ?: config('app.pagination.per_page');
+            $currentPage = $request->start ? ($request->start / $perPage) + 1 : 1;
+            $data = $query->forPage($currentPage, $perPage);
+            $totalItems = $query->count();
+            $formattedData = [];
+            foreach ($data as $item) {
+                $formattedData[] = [
+                    'id' => $item->id,
+                    'name_village' => $item->name_village,
+                    'no_pendaftaran' => $item->no_pendaftaran,
+                    'id_kelurahan' => $item->id_kelurahan,
+                    'jenis_pelapor' => $item->jenis_pelapor,
+                    'nik' => $item->nik,
+                    'no_kk' => $item->no_kk,
+                    'nama' => $item->nama,
+                    'keluhan_id_program' => $item->keluhan_id_program,
+                    'keluhan_detail' => $item->keluhan_detail,
+                    'tl_catatan' => $item->tl_catatan,
+                    'created_at' => $item->created_at,
+                    'diteruskan' => $item->diteruskan
+                    // 'username' => $item->username,
+                ];
+            // dd($formattedData);
+                return response()->json([
+                    'draw' => $request->draw,
+                    'recordsTotal' => $totalItems,
+                    'recordsFiltered' => $totalItems,
+                    'data' => $formattedData,
+                ]);
+            }
         }
-
-        // menambahkan kondisi sortir jika ada
-        if ($request->has('order')) {
-            $orderColumn = $columns[$request->order[0]['column']];
-            $orderDirection = $request->order[0]['dir'];
-            $query->orderBy($orderColumn, $orderDirection);
-        }
-
-        // mengambil data sesuai dengan paginasi yang diminta
-        $perPage = $request->length ?: config('app.pagination.per_page');
-        $currentPage = $request->start ? ($request->start / $perPage) + 1 : 1;
-        $data = $query->paginate($perPage, ['*'], 'page', $currentPage);
-
-        // memformat data untuk dikirim ke client
-        $formattedData = [];
-        foreach ($data as $item) {
-            $formattedData[] = [
-                'id' => $item->id,
-                'no_pendaftaran' => $item->no_pendaftaran,
-                'id_kelurahan' => $item->id_kelurahan,
-                'jenis_pelapor' => $item->jenis_pelapor,
-                'nik' => $item->nik,
-                'no_kk' => $item->no_kk,
-                'nama' => $item->nama,
-                'keluhan_id_program' => $item->keluhan_id_program,
-                'keluhan_detail' => $item->keluhan_detail,
-                'tl_catatan' => $item->tl_catatan,
-                'createdby' => $item->createdby,
-                'created_at' => $item->created_at,
-            ];
-        }
-
-        // mengembalikan data dalam format JSON
-        return response()->json([
-            'draw' => $request->draw,
-            'recordsTotal' => Pengaduan::count(),
-            'recordsFiltered' => $data->total(),
-            'data' => $formattedData,
-        ]);
     }
 
     public function dikembalikan(Request $request)

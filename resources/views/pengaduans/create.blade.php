@@ -18,7 +18,8 @@
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Kab/Kota</label>
                     <div class="col-sm-5">
-                        <input type="text" readonly class="form-control" value="{{ $item->name_cities }}" name="id_kabkot">
+                        <input type="text" readonly class="form-control" value="{{ $item->name_cities }}" name="id_kabkot" id="id_kabkot">
+                        
                     </div>
                 </div>
                 <div class="form-group row">
@@ -30,7 +31,8 @@
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Kelurahan</label>
                     <div class="col-sm-5">
-                        <input type="text" readonly class="form-control"  value="{{ $item->name_village }}" name="id_kelurahan">
+                        <input type="text" readonly class="form-control"  value="{{ $item->name_village }}" name="name_kelurahan">
+                        <input type="hidden" value="{{ $item->kelurahan_id }}" name="id_kelurahan" id="id_kabkot">
                     </div>
                 </div>
                 <br>
@@ -309,24 +311,30 @@
             </div>
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Teruskan Ke <span class="text-danger">*</label>
-                <div class="col-sm-5">
-                    <div class="row">
-                        <div class="col">
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" id="inlineCheckbox1" value="BO_kelurahan"
-                                    name="diteruskan" required>
-                                <label class="form-check-label" for="inlineCheckbox1">BO Kelurahan</label>
+                 
+                    <div class="col-sm-5">
+                        <div class="row">
+                            @foreach ($roleid as $r)
+                            <div class="col">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" id="inlineCheckbox1" value="{{ $r->id }}"
+                                        name="diteruskan" required >
+                                    <label class="form-check-label" for="inlineCheckbox1">{{ $r->name }}</label>
+                                
+                                
+                                </div>
                             </div>
-                        </div>
-                        <div class="col">
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" id="inlineCheckbox2" value="Supervisor"
-                                    name="diteruskan" required>
-                                <label class="form-check-label" for="inlineCheckbox2">Supervisor</label>
-                            </div>
+                            @endforeach
+                            {{-- <div class="col">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" id="inlineCheckbox2" value="Supervisor"
+                                        name="diteruskan" required>
+                                    <label class="form-check-label" for="inlineCheckbox2">Supervisor</label>
+                                </div>
+                            </div> --}}
                         </div>
                     </div>
-                </div>
+               
             </div>
                     {{-- @include('pengaduans.fields') --}}
             <div class="card-footer">

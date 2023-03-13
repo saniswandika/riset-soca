@@ -38,6 +38,7 @@ class Pengaduan extends Model
         'ada_dtks',
         'prelist_dtks',
         'no_dtks',
+        'tempat_lahir',
         'diteruskan'
     ];
 
@@ -71,6 +72,7 @@ class Pengaduan extends Model
         'ada_dtks' => 'string',
         'prelist_dtks' => 'string',
         'no_dtks' => 'string',
+        'tempat_lahir' => 'string',
         'diteruskan' => 'string'
     ];
 

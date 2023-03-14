@@ -55,7 +55,7 @@ class UserController extends Controller
     public function create()
     {
         //= Event::all();
-        $roles = Role::pluck('name','name')->all();
+        $roles = DB::table('roles')->get();
         return view('users.create',compact('roles'));
     }
     

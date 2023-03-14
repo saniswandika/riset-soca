@@ -1,5 +1,8 @@
 @extends('layouts.masterTemplate')
 
+@section('title', 'Rekomendasi Rekativasi PBI JK')
+
+
 @section('content')
     <section class="content-header">
         <div class="container-fluid">

@@ -1,5 +1,8 @@
 @extends('layouts.masterTemplate')
 
+@section('title', 'management Role User')
+
+
 @section('content')
 @if ($message = Session::get('success'))
     <div class="alert alert-success">
@@ -18,9 +21,9 @@
                     <div class="pull-right">
                         <div class="d-sm-flex align-items-center justify-content-between mb-4">
                             <h1 class="h3 mb-0 text-gray-800"></h1>
-                            @can('pemakaian-create')
+                            {{-- @can('pemakaian-create') --}}
                                 <a class="btn btn-success" href="{{ route('roles.create') }}"> Create New Role </a>
-                            @endcan
+                            {{-- @endcan --}}
                         </div>
                     
                     </div>

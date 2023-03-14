@@ -1,11 +1,22 @@
 @extends('layouts.masterTemplate')
 
+@section('title', 'Pengaturan wilayah')
 
 @section('content')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" ></script> 
 {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css"  /> --}}
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/switchery/0.8.2/switchery.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/switchery/0.8.2/switchery.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap5.css"/>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.bootstrap5.css"/>
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/js/C"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap5.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/2.3.5/js/dataTables.buttons.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.9/js/responsive.bootstrap5.js"></script>
 <div class="container">
     <div class="card">
         <div class="card-body">
@@ -20,15 +31,16 @@
                     </a>
                 </div>
             </div>
-            <table class="table table-striped">
+            <div class="tab-pane fade show table-responsive" id="table1" role="tabpanel" aria-labelledby="tab1" style="margin-top: 20px;">
+            <table class="table table-striped dt-responsive nowrap" id="datatable">
                 <thead>
                   <tr>
-                    <th scope="col">No</th>
-                    <th scope="col">Provinsi</th>
-                    <th scope="col">Kabupaten/Kota</th>
-                    <th scope="col">kecamatan</th>
-                    <th scope="col">Kelurahan</th>
-                    <th scope="col">Status</th>
+                    <th>No</th>
+                    <th>Provinsi</th>
+                    <th>Kabupaten/Kota</th>
+                    <th>kecamatan</th>
+                    <th>Kelurahan</th>
+                    <th>Status</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -58,8 +70,18 @@
                 </tbody>
             </table>
         </div>
+        </div>
     </div>
 </div>
+<script>
+    $(document).ready(function() {
+    var table = $('#datatable').DataTable( {
+        responsive: true
+    } );
+ 
+    new $.fn.dataTable.FixedHeader( table );
+} );
+</script>
 <script>
     let elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
 
@@ -77,6 +99,7 @@
                 data: {'status_wilayah': status_wilayah, 'wilayah_Id': wilayahId},
                 success: function (data) {
                     console.log(data.message);
+                    location.reload()
                 }
             });
         });

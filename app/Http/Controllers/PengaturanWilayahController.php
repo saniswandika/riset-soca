@@ -35,11 +35,37 @@ class PengaturanWilayahController extends Controller
     }
     public function updateStatus(Request $request)
     {
-        $wilayah = wilayah::findOrFail($request->wilayah_Id);
-        $wilayah->status_wilayah = $request->status_wilayah;
-        $wilayah->save();
-    
+        $user_id =  Auth::user()->id;
+        $wilayahkeseluruaha = wilayah::where('createdby', $user_id)->get();
+        // foreach ($wilayahkeseluruaha as $key => $value) {
+        //     if ($value->status_wilayah == '1') {
+        //         // $wilayah = wilayah::findOrFail($request->wilayah_Id);
+        //         $value->status_wilayah = '0';
+        //         $value->save();
+        //         return response()->json(['message' => 'User status updated successfully.']);
+        //     }else
+        //     $wilayah = wilayah::findOrFail($request->wilayah_Id);
+        //     $wilayah->status_wilayah = $request->status_wilayah;
+        //     $wilayah->save();
+        //     return response()->json(['message' => 'User status updated successfully.']);
+        // }
+        foreach ($wilayahkeseluruaha as $value) {
+            if ($value->id == $request->wilayah_Id) {
+                // $wilayah = wilayah::findOrFail($request->wilayah_Id);
+                $value->status_wilayah = '1';
+                $value->save();
+            }else
+            $value->status_wilayah = '0';
+            $value->save();
+        }
         return response()->json(['message' => 'User status updated successfully.']);
+        
+    
+        // penambahan if sebelum update
+       
+        
+    
+       
     }
     public function create()
     {
@@ -58,7 +84,7 @@ class PengaturanWilayahController extends Controller
         $data['kecamatan_id'] = $request->get('kecamatan_id');
         $data['kelurahan_id'] = $request->get('kelurahan_id');
         $data['createdby'] = Auth::user()->id;
-
+        // jika wilayah nya ada tidak bisa di simpan by code kelurahan sama id user login
         $post = wilayah::create($data);
         return redirect()->route('Pengaturan_wilayah')
                         ->with('success','pengaturan wilayah berhasil ditambahkan.');

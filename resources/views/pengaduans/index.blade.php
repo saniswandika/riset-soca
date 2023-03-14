@@ -256,6 +256,7 @@
     });
 </script> --}}
 <script>
+
     $(document).ready(function () {
             $('#datatable').DataTable({
               processing: true,
@@ -299,9 +300,9 @@
               serverSide: true,
               ajax: {
                   url: '/diproses',
-                  type: 'GET'
+                  type: 'GET',
+                  dataSrc: 'data.data'
               },
-                // ajax: "{{ route('getdata') }}",
                 columns: [
                     { data: 'no_pendaftaran', name: 'no_pendaftaran' },
                     { data: 'created_at', name: 'created_at' },
@@ -321,6 +322,7 @@
                     }
                     }
                 ],
+                
             });
             $('#dikembalikan').DataTable({
               processing: true,

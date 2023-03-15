@@ -4,6 +4,11 @@
 
 @section('content')
         <div class="card">
+            <div class="card-header pb-0">
+                <h1>
+                    Buat Pengaduan
+                </h1>
+              </div>
 
             {!! Form::open(['route' => 'pengaduans.store','method' => 'POST']) !!}
 

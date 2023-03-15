@@ -1,23 +1,18 @@
 @extends('layouts.masterTemplate')
 
-@section('content')
-    <section class="content-header">
-        <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-sm-12">
-                    <h1>
-                        Edit Pengaduan
-                    </h1>
-                </div>
-            </div>
-        </div>
-    </section>
+@section('title', 'ubah pengaduan')
 
+@section('content')
     <div class="content px-3">
 
         @include('adminlte-templates::common.errors')
 
         <div class="card">
+            <div class="card-header pb-0">
+                <h1>
+                    Ubah Pengaduan
+                </h1>
+              </div>
 
             {!! Form::model($pengaduan, ['route' => ['pengaduans.update', $pengaduan->id], 'method' => 'patch']) !!}
 

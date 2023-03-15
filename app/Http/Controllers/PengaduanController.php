@@ -8,6 +8,7 @@ use App\Http\Controllers\AppBaseController;
 use App\Repositories\PengaduanRepository;
 use Illuminate\Http\Request;
 use app\Models\Pengaduan;
+use App\Models\Prelist;
 use App\Models\wilayah;
 use Illuminate\Support\Facades\DB;
 use Flash;
@@ -32,7 +33,7 @@ class PengaduanController extends AppBaseController
 
     public function index(Request $request)
     {
-           
+
         return view('pengaduans.index');
     }
 
@@ -59,10 +60,10 @@ class PengaduanController extends AppBaseController
             ->where('status_wilayah', '1')
             ->where('w.createdby', $userid)->get();
         $roleid = DB::table('roles')
-        ->where('name', 'Back Ofiice kelurahan')
-        // ->where('name', 'supervisor')
-        ->orWhere('name', 'supervisor')
-        ->get();
+            ->where('name', 'Back Ofiice kelurahan')
+            // ->where('name', 'supervisor')
+            ->orWhere('name', 'supervisor')
+            ->get();
         // dd($roleid);
         // dd($wilayah);
         return view('pengaduans.create', compact('wilayah','roleid'));
@@ -73,43 +74,98 @@ class PengaduanController extends AppBaseController
      */
     public function store(Request $request)
     {
-        $data = new Pengaduan;
-        $data['id_alur'] = $request->get('id_alur');
-        $data['no_pendaftaran'] = mt_rand(100, 1000);
-        $data['id_provinsi'] = $request->get('id_provinsi');
-        $data['id_kabkot'] = $request->get('id_kabkot');
-        $data['id_kecamatan'] = $request->get('id_kecamatan');
-        $data['id_kelurahan'] = $request->get('id_kelurahan');
-        $data['jenis_pelapor'] = $request->get('jenis_pelapor');
-        $data['ada_nik'] = $request->get('memiliki_nik');
-        $data['nik'] = $request->get('nik');
-        $data['no_kk'] = $request->get('no_kk');
-        $data['no_kis'] = $request->get('no_kis');
-        $data['nama'] = $request->get('nama');
-        $data['tgl_lahir'] = $request->get('tgl_lahir');
-        $data['alamat'] = $request->get('alamat');
-        $data['telp'] = $request->get('telpon');
-        $data['email'] = $request->get('email');
-        $data['hubungan_terlapor'] = $request->get('hubungan_terlapor');
-        $data['keluhan_tipe'] = $request->get('keluhan_tipe');
-        $data['keluhan_id_program'] = $request->get('keluhan_id_program');
-        $data['keluhan_detail']  = $request->get('keluhan_detail');
-        // $data['keluhan_foto']  = $request->get('detail_pengaduan');
-        // $data['tl_catatan']  = $request->get('detail_pengaduan');
-        // $data['tl_file']  = $request->get('detail_pengaduan');
-        $data['no_dtks']  = $request->get('no_dtks');
-        $data['diteruskan'] = $request->get('diteruskan');
-        $data['status_data'] = 'diproses';
-        $data['createdby']  = Auth::user()->name;
-        $data['updatedby']  = Auth::user()->name;
-        if($data['nik'] == null){
-            $data['prelist_dtks'] = '1';
-           
+
+        if ($request->get('nik') != null) {
+            if ($request->get('no_dtks') != null) {
+                //nik dan dtks ada
+                $data = new Pengaduan;
+                $data['id_alur'] = $request->get('id_alur');
+                $data['no_pendaftaran'] = mt_rand(100, 1000);
+                $data['id_provinsi'] = $request->get('id_provinsi');
+                $data['id_kabkot'] = $request->get('id_kabkot');
+                $data['id_kecamatan'] = $request->get('id_kecamatan');
+                $data['id_kelurahan'] = $request->get('id_kelurahan');
+                $data['jenis_pelapor'] = $request->get('jenis_pelapor');
+                $data['ada_nik'] = $request->get('memiliki_nik');
+                $data['nik'] = $request->get('nik');
+                $data['no_kk'] = $request->get('no_kk');
+                $data['no_kis'] = $request->get('no_kis');
+                $data['nama'] = $request->get('nama');
+                $data['tgl_lahir'] = $request->get('tgl_lahir');
+                $data['alamat'] = $request->get('alamat');
+                $data['telp'] = $request->get('telpon');
+                $data['email'] = $request->get('email');
+                $data['hubungan_terlapor'] = $request->get('hubungan_terlapor');
+                $data['keluhan_tipe'] = $request->get('keluhan_tipe');
+                $data['keluhan_id_program'] = $request->get('keluhan_id_program');
+                $data['keluhan_detail'] = $request->get('keluhan_detail');
+                // $data['keluhan_foto']  = $request->get('detail_pengaduan');
+                // $data['tl_catatan']  = $request->get('detail_pengaduan');
+                // $data['tl_file']  = $request->get('detail_pengaduan');
+                $data['no_dtks'] = $request->get('no_dtks');
+                $data['diteruskan'] = $request->get('diteruskan');
+                $data['status_data'] = 'diproses';
+                $data['createdby'] = Auth::user()->name;
+                $data['updatedby'] = Auth::user()->name;
+
+                $data->save();
+                return redirect('pengaduans')->withSuccess('Data Berhasil Disimpan');
+            } else {
+                //nik ada, dtks tidak
+                $data = new Prelist;
+
+                $data['id_provinsi'] = $request->get('id_provinsi');
+                $data['id_kabkot'] = $request->get('id_kabkot');
+                $data['id_kecamatan'] = $request->get('id_kecamatan');
+                $data['id_kelurahan'] = $request->get('id_kelurahan');
+                $data['nik'] = $request->get('nik');
+                $data['no_kk'] = $request->get('no_kk');
+                $data['no_kis'] = $request->get('no_kis');
+                $data['nama'] = $request->get('nama');
+                $data['tgl_lahir'] = $request->get('tgl_lahir');
+                $data['alamat'] = $request->get('alamat');
+                $data['telp'] = $request->get('telpon');
+                $data['email'] = $request->get('email');
+
+                $data->save();
+                return redirect('pengaduans')->withSuccess('Data Berhasil Disimpan');
+            }
+        } else {
+            //nik belum ada
+            $data = new Pengaduan;
+            $data['id_alur'] = $request->get('id_alur');
+            $data['no_pendaftaran'] = mt_rand(100, 1000);
+            $data['id_provinsi'] = $request->get('id_provinsi');
+            $data['id_kabkot'] = $request->get('id_kabkot');
+            $data['id_kecamatan'] = $request->get('id_kecamatan');
+            $data['id_kelurahan'] = $request->get('id_kelurahan');
+            $data['jenis_pelapor'] = $request->get('jenis_pelapor');
+            $data['ada_nik'] = $request->get('memiliki_nik');
+            $data['nik'] = $request->get('nik');
+            $data['no_kk'] = $request->get('no_kk');
+            $data['no_kis'] = $request->get('no_kis');
+            $data['nama'] = $request->get('nama');
+            $data['tgl_lahir'] = $request->get('tgl_lahir');
+            $data['alamat'] = $request->get('alamat');
+            $data['telp'] = $request->get('telpon');
+            $data['email'] = $request->get('email');
+            $data['hubungan_terlapor'] = $request->get('hubungan_terlapor');
+            $data['keluhan_tipe'] = $request->get('keluhan_tipe');
+            $data['keluhan_id_program'] = $request->get('keluhan_id_program');
+            $data['keluhan_detail'] = $request->get('keluhan_detail');
+            // $data['keluhan_foto']  = $request->get('detail_pengaduan');
+            // $data['tl_catatan']  = $request->get('detail_pengaduan');
+            // $data['tl_file']  = $request->get('detail_pengaduan');
+            $data['no_dtks'] = $request->get('no_dtks');
+            $data['diteruskan'] = $request->get('diteruskan');
             $data['status_data'] = 'draft';
+            $data['createdby'] = Auth::user()->name;
+            $data['updatedby'] = Auth::user()->name;
+
+            $data->save();
+            return redirect('pengaduans')->warning('NIK Tidak Tersedia', 'Data Disimpan sebagai draft');
         };
-        // dd($data);   
-        $data->save();
-        return redirect('pengaduans')->withSuccess('Data Berhasil Disimpan');
+        // dd($data); 
     }
 
     /**
@@ -151,10 +207,10 @@ class PengaduanController extends AppBaseController
             ->where('status_wilayah', '1')
             ->where('w.createdby', $userid)->get();
         $roleid = DB::table('roles')
-        ->where('name', 'Back Ofiice kelurahan')
-        // ->where('name', 'supervisor')
-        ->orWhere('name', 'supervisor')
-        ->get();
+            ->where('name', 'Back Ofiice kelurahan')
+            // ->where('name', 'supervisor')
+            ->orWhere('name', 'supervisor')
+            ->get();
 
         $pengaduan = $this->pengaduanRepository->find($id);
         return view('pengaduans.edit', compact('wilayah','pengaduan','roleid'));
@@ -222,7 +278,7 @@ class PengaduanController extends AppBaseController
     }
     public function draft(Request $request)
     {
-      
+
         $columns = [
             // daftar kolom yang akan ditampilkan pada tabel
             'no_pendaftaran',
@@ -292,12 +348,12 @@ class PengaduanController extends AppBaseController
 
     public function diproses(Request $request)
     {
-        
+
         $query = DB::table('pengaduans')
-                ->leftjoin('users', 'users.id', '=', 'pengaduans.diteruskan')
-                ->leftjoin('wilayahs', 'wilayahs.createdby', '=', 'pengaduans.diteruskan')
-                ->leftjoin('model_has_roles', 'model_has_roles.model_id', '=', 'pengaduans.diteruskan')
-                ->leftjoin('indonesia_villages as b', 'b.code', '=','pengaduans.id_kelurahan')
+            ->leftjoin('users', 'users.id', '=', 'pengaduans.diteruskan')
+            ->leftjoin('wilayahs', 'wilayahs.createdby', '=', 'pengaduans.diteruskan')
+            ->leftjoin('model_has_roles', 'model_has_roles.model_id', '=', 'pengaduans.diteruskan')
+            ->leftjoin('indonesia_villages as b', 'b.code', '=','pengaduans.id_kelurahan')
             ->select('pengaduans.*', 'b.name_village');
         // Get the authenticated user's ID and wilayah data
         $user_id = Auth::user()->id;
@@ -315,8 +371,8 @@ class PengaduanController extends AppBaseController
                     ->where('pengaduans.diteruskan', $value->role_id)
                     ->orWhere('model_has_roles.model_id', $value->role_id)
                     ->where(function($query) {
-                        $query->where('wilayahs.status_wilayah', 1);
-                    });
+                            $query->where('wilayahs.status_wilayah', 1);
+                        });
             });
         }
         // Add searchable fields
@@ -429,7 +485,7 @@ class PengaduanController extends AppBaseController
         //     //         // 'username' => $item->username,
         //     //     ];
         //     //     dd($formattedData);
-                
+
         //     // }
         //     return response()->json([
         //         'draw' => $request->draw,
@@ -577,25 +633,25 @@ class PengaduanController extends AppBaseController
             'data' => $formattedData,
         ]);
     }
-     public function prelistDTKS(Request $request)
+    public function prelistDTKS(Request $request)
     {
         $columns = [
             // daftar kolom yang akan ditampilkan pada tabel
-            'no_pendaftaran',
-            'created_at',
-            'jenis_pelapor',
+            'id_provinsi',
+            'id_kabkot',
+            'id_kecamatan',
+            'id_kelurahan',
             'nik',
             'no_kk',
+            'no_kis',
             'nama',
-            'id_kelurahan',
-            'keluhan_id_program',
-            'keluhan_detail',
-            'tl_catatan',
-            'createdby',
-            'prelist_dtks'
+            'tgl_lahir',
+            'alamat',
+            'telp',
+            'email'
         ];
 
-        $query = Pengaduan::where('prelist_dtks', '1');
+        $query = Prelist::all();
 
 
         // menambahkan kondisi pencarian jika ada
@@ -624,19 +680,18 @@ class PengaduanController extends AppBaseController
         $formattedData = [];
         foreach ($data as $item) {
             $formattedData[] = [
-                'id' => $item->id,
-                'no_pendaftaran' => $item->no_pendaftaran,
+                'id_provinsi'=> $item->id_provinsi,
+                'id_kabkot'=> $item->id_kabkot,
+                'id_kecamatan'=> $item->id_kecamatan,
                 'id_kelurahan' => $item->id_kelurahan,
-                'jenis_pelapor' => $item->jenis_pelapor,
                 'nik' => $item->nik,
                 'no_kk' => $item->no_kk,
+                'no_kis' => $item->no_kis,
                 'nama' => $item->nama,
-                'keluhan_id_program' => $item->keluhan_id_program,
-                'keluhan_detail' => $item->keluhan_detail,
-                'tl_catatan' => $item->tl_catatan,
-                'createdby' => $item->createdby,
-                'created_at' => $item->created_at,
-                 'prelist_dtks' => $item->prelist_dtks,
+                'tgl_lahir' => $item->tgl_lahir,
+                'alamat' => $item->alamat,
+                'telp' => $item->telp,
+                'email' => $item->email,
             ];
         }
 

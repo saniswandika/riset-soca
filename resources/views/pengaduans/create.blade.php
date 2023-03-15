@@ -30,7 +30,8 @@
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Kecamatan</label>
                     <div class="col-sm-5">
-                        <input type="text" readonly class="form-control"  value="{{ $item->name_districts }}" name="id_kecamatan">
+                        <input type="text" readonly class="form-control"  value="{{ $item->name_districts }}" name="kecamatan">
+                        <input type="hidden" value="{{ $item->kecamatan_id }}" name="id_kecamatan" id="id_kecamatan">
                     </div>
                 </div>
                 <div class="form-group row">
@@ -323,7 +324,7 @@
                             <div class="col">
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input" type="radio" id="inlineCheckbox1" value="{{ $r->id }}"
-                                        name="diteruskan" required >
+                                        name="diteruskan" >
                                     <label class="form-check-label" for="inlineCheckbox1">{{ $r->name }}</label>
                                 
                                 

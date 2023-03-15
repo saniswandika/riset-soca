@@ -198,19 +198,6 @@
         </li> --}}
       </ul>
     </div>
-    <div class="sidenav-footer mx-3 ">
-      <div class="card card-plain shadow-none" id="sidenavCard">
-        <img class="w-50 mx-auto" src="./assets/img/illustrations/icon-documentation.svg" alt="sidebar_illustration">
-        <div class="card-body text-center p-3 w-100 pt-0">
-          <div class="docs-info">
-            <h6 class="mb-0">Need help?</h6>
-            <p class="text-xs font-weight-bold mb-0">Please check our docs</p>
-          </div>
-        </div>
-      </div>
-      <a href="https://www.creative-tim.com/learning-lab/bootstrap/license/argon-dashboard" target="_blank" class="btn btn-dark btn-sm w-100 mb-3">Documentation</a>
-      <a class="btn btn-primary btn-sm mb-0 w-100" href="https://www.creative-tim.com/product/argon-dashboard-pro?ref=sidebarfree" type="button">Upgrade to pro</a>
-    </div>
   </aside>
   <main class="main-content position-relative border-radius-lg ">
     <!-- Navbar -->
@@ -281,10 +268,46 @@
                         <h6 class="text-sm font-weight-normal mb-1">
                           <span class="font-weight-bold">Pengaturan Wilayah</span>
                         </h6>
-                        <p class="text-xs text-secondary mb-0">
-                          <i class="fa fa-map-marker me-1"></i>
-                          Kota Bandung
-                        </p>
+                        <?php
+                                $userid = Auth::user()->id;
+                                $usersrole = DB::table('model_has_roles')->where('model_id', $userid)->get();
+                                $wilayah = DB::table('wilayahs as w')->select(
+                                                    'w.id',
+                                                    'b.name_village',
+                                                    'w.kelurahan_id',
+                                                    'w.kecamatan_id',
+                                                    'prov.name_prov',
+                                                    'kota.name_cities',
+                                                    'kecamatan.name_districts',
+                                                    'w.status_wilayah',
+                                                    'w.createdby',
+                                                )
+                                                    ->leftjoin('indonesia_provinces as prov', 'prov.code', '=', 'w.province_id')
+                                                    ->leftjoin('indonesia_cities as kota', 'kota.code', '=', 'w.kota_id')
+                                                    ->leftjoin('indonesia_districts as kecamatan', 'kecamatan.code', '=', 'w.kecamatan_id')
+                                                    ->leftjoin('indonesia_villages as b', 'b.code', '=', 'w.kelurahan_id')
+                                                    ->where('status_wilayah', '1')
+                                                    ->where('w.createdby', $userid)->get();   
+                        ?>
+                        @foreach ($usersrole as $item)
+                          @if ($item->role_id == 4)
+                              @foreach ($wilayah as $item)
+                              <p class="text-xs text-secondary mb-0">
+                                <i class="fa fa-map-marker me-1"></i>
+                                {{ $item->name_districts }}
+                              </p>                             
+                            @endforeach
+                           @else
+                            @foreach ($wilayah as $item)
+                              <p class="text-xs text-secondary mb-0">
+                                <i class="fa fa-map-marker me-1"></i>
+                                {{ $item->name_village }}
+                              </p>                             
+                            @endforeach
+                          @endif
+                        @endforeach
+                      
+                       
                       </div>
                     </div>
                   </a>

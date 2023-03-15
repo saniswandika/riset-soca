@@ -47,6 +47,7 @@ class PengaduanController extends AppBaseController
             'w.id',
             'b.name_village',
             'w.kelurahan_id',
+            'w.kecamatan_id',
             'prov.name_prov',
             'kota.name_cities',
             'kecamatan.name_districts',
@@ -379,8 +380,8 @@ class PengaduanController extends AppBaseController
                 'keluhan_id_program' => $item->keluhan_id_program,
                 'keluhan_detail' => $item->keluhan_detail,
                 'tl_catatan' => $item->tl_catatan,
-                'createdby' => $item->createdby
-                // 'created_at' => $item->created_at
+                'createdby' => $item->createdby,
+                'created_at' => $item->created_at
             ];
         }
 
@@ -413,15 +414,25 @@ class PengaduanController extends AppBaseController
             ->get();
         // Add where conditions based on user's wilayah data
         foreach ($user_wilayah as $key => $value) {
-            $query->orWhere(function ($query) use ($value) {
+            if ($value->role_id == 4 ) {
+                $query->orWhere(function($query) use ($value) {
+                    $query->where('pengaduans.id_kecamatan', $value->kecamatan_id)
+                        ->where('pengaduans.diteruskan', $value->role_id)
+                        ->orWhere('model_has_roles.model_id', $value->role_id)
+                        ->where(function($query) {
+                            $query->where('wilayahs.status_wilayah', 1);
+                        });
+                });
+            }
+            $query->orWhere(function($query) use ($value) {
+             
                 $query->where('pengaduans.id_kelurahan', $value->kelurahan_id)
                     ->where('pengaduans.diteruskan', $value->role_id)
-                    ->orWhere('model_has_roles.model_id', $value->role_id)
-                    ->where(
-                        function ($query) {
-                            $query->where('wilayahs.status_wilayah', 1);
-                        }
-                    );
+                    ->Where('model_has_roles.role_id', $value->role_id)
+                    ->where(function($query) {
+                        $query->where('wilayahs.status_wilayah', 1);
+                    });
+>>>>>>> 00abf2c5060c64be80ae3f3748ff75f3117765f8
             });
         }
         // Add searchable fields

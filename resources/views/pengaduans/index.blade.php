@@ -105,9 +105,18 @@
     <div class="card">
       <div class="card-body">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
-              <li class="nav-item">
-                <a class="nav-link" id="tab1" data-toggle="tab" href="#table1" role="tab" aria-controls="table1" aria-selected="true" >Draft</a>
-              </li>
+          <?php
+              $userid = Auth::user()->id;
+              $usersrole = DB::table('model_has_roles')->where('model_id', $userid)->get();
+          ?>
+          @foreach ($usersrole as $item)
+              @if ($item->role_id == 1)
+                <li class="nav-item">
+                  <a class="nav-link" id="tab1" data-toggle="tab" href="#table1" role="tab" aria-controls="table1" aria-selected="true" >Draft</a>
+                </li>
+              @endif
+          @endforeach
+             
           <li class="nav-item">
             <a class="nav-link" id="tab2" data-toggle="tab" href="#table2" role="tab" aria-controls="table2" aria-selected="false">Diproses</a>
           </li>

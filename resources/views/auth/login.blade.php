@@ -54,7 +54,7 @@
               </span>
             </button>
             <div class="collapse navbar-collapse" id="navigation">
-              <ul class="navbar-nav mx-auto">
+              <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
                   <a class="nav-link d-flex align-items-center me-2 active" aria-current="page" href="../pages/dashboard.html">
                     <i class="fa fa-chart-pie opacity-6 text-dark me-1"></i>
@@ -80,11 +80,7 @@
                   </a>
                 </li>
               </ul>
-              <ul class="navbar-nav d-lg-block d-none">
-                <li class="nav-item">
-                  <a href="https://www.creative-tim.com/product/argon-dashboard" class="btn btn-sm mb-0 me-1 btn-primary">Free Download</a>
-                </li>
-              </ul>
+              
             </div>
           </div>
         </nav>

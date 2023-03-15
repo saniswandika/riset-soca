@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\laporan_tamu;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
@@ -27,7 +28,10 @@ class HomeController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index()
-    {   
+    {
+        $userid = Auth::user()->id;
+        $usersrole = DB::table('model_has_roles')->where('model_id', $userid)->get();
+      
         return view('home');
         // return view('home');
         // return view('home');

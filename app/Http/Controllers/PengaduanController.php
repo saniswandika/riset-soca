@@ -571,7 +571,7 @@ class PengaduanController extends AppBaseController
             'status_data',
             'email'
         ];
-        $query = prelist::where('status_data',1);
+        $query = Prelist::where('status_data', 'prelistdtks');
 
         // menambahkan kondisi pencarian jika ada
         if ($request->has('search')) {
@@ -599,28 +599,28 @@ class PengaduanController extends AppBaseController
         $formattedData = [];
         foreach ($data as $item) {
             $formattedData[] = [
-                'id' => $item->id,
-                'no_pendaftaran' => $item->no_pendaftaran,
+                'id_provinsi' => $item->id_provinsi,
+                'id_kabkot' => $item->id_kabkot,
+                'id_kecamatan' => $item->id_kecamatan,
                 'id_kelurahan' => $item->id_kelurahan,
-                'jenis_pelapor' => $item->jenis_pelapor,
                 'nik' => $item->nik,
                 'no_kk' => $item->no_kk,
+                'no_kis' => $item->no_kis,
                 'nama' => $item->nama,
-                'keluhan_id_program' => $item->keluhan_id_program,
-                'keluhan_detail' => $item->keluhan_detail,
-                'tl_catatan' => $item->tl_catatan,
-                'createdby' => $item->createdby,
-                'created_at' => $item->created_at
+                'tgl_lahir' => $item->tgl_lahir,
+                'alamat' => $item->alamat,
+                'telp' => $item->telp,
+                'email' => $item->email,
             ];
         }
-
-        // mengembalikan data dalam format JSON
+    // mengembalikan data dalam format JSON
         return response()->json([
             'draw' => $request->draw,
             'recordsTotal' => Pengaduan::count(),
             'recordsFiltered' => $data->total(),
             'data' => $formattedData
         ]);
+
     }
     public function prelistPage(Request $request)
     {

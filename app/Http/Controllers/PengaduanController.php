@@ -66,7 +66,7 @@ class PengaduanController extends AppBaseController
             ->get();
         // dd($roleid);
         // dd($wilayah);
-        return view('pengaduans.create', compact('wilayah','roleid'));
+        return view('pengaduans.create', compact('wilayah', 'roleid'));
     }
 
     /**
@@ -112,23 +112,31 @@ class PengaduanController extends AppBaseController
                 return redirect('pengaduans')->withSuccess('Data Berhasil Disimpan');
             } else {
                 //nik ada, dtks tidak
-                $data = new Prelist;
 
-                $data['id_provinsi'] = $request->get('id_provinsi');
-                $data['id_kabkot'] = $request->get('id_kabkot');
-                $data['id_kecamatan'] = $request->get('id_kecamatan');
-                $data['id_kelurahan'] = $request->get('id_kelurahan');
-                $data['nik'] = $request->get('nik');
-                $data['no_kk'] = $request->get('no_kk');
-                $data['no_kis'] = $request->get('no_kis');
-                $data['nama'] = $request->get('nama');
-                $data['tgl_lahir'] = $request->get('tgl_lahir');
-                $data['alamat'] = $request->get('alamat');
-                $data['telp'] = $request->get('telpon');
-                $data['email'] = $request->get('email');
+                //cek apakah sudah ada
+                $cek = Prelist::where('nik', '=', $request->get('nik'))->exists();
+                if ($cek) {
+                    return redirect('pengaduans')->withWarning('NIK Sudah Terdaftar Di Prelist');
+                } else {
+                    $data = new Prelist;
 
-                $data->save();
-                return redirect('pengaduans')->withSuccess('Data Berhasil Disimpan');
+                    $data['id_provinsi'] = $request->get('id_provinsi');
+                    $data['id_kabkot'] = $request->get('id_kabkot');
+                    $data['id_kecamatan'] = $request->get('id_kecamatan');
+                    $data['id_kelurahan'] = $request->get('id_kelurahan');
+                    $data['nik'] = $request->get('nik');
+                    $data['no_kk'] = $request->get('no_kk');
+                    $data['no_kis'] = $request->get('no_kis');
+                    $data['nama'] = $request->get('nama');
+                    $data['tgl_lahir'] = $request->get('tgl_lahir');
+                    $data['alamat'] = $request->get('alamat');
+                    $data['telp'] = $request->get('telpon');
+                    $data['email'] = $request->get('email');
+                    $data['status_data'] = 'prelistdtks';
+
+                    $data->save();
+                    return redirect('pengaduans')->withSuccess('Data Berhasil Disimpan Di Prelist');
+                }
             }
         } else {
             //nik belum ada
@@ -163,8 +171,9 @@ class PengaduanController extends AppBaseController
             $data['updatedby'] = Auth::user()->name;
 
             $data->save();
-            return redirect('pengaduans')->warning('NIK Tidak Tersedia', 'Data Disimpan sebagai draft');
-        };
+            return redirect('pengaduans')->withWarning('NIK Tidak Tersedia Data Disimpan sebagai draft');
+        }
+        ;
         // dd($data); 
     }
 
@@ -213,7 +222,7 @@ class PengaduanController extends AppBaseController
             ->get();
 
         $pengaduan = $this->pengaduanRepository->find($id);
-        return view('pengaduans.edit', compact('wilayah','pengaduan','roleid'));
+        return view('pengaduans.edit', compact('wilayah', 'pengaduan', 'roleid'));
     }
 
     /**
@@ -221,38 +230,76 @@ class PengaduanController extends AppBaseController
      */
     public function update(Request $request, $id)
     {
-        $pengaduan = Pengaduan::find($request->id);
+        $pengaduan = Pengaduan::find($id);
 
-        $pengaduan->id_provinsi = $request->get('id_provinsi');
-        $pengaduan->id_kabkot = $request->get('id_kabkot');
-        $pengaduan->id_kecamatan = $request->get('id_kecamatan');
-        $pengaduan->id_kelurahan = $request->get('id_kelurahan');
-        $pengaduan->jenis_pelapor = $request->get('jenis_pelaporan');
-        $pengaduan->ada_nik = $request->get('memiliki_nik');
-        $pengaduan->nik = $request->get('nik');
-        $pengaduan->no_kk = $request->get('no_kk');
-        $pengaduan->no_kis = $request->get('no_kis');
-        $pengaduan->nama = $request->get('nama');
-        $pengaduan->tgl_lahir = $request->get('tgl_lahir');
-        $pengaduan->tempat_lahir = $request->get('tempat_lahir');
-        $pengaduan->alamat = $request->get('alamat');
-        $pengaduan->telp = $request->get('telpon');
-        $pengaduan->email = $request->get('email');
-        $pengaduan->hubungan_terlapor = $request->get('hubungan_terlapor');
-        $pengaduan->file_penunjang = $request->get('file_penunjang');
-        $pengaduan->keluhan_tipe = $request->get('Progam_pengaduan');
-        $pengaduan->keluhan_id_program = $request->get('Progam_pengaduan');
-        $pengaduan->keluhan_detail = $request->get('detail_pengaduan');
-        $pengaduan->keluhan_foto = $request->get('detail_pengaduan');
-        $pengaduan->tl_catatan = $request->get('detail_pengaduan');
-        $pengaduan->tl_file = $request->get('detail_pengaduan');
-        $pengaduan->no_dtks = $request->get('no_dtks');
-        $pengaduan->createdby = Auth::user()->name;
-        $pengaduan->updatedby = Auth::user()->name;
+        if ($request->get('nik') != null) {
+            if ($request->get('no_dtks') != null) {
+                //no nik dan dtks ada
+                $pengaduan->id_provinsi = $request->get('id_provinsi');
+                $pengaduan->id_kabkot = $request->get('id_kabkot');
+                $pengaduan->id_kecamatan = $request->get('id_kecamatan');
+                $pengaduan->id_kelurahan = $request->get('id_kelurahan');
+                $pengaduan->jenis_pelapor = $request->get('jenis_pelapor');
+                $pengaduan->ada_nik = $request->get('memiliki_nik');
+                $pengaduan->nik = $request->get('nik');
+                $pengaduan->no_kk = $request->get('no_kk');
+                $pengaduan->no_kis = $request->get('no_kis');
+                $pengaduan->nama = $request->get('nama');
+                $pengaduan->tgl_lahir = $request->get('tgl_lahir');
+                $pengaduan->tempat_lahir = $request->get('tempat_lahir');
+                $pengaduan->alamat = $request->get('alamat');
+                $pengaduan->telp = $request->get('telpon');
+                $pengaduan->email = $request->get('email');
+                $pengaduan->hubungan_terlapor = $request->get('hubungan_terlapor');
+                $pengaduan->file_penunjang = $request->get('file_penunjang');
+                $pengaduan->keluhan_tipe = $request->get('Progam_pengaduan');
+                $pengaduan->keluhan_id_program = $request->get('Progam_pengaduan');
+                $pengaduan->keluhan_detail = $request->get('detail_pengaduan');
+                $pengaduan->keluhan_foto = $request->get('detail_pengaduan');
+                $pengaduan->tl_catatan = $request->get('detail_pengaduan');
+                $pengaduan->tl_file = $request->get('detail_pengaduan');
+                $pengaduan->no_dtks = $request->get('no_dtks');
+                $pengaduan->status_data = 'diproses';
+                $pengaduan->createdby = Auth::user()->name;
+                $pengaduan->updatedby = Auth::user()->name;
 
-        $pengaduan->save();
+                $pengaduan->save();
 
-        return redirect('pengaduans')->withSuccess('Data Berhasil Diubah');
+                return redirect('pengaduans')->withSuccess('Data Berhasil Diubah');
+            }
+        } else {
+            $pengaduan->id_provinsi = $request->get('id_provinsi');
+            $pengaduan->id_kabkot = $request->get('id_kabkot');
+            $pengaduan->id_kecamatan = $request->get('id_kecamatan');
+            $pengaduan->id_kelurahan = $request->get('id_kelurahan');
+            $pengaduan->jenis_pelapor = $request->get('jenis_pelaporan');
+            $pengaduan->ada_nik = $request->get('memiliki_nik');
+            $pengaduan->nik = $request->get('nik');
+            $pengaduan->no_kk = $request->get('no_kk');
+            $pengaduan->no_kis = $request->get('no_kis');
+            $pengaduan->nama = $request->get('nama');
+            $pengaduan->tgl_lahir = $request->get('tgl_lahir');
+            $pengaduan->tempat_lahir = $request->get('tempat_lahir');
+            $pengaduan->alamat = $request->get('alamat');
+            $pengaduan->telp = $request->get('telpon');
+            $pengaduan->email = $request->get('email');
+            $pengaduan->hubungan_terlapor = $request->get('hubungan_terlapor');
+            $pengaduan->file_penunjang = $request->get('file_penunjang');
+            $pengaduan->keluhan_tipe = $request->get('Progam_pengaduan');
+            $pengaduan->keluhan_id_program = $request->get('Progam_pengaduan');
+            $pengaduan->keluhan_detail = $request->get('detail_pengaduan');
+            $pengaduan->keluhan_foto = $request->get('detail_pengaduan');
+            $pengaduan->tl_catatan = $request->get('detail_pengaduan');
+            $pengaduan->tl_file = $request->get('detail_pengaduan');
+            $pengaduan->no_dtks = $request->get('no_dtks');
+            $pengaduan->status_data = 'draft';
+            $pengaduan->createdby = Auth::user()->name;
+            $pengaduan->updatedby = Auth::user()->name;
+
+            $pengaduan->save();
+
+            return redirect('pengaduans')->withWarning('Data Berhasil Diubah, NIK Tidak Tersedia Data Disimpan Sebagai Draft');
+        }
     }
 
     /**
@@ -353,33 +400,35 @@ class PengaduanController extends AppBaseController
             ->leftjoin('users', 'users.id', '=', 'pengaduans.diteruskan')
             ->leftjoin('wilayahs', 'wilayahs.createdby', '=', 'pengaduans.diteruskan')
             ->leftjoin('model_has_roles', 'model_has_roles.model_id', '=', 'pengaduans.diteruskan')
-            ->leftjoin('indonesia_villages as b', 'b.code', '=','pengaduans.id_kelurahan')
+            ->leftjoin('indonesia_villages as b', 'b.code', '=', 'pengaduans.id_kelurahan')
             ->select('pengaduans.*', 'b.name_village');
         // Get the authenticated user's ID and wilayah data
         $user_id = Auth::user()->id;
         $user_wilayah = DB::table('wilayahs')
             ->leftJoin('model_has_roles', 'model_has_roles.model_id', '=', 'wilayahs.createdby')
             ->where('createdby', $user_id)
-            ->where(function($query) {
+            ->where(function ($query) {
                 $query->where('status_wilayah', 1);
             })
             ->get();
         // Add where conditions based on user's wilayah data
         foreach ($user_wilayah as $key => $value) {
-            $query->orWhere(function($query) use ($value) {
+            $query->orWhere(function ($query) use ($value) {
                 $query->where('pengaduans.id_kelurahan', $value->kelurahan_id)
                     ->where('pengaduans.diteruskan', $value->role_id)
                     ->orWhere('model_has_roles.model_id', $value->role_id)
-                    ->where(function($query) {
+                    ->where(
+                        function ($query) {
                             $query->where('wilayahs.status_wilayah', 1);
-                        });
+                        }
+                    );
             });
         }
         // Add searchable fields
         if ($request->filled('search')) {
             // dd($query);
             $search = $request->search['value'];
-            $query->where(function($query) use ($search) {
+            $query->where(function ($query) use ($search) {
                 $query->where('pengaduans.nama', 'like', "%$search%");
             });
         }
@@ -389,7 +438,7 @@ class PengaduanController extends AppBaseController
         if ($request->has('order')) {
             $order_column = $request->order[0]['column'];
             $order_direction = $request->order[0]['dir'];
-            $query->orderBy($request->input('columns.'.$order_column.'.data'), $order_direction);
+            $query->orderBy($request->input('columns.' . $order_column . '.data'), $order_direction);
         }
         // Get paginated data
         $data = $query->paginate($request->input('length'));
@@ -648,11 +697,10 @@ class PengaduanController extends AppBaseController
             'tgl_lahir',
             'alamat',
             'telp',
+            'status_data',
             'email'
         ];
-
-        $query = Prelist::all();
-
+        $query = Prelist::where('status_data', 'prelistdtks');
 
         // menambahkan kondisi pencarian jika ada
         if ($request->has('search')) {
@@ -680,9 +728,9 @@ class PengaduanController extends AppBaseController
         $formattedData = [];
         foreach ($data as $item) {
             $formattedData[] = [
-                'id_provinsi'=> $item->id_provinsi,
-                'id_kabkot'=> $item->id_kabkot,
-                'id_kecamatan'=> $item->id_kecamatan,
+                'id_provinsi' => $item->id_provinsi,
+                'id_kabkot' => $item->id_kabkot,
+                'id_kecamatan' => $item->id_kecamatan,
                 'id_kelurahan' => $item->id_kelurahan,
                 'nik' => $item->nik,
                 'no_kk' => $item->no_kk,
@@ -700,7 +748,7 @@ class PengaduanController extends AppBaseController
             'draw' => $request->draw,
             'recordsTotal' => Pengaduan::count(),
             'recordsFiltered' => $data->total(),
-            'data' => $formattedData,
+            'data' => $formattedData
         ]);
     }
 

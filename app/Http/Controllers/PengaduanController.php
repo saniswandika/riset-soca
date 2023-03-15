@@ -414,98 +414,6 @@ class PengaduanController extends AppBaseController
             'recordsFiltered' => $total_filtered_items,
             'data' => $data,
         ]);
-        // dd($total_filtered_items);
-        // dd($userWilayah);
-        // foreach ($userWilayah as $key => $value) {
-        //     $query = DB::table('pengaduans')->select
-        //             ('pengaduans.id',
-        //             'pengaduans.no_pendaftaran',
-        //             'b.name_village',
-        //             'pengaduans.id_kelurahan', 
-        //             'pengaduans.jenis_pelapor',
-        //              'pengaduans.nik',
-        //             'pengaduans.no_kk', 
-        //             'pengaduans.nama', 
-        //             'pengaduans.keluhan_id_program', 
-        //             'pengaduans.keluhan_detail',
-        //             'pengaduans.tl_catatan',
-        //             'pengaduans.created_at',
-        //             'pengaduans.diteruskan')
-        //             ->leftjoin('users', 'users.id', '=', 'pengaduans.diteruskan')
-        //             ->leftjoin('wilayahs', 'wilayahs.createdby', '=', 'pengaduans.diteruskan')
-        //             ->leftjoin('model_has_roles', 'model_has_roles.model_id', '=', 'pengaduans.diteruskan')
-        //             ->leftjoin('indonesia_villages as b', 'b.code', '=','pengaduans.id_kelurahan')
-        //             ->where('pengaduans.id_kelurahan', $value->kelurahan_id)
-        //             ->Where('pengaduans.diteruskan', $value->role_id)
-        //             ->orWhere('model_has_roles.model_id', $value->role_id)
-        //             ->where(function($query) {
-        //                 $query->where('wilayahs.status_wilayah', 1);
-        //             })->get();
-        //     // dd($query);
-        //         // menambahkan kondisi pencarian jika ada
-        //         if ($request->filled('search')) {
-        //             $search = $request->search['value'];
-        //             $query->where(function($query) use ($search) {
-        //                 $query->where('pengaduans.nama', 'like', "%$search%");
-        //             });
-        //         }
-
-        //     // // menambahkan kondisi sortir jika ada
-        //     // if ($request->has('order')) {
-        //     //     $queryorder = DB::table('pengaduans')->select
-        //     //     ('pengaduans.id',
-        //     //     'pengaduans.no_pendaftaran',
-        //     //     'b.name_village',
-        //     //     'pengaduans.id_kelurahan', 
-        //     //     'pengaduans.jenis_pelapor', 'pengaduans.nik',
-        //     //     'pengaduans.no_kk', 'pengaduans.nama', 
-        //     //     'pengaduans.keluhan_id_program', 
-        //     //     'pengaduans.keluhan_detail',
-        //     //     'pengaduans.tl_catatan',
-        //     //     'pengaduans.created_at',
-        //     //     'pengaduans.diteruskan')
-        //     //     ->leftjoin('users', 'users.id', '=', 'pengaduans.diteruskan')
-        //     //     ->leftjoin('indonesia_villages as b', 'b.code', '=','pengaduans.id_kelurahan')
-        //     //     ->leftjoin('wilayahs', 'wilayahs.createdby', '=', 'pengaduans.diteruskan')
-        //     //     ->where('pengaduans.id_kelurahan', $value->kelurahan_id)
-        //     //     ->Where('pengaduans.diteruskan', $value->role_id)
-        //     //     // ->orWhere('model_has_roles.model_id', $value->role_id)
-        //     //     ->orderBy($columns[$request->order[0]['column']], $request->order[0]['dir'])
-        //     //     ->get();
-        //     // }
-        //      // mengambil data sesuai dengan paginasi yang diminta
-        //     $perPage = $request->length ?: config('app.pagination.per_page');
-        //     $currentPage = $request->start ? ($request->start / $perPage) + 1 : 1;
-        //     $data = $query->forPage($currentPage, $perPage);
-        //     $totalItems = $query->count();
-        //     // $formattedData = [];
-        //     // foreach ($data as $item) {
-        //     //     $formattedData[] = [
-        //     //         'id' => $item->id,
-        //     //         'name_village' => $item->name_village,
-        //     //         'no_pendaftaran' => $item->no_pendaftaran,
-        //     //         'id_kelurahan' => $item->id_kelurahan,
-        //     //         'jenis_pelapor' => $item->jenis_pelapor,
-        //     //         'nik' => $item->nik,
-        //     //         'no_kk' => $item->no_kk,
-        //     //         'nama' => $item->nama,
-        //     //         'keluhan_id_program' => $item->keluhan_id_program,
-        //     //         'keluhan_detail' => $item->keluhan_detail,
-        //     //         'tl_catatan' => $item->tl_catatan,
-        //     //         'created_at' => $item->created_at,
-        //     //         'diteruskan' => $item->diteruskan
-        //     //         // 'username' => $item->username,
-        //     //     ];
-        //     //     dd($formattedData);
-
-        //     // }
-        //     return response()->json([
-        //         'draw' => $request->draw,
-        //         'recordsTotal' => $totalItems,
-        //         'recordsFiltered' => $totalItems,
-        //         'data' => $data,
-        //     ]);
-        // }
     }
 
     public function dikembalikan(Request $request)
@@ -660,11 +568,10 @@ class PengaduanController extends AppBaseController
             'tgl_lahir',
             'alamat',
             'telp',
+            'status_data',
             'email'
         ];
-
-        $query = Prelist::all();
-
+        $query = prelist::where('status_data',1);
 
         // menambahkan kondisi pencarian jika ada
         if ($request->has('search')) {
@@ -692,18 +599,18 @@ class PengaduanController extends AppBaseController
         $formattedData = [];
         foreach ($data as $item) {
             $formattedData[] = [
-                'id_provinsi'=> $item->id_provinsi,
-                'id_kabkot'=> $item->id_kabkot,
-                'id_kecamatan'=> $item->id_kecamatan,
+                'id' => $item->id,
+                'no_pendaftaran' => $item->no_pendaftaran,
                 'id_kelurahan' => $item->id_kelurahan,
+                'jenis_pelapor' => $item->jenis_pelapor,
                 'nik' => $item->nik,
                 'no_kk' => $item->no_kk,
-                'no_kis' => $item->no_kis,
                 'nama' => $item->nama,
-                'tgl_lahir' => $item->tgl_lahir,
-                'alamat' => $item->alamat,
-                'telp' => $item->telp,
-                'email' => $item->email,
+                'keluhan_id_program' => $item->keluhan_id_program,
+                'keluhan_detail' => $item->keluhan_detail,
+                'tl_catatan' => $item->tl_catatan,
+                'createdby' => $item->createdby,
+                'created_at' => $item->created_at
             ];
         }
 
@@ -712,10 +619,13 @@ class PengaduanController extends AppBaseController
             'draw' => $request->draw,
             'recordsTotal' => Pengaduan::count(),
             'recordsFiltered' => $data->total(),
-            'data' => $formattedData,
+            'data' => $formattedData
         ]);
     }
-
+    public function prelistPage(Request $request)
+    {
+        return view('prelist.index');
+    }
     public function search(Request $request)
     {
         $query = $request->input('query');

@@ -29,6 +29,12 @@ use Symfony\Component\HttpKernel\Profiler\Profile;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('pengaduans', function () {
+    return view('pengaduans.index');
+});
+Route::get('pengaduans/dashboard', function () {
+    return view('pengaduans.dashboard');
+});
 Route::get('/formulir', [App\Http\Controllers\FormTamuController::class, 'index'])->name('FormTamu.index');
 Route::post('/formulir/store', [App\Http\Controllers\FormTamuController::class, 'store'])->name('FormTamu.store');
 Route::get('/tableTamu', [App\Http\Controllers\FormTamuController::class, 'public'])->name('public');

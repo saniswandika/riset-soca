@@ -190,8 +190,13 @@ class PengaduanController extends AppBaseController
 
             return redirect(route('pengaduans.index'));
         }
+        $roleid = DB::table('roles')
+            ->where('name', 'Back Ofiice kelurahan')
+            // ->where('name', 'supervisor')
+            ->orWhere('name', 'supervisor')
+            ->get();
 
-        return view('pengaduans.show')->with('pengaduan', $pengaduan);
+        return view('pengaduans.show', compact('pengaduan', 'roleid'));
     }
 
     /**
@@ -432,7 +437,6 @@ class PengaduanController extends AppBaseController
                     ->where(function($query) {
                         $query->where('wilayahs.status_wilayah', 1);
                     });
->>>>>>> 00abf2c5060c64be80ae3f3748ff75f3117765f8
             });
         }
         // Add searchable fields

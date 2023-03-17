@@ -553,9 +553,8 @@ class PengaduanController extends AppBaseController
             ->leftjoin('wilayahs', 'wilayahs.createdby', '=', 'pengaduans.tujuan')
             ->leftjoin('model_has_roles', 'model_has_roles.model_id', '=', 'pengaduans.tujuan')
             ->leftjoin('indonesia_villages as b', 'b.code', '=', 'pengaduans.id_kelurahan')
-            ->select('pengaduans.*', 'b.name_village')
-            ->where('pengaduans.status_aksi', 'teruskan')
-            ->orwhere('pengaduans.status_aksi', 'kembalikan');
+            ->select('pengaduans.*', 'b.name_village');
+      
             // ->orwhere('pengaduans.status_aksi', 'kembali');
         // dd($query);
         // Get the authenticated user's ID and wilayah data
@@ -574,8 +573,10 @@ class PengaduanController extends AppBaseController
             if ($value->role_id == 4 ) {
                 $query->orWhere(function($query) use ($value) {
                     $query->where('pengaduans.id_kecamatan', $value->kecamatan_id)
-                        // ->where('pengaduans.tujuan', $value->role_id)
+                        ->where('pengaduans.tujuan', $value->role_id)
                         ->where('pengaduans.createdby', $value->name)
+                        ->where('pengaduans.status_aksi', 'teruskan')
+                        ->orwhere('pengaduans.status_aksi', 'kembalikan')
                         ->orWhere('model_has_roles.model_id', $value->role_id)
                         ->where(function($query) {
                             $query->where('wilayahs.status_wilayah', 1);

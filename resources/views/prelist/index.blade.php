@@ -1,14 +1,10 @@
 @extends('layouts.masterTemplate')
-
-@section('title', 'Menu Layanan')
-
 @section('content')
 
 {{-- <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/css/bootstrap.css"/> --}}
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap5.css"/>
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.bootstrap5.css"/>
 
-<script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/js/C"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
@@ -20,7 +16,7 @@
   <div class="col-12">
     <div class="card mb-4">
       <div class="card-header pb-0">
-        <h6>Table Pengaduan</h6>
+        <h6>Table Prelist DTKS</h6>
       </div>
       {{-- <div class="card-body px-0 pt-0 pb-2">
         <div class="table-responsive p-0">
@@ -120,15 +116,8 @@
                 </li>
               @endif
           @endforeach
-             
           <li class="nav-item">
-            <a class="nav-link" id="tab2" data-toggle="tab" href="#table2" role="tab" aria-controls="table2" aria-selected="false">Diproses</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" id="tab4" data-toggle="tab" href="#table4" role="tab" aria-controls="table4" aria-selected="false">Dikembalikan</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" id="tab3" data-toggle="tab" href="#table3" role="tab" aria-controls="table3" aria-selected="false">Selesai</a>
+            <a class="nav-link" id="tab5" data-toggle="tab" href="#table5" role="tab" aria-controls="table5" aria-selected="false">Prelist DTKS</a>
           </li>
           <li class="nav-item ml-auto" style="margin-left: auto">
             <a href="/pengaduans/create" class="btn btn-primary ml-2">Tambah Data</a>
@@ -230,6 +219,30 @@
                   </tbody>
               </table>
           </div>
+          <div class="tab-pane fade table-responsive" id="table5" role="tabpanel" aria-labelledby="tab4" style="margin-top: 20px;">
+            <table id="prelistDtks" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
+              <thead>
+                <tr>
+                  <th>No Pendaftaran</th>
+                    <th>Tgl Pendaftaran</th>
+                    <th>Layanan</th>
+                    <th>Faskesos</th>
+                    <th>Terlapor</th>
+                    <th>NIK Terlapor</th>
+                    <th>No. KK Terlapor</th>
+                    <th>Sektor Program</th>
+                    <th>Program</th>
+                    <th>Catatan</th>
+                    {{-- <th>Status</th>
+                    <th>Durasi (hari)</th> --}}
+                    <th>Aksi</th>
+                </tr>
+              </thead>
+              <tbody>
+                {{-- di isi di ajax --}}
+              </tbody>
+          </table>
+      </div>
         </div>
       </div>
     </div>
@@ -268,14 +281,14 @@
                     { data: 'nama', name: 'nama' },
                     { data: 'nik', name: 'nik' },
                     { data: 'no_kk', name: 'no_kk' },
-                    { data: 'kepesertaan_program', name: 'kepesertaan_program' },
-                    { data: 'ringkasan_pengaduan', name: 'ringkasan_pengaduan' },
+                    { data: 'keluhan_id_program', name: 'keluhan_id_program' },
+                    { data: 'keluhan_detail', name: 'keluhan_detail' },
                     { data: 'tl_catatan', name: 'tl_catatan' },
                     { data : null, 
                       className: "dt-center editor-delete",
                       orderable: false,
                       "mRender" : function ( data, type, row ) {
-                        return '<td><div class="input-group-append d-flex flex-column justify-content-center"><a href="/pengaduans/'+data.id +'" class="btn btn-success btn-sm"><i class="fas fa-search"></i> View</a><a href="/pengaduans/'+data.id +'/edit" class="btn btn-primary btn-sm"><i class="far fa-edit"></i> Edit</a></div></td>';
+                        return '<div class="input-group-append"><a href="/pengaduans/'+data.id +'/edit" class="btn btn-secondary btn-sm">Edit</a><a href="/pengaduans/'+data.id +'/delete" class="btn btn-danger btn-sm">Delete</a></div>';
                     }
                     }
                 ],
@@ -289,22 +302,22 @@
                   type: 'GET',
                   dataSrc: 'data.data'
               },
-              columns: [
+                columns: [
                     { data: 'no_pendaftaran', name: 'no_pendaftaran' },
                     { data: 'created_at', name: 'created_at' },
                     { data: 'jenis_pelapor', name: 'jenis_pelapor' },
-                    { data: 'id_kelurahan', name: 'id_kelurahan' },
+                    { data: 'name_village', name: 'name_village' },
                     { data: 'nama', name: 'nama' },
                     { data: 'nik', name: 'nik' },
                     { data: 'no_kk', name: 'no_kk' },
-                    { data: 'kepesertaan_program', name: 'kepesertaan_program' },
-                    { data: 'ringkasan_pengaduan', name: 'ringkasan_pengaduan' },
+                    { data: 'keluhan_id_program', name: 'keluhan_id_program' },
+                    { data: 'keluhan_detail', name: 'keluhan_detail' },
                     { data: 'tl_catatan', name: 'tl_catatan' },
                     { data : null, 
                       className: "dt-center editor-delete",
                       orderable: false,
                       "mRender" : function ( data, type, row ) {
-                        return '<td><div class="input-group-append d-flex flex-column justify-content-center"><a href="/pengaduans/'+data.id +'" class="btn btn-success btn-sm"><i class="fas fa-search"></i> View</a><a href="/pengaduans/'+data.id +'/edit" class="btn btn-primary btn-sm"><i class="far fa-edit"></i> Edit</a></div></td>';
+                        return '<td><a href="/pengaduans/'+data.id +'/edit" class="btn btn-secondary btn-sm">Edit</a><a href="/pengaduans/'+data.id +'/delete" class="btn btn-danger btn-sm">Delete</a></td>';
                     }
                     }
                 ],
@@ -326,14 +339,14 @@
                     { data: 'nama', name: 'nama' },
                     { data: 'nik', name: 'nik' },
                     { data: 'no_kk', name: 'no_kk' },
-                    { data: 'kepesertaan_program', name: 'kepesertaan_program' },
-                    { data: 'ringkasan_pengaduan', name: 'ringkasan_pengaduan' },
+                    { data: 'keluhan_id_program', name: 'keluhan_id_program' },
+                    { data: 'keluhan_detail', name: 'keluhan_detail' },
                     { data: 'tl_catatan', name: 'tl_catatan' },
                     { data : null, 
                       className: "dt-center editor-delete",
                       orderable: false,
                       "mRender" : function ( data, type, row ) {
-                        return '<td><div class="input-group-append d-flex flex-column justify-content-center"><a href="/pengaduans/'+data.id +'" class="btn btn-success btn-sm"><i class="fas fa-search"></i> View</a><a href="/pengaduans/'+data.id +'/edit" class="btn btn-primary btn-sm"><i class="far fa-edit"></i> Edit</a></div></td>';
+                        return '<td><a href="/pengaduans/'+data.id +'/edit" class="btn btn-secondary btn-sm">Edit</a><a href="/pengaduans/'+data.id +'/delete" class="btn btn-danger btn-sm">Delete</a></td>';
                     }
                     }
                 ],
@@ -354,14 +367,14 @@
                     { data: 'nama', name: 'nama' },
                     { data: 'nik', name: 'nik' },
                     { data: 'no_kk', name: 'no_kk' },
-                    { data: 'kepesertaan_program', name: 'kepesertaan_program' },
-                    { data: 'ringkasan_pengaduan', name: 'ringkasan_pengaduan' },
+                    { data: 'keluhan_id_program', name: 'keluhan_id_program' },
+                    { data: 'keluhan_detail', name: 'keluhan_detail' },
                     { data: 'tl_catatan', name: 'tl_catatan' },
                     { data : null, 
                       className: "dt-center editor-delete",
                       orderable: false,
                       "mRender" : function ( data, type, row ) {
-                        return '<td><<div class="input-group-append d-flex flex-column justify-content-center"><a href="/pengaduans/'+data.id +'" class="btn btn-success btn-sm"><i class="fas fa-search"></i> View</a><a href="/pengaduans/'+data.id +'/edit" class="btn btn-primary btn-sm"><i class="far fa-edit"></i> Edit</a></div></td>';
+                        return '<td><a href="/pengaduans/'+data.id +'/edit" class="btn btn-secondary btn-sm">Edit</a><a href="/pengaduans/'+data.id +'/delete" class="btn btn-danger btn-sm">Delete</a></td>';
                     }
                     }
                 ],
@@ -375,23 +388,21 @@
               },
                 // ajax: "{{ route('getdata') }}",
                 columns: [
-                    { data: 'id_provinsi', name: 'id_provinsi' },
-                    { data: 'id_kabkot', name: 'id_kabkot' },
-                    { data: 'id_kecamatan', name: 'id_kecamatan' },
+                    { data: 'no_pendaftaran', name: 'no_pendaftaran' },
+                    { data: 'created_at', name: 'created_at' },
+                    { data: 'jenis_pelapor', name: 'jenis_pelapor' },
                     { data: 'id_kelurahan', name: 'id_kelurahan' },
+                    { data: 'nama', name: 'nama' },
                     { data: 'nik', name: 'nik' },
                     { data: 'no_kk', name: 'no_kk' },
-                    { data: 'no_kis', name: 'no_kis' },
-                    { data: 'nama', name: 'nama' },
-                    { data: 'tgl_lahir', name: 'tgl_lahir' },
-                    { data: 'alamat', name: 'alamat' },
-                    { data: 'telp', name: 'telp' },
-                    { data: 'email', name: 'email' },
+                    { data: 'keluhan_id_program', name: 'keluhan_id_program' },
+                    { data: 'keluhan_detail', name: 'keluhan_detail' },
+                    { data: 'tl_catatan', name: 'tl_catatan' },
                     { data : null, 
                       className: "dt-center editor-delete",
                       orderable: false,
                       "mRender" : function ( data, type, row ) {
-                        return '<td><div class="input-group-append d-flex flex-column justify-content-center"><a href="/pengaduans/'+data.id +'" class="btn btn-success btn-sm"><i class="fas fa-search"></i> View</a><a href="/pengaduans/'+data.id +'/edit" class="btn btn-primary btn-sm"><i class="far fa-edit"></i> Edit</a></div></td>';
+                        return '<td><a href="/pengaduans/'+data.id +'/edit" class="btn btn-secondary btn-sm">Edit</a><a href="/pengaduans/'+data.id +'/delete" class="btn btn-danger btn-sm">Delete</a></td>';
                     }
                     }
                 ],

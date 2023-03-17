@@ -38,7 +38,7 @@
                     <label class="col-sm-2 col-form-label">Kelurahan</label>
                     <div class="col-sm-5">
                         <input type="text" readonly class="form-control"  value="{{ $item->name_village }}" name="name_kelurahan">
-                        <input type="hidden" value="{{ $item->kelurahan_id }}" name="id_kelurahan" id="id_kabkot">
+                        <input type="hidden" value="{{ $item->kelurahan_id }}" name="id_kelurahan" id="name_kelurahan">
                     </div>
                 </div>
                 <br>
@@ -93,21 +93,6 @@
                 <label class="col-sm-2 col-form-label">NIK</label>
                 <div class="col-sm-5">
                     <input type="number" id="id-input-nik" class="form-control" name="nik">
-                    <small id="nikhelper" class="form-text text-muted">
-                        Harus angka, 16 digit
-                    </small>
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-sm-2 col-form-label"></label>
-                <div class="col-sm-5">
-                    <div class="row">
-                        <div class="col">
-                            <div class="form-check form-check-inline">
-                                <button  class="btn btn-info" id="btn-check-id">Cek Data</button>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
             <div class="form-group row">
@@ -123,6 +108,16 @@
                         </div> --}}
                         <input type="text" id="name-input" class="form-control" aria-label="Text input with checkbox" id="nodtks" name="no_dtks" readonly>
                       </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-5">
+                    <div class="row">
+                        <div class="col">
+                                <button  class="btn btn-info" id="btn-check-id">Cek Data</button>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="form-group row">
@@ -204,12 +199,12 @@
             
             {{-- kepesertaan --}}
             <div form-group row>
-                <h4><b>PENCATATAN KEPESERTAAN</b></h4>
+                <h4><b>CATATAN KEPESERTAAN</b></h4>
             </div>
             <div class="form-group row">
-                <label class="col-sm-2 col-form-label">Kepesertaan Program</label>
+                <label class="col-sm-2 col-form-label">Program</label>
                 <div class="col-sm-5">
-                    <input type="text" class="form-control"  name="kepesertaan_program">
+                    <input type="text" class="form-control"  name="id_program_sosial">
                 </div>
             </div>
             <div class="form-group row">
@@ -237,14 +232,12 @@
                 <h4><b>PENGADUAN PROGRAM</b></h4>
             </div>
             <div class="form-group row">
-                <label class="col-sm-2 col-form-label">Program</label>
+                <label class="col-sm-2 col-form-label">Kepesertaan Program</label>
                 <div class="col-sm-5">
-                    <select class="form-control form-control-lg" name="level_program">
-                        <option selected>Pilih...</option>
-                        <option>Large select</option>
-                      </select>
+                    <input type="text" class="form-control"  name="kepesertaan_program">
                 </div>
             </div>
+           
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Kategori Pengaduan <span class="text-danger">*</label>
                 <div class="col-sm-5">
@@ -268,9 +261,18 @@
                 </div>
             </div>
             <div class="form-group row">
+                <label class="col-sm-2 col-form-label">level program</label>
+                <div class="col-sm-5">
+                    <select class="form-control form-control-lg" name="level_program">
+                        <option selected>Pilih...</option>
+                        <option>Large select</option>
+                      </select>
+                </div>
+            </div>
+            <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Level Program</label>
                 <div class="col-sm-5">
-                    <select class="form-control form-control-lg" name="keluhan_tipe">
+                    <select class="form-control form-control-lg" name="level_program">
                         <option selected>Pilih...</option>
                         <option>Large select</option>
                       </select>
@@ -285,7 +287,7 @@
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Sektor Program</label>
                 <div class="col-sm-5">
-                    <select class="form-control form-control-lg" name="keluhan_id_program">
+                    <select class="form-control form-control-lg" name="sektor_program">
                         <option selected>Pilih...</option>
                         <option value="2">Large select</option>
                       </select>
@@ -294,13 +296,13 @@
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">No Kartu Program</label>
                 <div class="col-sm-5">
-                    <input type="text" class="form-control"  name="no_kartu_progam">
+                    <input type="text" class="form-control"  name="no_kartu_program">
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Ringkasan Pengaduan <span class="text-danger">*</label>
                 <div class="col-sm-5">
-                    <input type="text" class="form-control"  name="keluhan_detail" required>
+                    <input type="text" class="form-control"  name="ringkasan_pengaduan" required>
                 </div>
             </div>
             <div class="form-group row">
@@ -316,31 +318,41 @@
                 </div>
             </div>
             <div class="form-group row">
-                <label class="col-sm-2 col-form-label">Teruskan Ke <span class="text-danger">*</label>
-                 
+                <label class="col-sm-2 col-form-label">Status Aksi</label>
+                <div class="col-sm-5">
+                    <select class="form-control form-control-lg" name="status_aksi">
+                        <option selected>Pilih...</option>
+                        @foreach ($alur as $a )
+                            <option value="{{ $a->name }}">{{ $a->name }}</option>
+                            {{-- <option value="{{ $a->id_alur }}">{{ $a->name }}</option> --}}
+                        @endforeach
+                        
+                      </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Teruskan Ke <span class="text-danger">*</label>  
                     <div class="col-sm-5">
-                        <div class="row">
-                            @foreach ($roleid as $r)
-                            <div class="col">
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" id="inlineCheckbox1" value="{{ $r->id }}"
-                                        name="diteruskan" >
-                                    <label class="form-check-label" for="inlineCheckbox1">{{ $r->name }}</label>
-                                
-                                
-                                </div>
-                            </div>
-                            @endforeach
-                            {{-- <div class="col">
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" id="inlineCheckbox2" value="Supervisor"
-                                        name="diteruskan" required>
-                                    <label class="form-check-label" for="inlineCheckbox2">Supervisor</label>
-                                </div>
-                            </div> --}}
-                        </div>
+                        <select class="form-control form-control-lg" name="tujuan">
+                                <option selected>Pilih...</option>
+                                @foreach ($checkroles as $item)
+                                {{-- {{ $item->name }} --}}
+                                    @if($item->name == 'Front Office kota')
+                                        @foreach ($rolebackoffice as $backoffice )
+                                        
+                                        <option value='{{ $backoffice->name }}'>{{ $backoffice->name }}</option>
+                                        {{-- <option value="Teruskan">Large select</option> --}}
+                                        @endforeach
+                                    @else
+                                        @foreach ($roleid as $idrole )
+                                    
+                                        <option value={{ $idrole->name }}>{{ $idrole->name }}</option>
+                                        {{-- <option value="Teruskan">Large select</option> --}}
+                                        @endforeach
+                                    @endif
+                                @endforeach
+                        </select>
                     </div>
-               
             </div>
                     {{-- @include('pengaduans.fields') --}}
             <div class="card-footer">

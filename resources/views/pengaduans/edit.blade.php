@@ -67,18 +67,15 @@
                         <div class="row">
                             <div class="col">
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" id="inlineCheckbox1" value="Diri Sendiri"
-                                        name="jenis_pelapor"
-                                        {{ $pengaduan->jenis_pelapor == 'Diri Sendiri' ? 'checked' : '' }} required>
+                                    <input type="radio"  class="form-check-input"  id="option1" name="status" value="1"  {{ ($pengaduan->jenis_pelapor=="1")? "checked" : "" }} >
                                     <label class="form-check-label" for="inlineCheckbox1">Diri Sendiri</label>
                                 </div>
                             </div>
                             <div class="col">
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" id="inlineCheckbox2" value="Orang Lain"
-                                        name="jenis_pelapor"
-                                        {{ $pengaduan->jenis_pelapor == 'Orang Lain' ? 'checked' : '' }} required>
+                                    <input type="radio"  class="form-check-input"  id="option1" name="status" value="0"  {{ ($pengaduan->jenis_pelapor=="0")? "checked" : "" }} >
                                     <label class="form-check-label" for="inlineCheckbox2">Orang Lain</label>
+
                                 </div>
                             </div>
                         </div>
@@ -229,13 +226,13 @@
 
                 {{-- kepesertaan --}}
                 <div form-group row>
-                    <h4><b>PENCATATAN KEPESERTAAN</b></h4>
+                    <h4><b>Catatan Kepesertaan</b></h4>
                 </div>
                 <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">Kepesertaan Program</label>
+                    <label class="col-sm-2 col-form-label">Program</label>
                     <div class="col-sm-5">
-                        <input type="text" class="form-control" value="{{ $pengaduan->kepesertaan_program }}"
-                            name="kepesertaan_program">
+                        <input type="text" class="form-control" value="{{ $pengaduan->id_program_sosial }}"
+                            name="id_program_sosial">
                     </div>
                 </div>
                 <div class="form-group row">
@@ -264,33 +261,21 @@
                     <h4><b>PENGADUAN PROGRAM</b></h4>
                 </div>
                 <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">Program</label>
-                    <div class="col-sm-5">
-                        <select class="form-control form-control-lg" name="keluhan_tipe">
-                            <option selected>Pilih...</option>
-                            <option {{ $pengaduan->keluhan_tipe == 'Large select' ? 'selected' : '' }}>Large select
-                            </option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Kategori Pengaduan <span class="text-danger">*</label>
                     <div class="col-sm-5">
                         <div class="row">
                             <div class="col">
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio"
-                                        value="{{ $pengaduan->kategori_pengaduan }}" id="inlineCheckbox1"
-                                        value="Kepesertaan Program" name="kategori_pengaduan">
-                                    <label class="form-check-label" for="inlineCheckbox1">Kepesertaan Program</label>
+                                    <input class="form-check-input" type="radio" id="inlineCheckbox2" value="1"
+                                        name="jenis_pelapor" {{ $pengaduan->kategori_pengaduan == '1' ? 'checked' : '' }} required>
+                                    <label class="form-check-label" for="inlineCheckbox2">kepesertaan program</label>
                                 </div>
                             </div>
                             <div class="col">
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio"
-                                        value="{{ $pengaduan->kategori_pengaduan }}" id="inlineCheckbox2"
-                                        value="Kebutuhan Program" name="kategori_pengaduan">
-                                    <label class="form-check-label" for="inlineCheckbox2">Kebutuhan Program</label>
+                                    <input class="form-check-input" type="radio" id="inlineCheckbox2" value="{{ $pengaduan->kategori_pengaduan }}"
+                                        name="jenis_pelapor" {{ $pengaduan->kategori_pengaduan == '2' ? 'checked' : '' }} required>
+                                    <label class="form-check-label" for="inlineCheckbox2">Kebutuhan program</label>
                                 </div>
                             </div>
                         </div>
@@ -298,13 +283,20 @@
                     </div>
                 </div>
                 <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Kepesertaan Program</label>
+                    <div class="col-sm-5">
+                        <input type="text" class="form-control"  name="kepesertaan_program" value="{{ $pengaduan->kepesertaan_program }}">
+                    </div>
+                </div>
+                
+                <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Level Program</label>
                     <div class="col-sm-5">
-                        <select class="form-control form-control-lg" value="{{ $pengaduan->Level_Program }}"
-                            name="Level_Program">
+                        <select class="form-control form-control-lg" value="{{ $pengaduan->level_program }}"
+                            name="level_program">
                             <option selected>Pilih...</option>
-                            <option {{ $pengaduan->keluhan_id_program == '1' ? 'selected' : '' }}>1</option>
-                            <option {{ $pengaduan->keluhan_id_program == '2' ? 'selected' : '' }}>2</option>
+                            <option selected value="{{ $pengaduan->level_program }}">{{ $pengaduan->level_program }}.</option>
+
                         </select>
                         {{-- <select class="custom-select" id="inputGroupSelect01" name="level_program">
                         <option selected>Pilih...</option>
@@ -314,28 +306,28 @@
                       </select> --}}
                     </div>
                 </div>
+               
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Sektor Program</label>
                     <div class="col-sm-5">
-                        <select class="form-control form-control-lg" name="keluhan_id_program">
-                            <option selected>Pilih...</option>
-                            <option {{ $pengaduan->keluhan_id_program == '1' ? 'selected' : '' }}>1</option>
-                            <option {{ $pengaduan->keluhan_id_program == '2' ? 'selected' : '' }}>2</option>
+                        <select class="form-control form-control-lg" name="sektor_program">
+                            <option selected value="{{ $pengaduan->sektor_program }}">Pilih...</option>
+                            <option></option>
                         </select>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">No Kartu Program</label>
                     <div class="col-sm-5">
-                        <input type="text" class="form-control" value="{{ $pengaduan->no_kartu_progam }}"
-                            name="no_kartu_progam">
+                        <input type="text" class="form-control" value="{{ $pengaduan->no_kartu_program }}"
+                            name="no_kartu_program">
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Ringkasan Pengaduan <span class="text-danger">*</label>
                     <div class="col-sm-5">
-                        <input type="text" class="form-control" value="{{ $pengaduan->keluhan_detail }}"
-                            name="keluhan_detail" required>
+                        <input type="text" class="form-control" value="{{ $pengaduan->ringkasan_pengaduan }}"
+                            name="ringkasan_pengaduan" required>
                     </div>
                 </div>
                 <div class="form-group row">
@@ -347,36 +339,45 @@
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">File Penunjang</label>
                     <div class="col-sm-5">
-                        <input type="file" name="file_penunjang">
+                        <input type="file" name="file_penunjang" >
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">Teruskan Ke <span class="text-danger">*</label>
-
+                    <label class="col-sm-2 col-form-label">Status Aksi</label>
                     <div class="col-sm-5">
-                        <div class="row">
-                            @foreach ($roleid as $r)
-                                <div class="col">
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" id="inlineCheckbox1"
-                                            value="{{ $r->id }}" name="diteruskan"
-                                            {{ $pengaduan->diteruskan == "$r->id" ? 'checked' : '' }}>
-                                        <label class="form-check-label" for="inlineCheckbox1">{{ $r->name }}</label>
-
-
-                                    </div>
-                                </div>
+                        <select class="form-control form-control-lg" name="status_aksi">
+                            <option selected value="{{ $pengaduan->status_aksi }}">{{ $pengaduan->status_aksi }}</option>
+                            @foreach ($alur as $a )
+                                <option value="{{ $a->id_alur }}">{{ $a->name }}</option>
+                                {{-- <option value="{{ $a->id_alur }}">{{ $a->name }}</option> --}}
                             @endforeach
-                            {{-- <div class="col">
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" id="inlineCheckbox2" value="Supervisor"
-                                        name="diteruskan" required>
-                                    <label class="form-check-label" for="inlineCheckbox2">Supervisor</label>
-                                </div>
-                            </div> --}}
-                        </div>
+                            
+                          </select>
                     </div>
-
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Teruskan Ke <span class="text-danger">*</label>  
+                        <div class="col-sm-5">
+                            <select class="form-control form-control-lg" name="tujuan">
+                                    <option selected value="{{ $pengaduan->tujuan }}">{{ $pengaduan->tujuan }}</option>
+                                    @foreach ($checkroles as $item)
+                                    {{-- {{ $item->name }} --}}
+                                        @if($item->name == 'Front Office kota')
+                                            @foreach ($rolebackoffice as $backoffice )
+                                            
+                                            <option value='{{ $backoffice->id }}'>{{ $backoffice->name }}</option>
+                                            {{-- <option value="Teruskan">Large select</option> --}}
+                                            @endforeach
+                                        @else
+                                            @foreach ($roleid as $idrole )
+                                        
+                                            <option value={{ $idrole->id }}>{{ $idrole->name }}</option>
+                                            {{-- <option value="Teruskan">Large select</option> --}}
+                                            @endforeach
+                                        @endif
+                                    @endforeach
+                            </select>
+                        </div>
                 </div>
             </div>
             {{-- @include('pengaduans.fields') --}}

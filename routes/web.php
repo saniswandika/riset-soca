@@ -89,6 +89,7 @@ Route::get('diproses', [PengaduanController::class, 'diproses'])->name('diproses
 Route::get('dikembalikan', [PengaduanController::class, 'dikembalikan'])->name('dikembalikan');
 Route::get('/selesai', [PengaduanController::class, 'selesai'])->name('selesai');
 Route::get('/prelistDTKS', [PengaduanController::class, 'prelistDTKS'])->name('prelist_DTKS');
+Route::get('/prelistPage', [PengaduanController::class, 'prelistPage'])->name('prelistPage');
 // Route::get('/pengaduans/create', [PengaduanController::class, 'create'])->name('pengaduans.create');
 Route::get('/pengaduans/search', [PengaduanController::class, 'search'])->name('pengaduans.search');
 Route::get('/pengaduans/{pengaduan}/delete', [PengaduanController::class, 'destroy'])->name('pengaduans.delet2');

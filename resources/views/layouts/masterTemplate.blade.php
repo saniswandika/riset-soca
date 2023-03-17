@@ -49,14 +49,31 @@
         </li>
         <hr class="horizontal dark mt-0">
         <li class="nav-item">
-            <a class="nav-link {{ request()->is('pengaduans') ? 'active' : '' }}" href="/pengaduans">
-              <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+          <a class="nav-link " href="#collapseExample2" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="collapseExample">
+            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="ni ni-credit-card text-success text-sm opacity-10"></i>
+              </div>
+              <span class="nav-link-text ms-1 text-wrap">Pengaduan</span>
+          </a>
+        </li>
+        <div class="collapse {{ request()->is('pengaduans') || request()->is('pengaduans/dashboard') ? 'show' : '' }} sm-2" id="collapseExample2">
+          <li class="nav-item">
+            <a class="nav-link {{ request()->is('pengaduans/dashboard') ? 'active' : '' }}" href="/pengaduans/dashboard">
+              <div class="icon icon-shape icon-sm border-radius-md text-center me-4 d-flex align-items-center justify-content-center">
                 <i class="ni ni-credit-card text-success text-sm opacity-10"></i>
               </div>
-              <span class="nav-link-text ms-1 text-wrap">Pengaduan & Rujukan</span>
+              <span class="nav-link-text text-wrap">Dashboard</span>
             </a>
           </li>
-
+          <li class="nav-item">
+            <a class="nav-link {{ request()->is('pengaduans') ? 'active' : '' }}" href="/pengaduans">
+              <div class="icon icon-shape icon-sm border-radius-md text-center me-4 d-flex align-items-center justify-content-center">
+                <i class="ni ni-credit-card text-success text-sm opacity-10"></i>
+              </div>
+              <span class="nav-link-text text-wrap">Layanan</span>
+            </a>
+          </li>
+        </div>
         <li class="nav-item">
           <a class="nav-link " href="#collapseExample" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="collapseExample">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">

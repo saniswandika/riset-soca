@@ -126,9 +126,6 @@
           <li class="nav-item">
             <a class="nav-link" id="tab3" data-toggle="tab" href="#table3" role="tab" aria-controls="table3" aria-selected="false">Selesai</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" id="tab5" data-toggle="tab" href="#table5" role="tab" aria-controls="table5" aria-selected="false">Prelist DTKS</a>
-          </li>
           <li class="nav-item ml-auto" style="margin-left: auto">
             <a href="/pengaduans/create" class="btn btn-primary ml-2">Tambah Data</a>
           </li>
@@ -229,32 +226,6 @@
                   </tbody>
               </table>
           </div>
-          <div class="tab-pane fade table-responsive" id="table5" role="tabpanel" aria-labelledby="tab4" style="margin-top: 20px;">
-            <table id="prelistDtks" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
-              <thead>
-                <tr>
-                    <th>ID Provinsi</th>
-                    <th>ID Kabupaten/Kota</th>
-                    <th>ID Kecamatan</th>
-                    <th>ID Kelurahan</th>
-                    <th>NIK</th>
-                    <th>No. KK</th>
-                    <th>No. KIS</th>
-                    <th>Nama</th>
-                    <th>Tanggal Lahir</th>
-                    <th>Alamat</th>
-                    <th>Telp</th>
-                    <th>Email</th>
-                    {{-- <th>Status</th>
-                    <th>Durasi (hari)</th> --}}
-                    <th>Aksi</th>
-                </tr>
-              </thead>
-              <tbody>
-                {{-- di isi di ajax --}}
-              </tbody>
-          </table>
-      </div>
         </div>
       </div>
     </div>
@@ -368,34 +339,6 @@
               serverSide: true,
               ajax: {
                   url: '/selesai',
-                  type: 'GET'
-              },
-                // ajax: "{{ route('getdata') }}",
-                columns: [
-                    { data: 'no_pendaftaran', name: 'no_pendaftaran' },
-                    { data: 'created_at', name: 'created_at' },
-                    { data: 'jenis_pelapor', name: 'jenis_pelapor' },
-                    { data: 'id_kelurahan', name: 'id_kelurahan' },
-                    { data: 'nama', name: 'nama' },
-                    { data: 'nik', name: 'nik' },
-                    { data: 'no_kk', name: 'no_kk' },
-                    { data: 'kepesertaan_program', name: 'kepesertaan_program' },
-                    { data: 'ringkasan_pengaduan', name: 'ringkasan_pengaduan' },
-                    { data: 'tl_catatan', name: 'tl_catatan' },
-                    { data : null, 
-                      className: "dt-center editor-delete",
-                      orderable: false,
-                      "mRender" : function ( data, type, row ) {
-                        return '<div class="input-group-append"><a href="/pengaduans/'+data.id +'/edit" class="btn btn-secondary btn-sm">Edit</a><a href="/pengaduans/'+data.id +'/delete" class="btn btn-danger btn-sm">Delete</a></div>';
-                    }
-                    }
-                ],
-            });
-            $('#prelistDtks').DataTable({
-              processing: true,
-              serverSide: true,
-              ajax: {
-                  url: 'prelistDTKS',
                   type: 'GET'
               },
                 // ajax: "{{ route('getdata') }}",

@@ -26,6 +26,8 @@ class Pengaduan extends Model
         'telp',
         'email',
         'hubungan_terlapor',
+        'no_peserta',
+        'id_program_sosial',
         'file_penunjang',
         'kepesertaan_program',
         'kategori_pengaduan',

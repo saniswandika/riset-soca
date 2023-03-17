@@ -112,8 +112,9 @@ class PengaduanController extends AppBaseController
                 $data['telp'] = $request->get('telpon');
                 $data['email'] = $request->get('email');
                 $data['hubungan_terlapor'] = $request->get('hubungan_terlapor');
+                $data['id_program_sosial'] = $request->get('id_program_sosial');
                 $data['kepesertaan_program'] = $request->get('kepesertaan_program');
-                $data['kategori_pengaduan'] = $request->get('kategori_pengaduan');
+                $data['no_peserta'] = $request->get('no_peserta');
                 $data['level_program'] = $request->get('level_program');
                 $data['sektor_program'] = $request->get('sektor_program');
                 $data['no_kartu_program'] = $request->get('no_kartu_program');
@@ -171,12 +172,14 @@ class PengaduanController extends AppBaseController
             $data['no_kis'] = $request->get('no_kis');
             $data['nama'] = $request->get('nama');
             $data['tgl_lahir'] = $request->get('tgl_lahir');
+            $data['tempat_lahir'] = $request->get('tempat_lahir');
             $data['alamat'] = $request->get('alamat');
             $data['telp'] = $request->get('telpon');
             $data['email'] = $request->get('email');
             $data['hubungan_terlapor'] = $request->get('hubungan_terlapor');
+            $data['id_program_sosial'] = $request->get('id_program_sosial');
             $data['kepesertaan_program'] = $request->get('kepesertaan_program');
-            $data['kategori_pengaduan'] = $request->get('kategori_pengaduan');
+            $data['no_peserta'] = $request->get('no_peserta');
             $data['level_program'] = $request->get('level_program');
             $data['sektor_program'] = $request->get('sektor_program');
             $data['no_kartu_program'] = $request->get('no_kartu_program');
@@ -242,9 +245,24 @@ class PengaduanController extends AppBaseController
             // ->where('name', 'supervisor')
             ->orWhere('name', 'supervisor')
             ->get();
+        $pengaduans = Pengaduan::where('createdby',$userid)->get();
+        $getdata = DB::table('model_has_roles')
+            ->leftjoin('pengaduans as b', 'b.tujuan', '=', 'model_has_roles.role_id')
+            ->where('b.id', $id)
+            ->get();
+        $alur = DB::table('alur')
+            ->where('name', 'Draft')
+            // ->where('name', 'supervisor')
+            ->orWhere('name', 'Teruskan')
+            ->get();
+        $checkroles = DB::table('model_has_roles')
+            ->leftjoin('roles', 'roles.id', '=', 'model_has_roles.role_id')
+            ->where('model_id','=', $userid)
+            ->get();
+        // dd($getdata);
 
         $pengaduan = $this->pengaduanRepository->find($id);
-        return view('pengaduans.edit', compact('wilayah', 'pengaduan', 'roleid'));
+        return view('pengaduans.edit', compact('wilayah', 'pengaduan', 'roleid','getdata','alur','checkroles'));
     }
 
     /**
@@ -257,101 +275,104 @@ class PengaduanController extends AppBaseController
             if ($request->get('no_dtks') != null) {
                 
                 // dd($pengaduan);
-                $data['id_alur'] = $request->get('id_alur');
-                $data['no_pendaftaran'] = mt_rand(100, 1000);
-                $data['id_provinsi'] = $request->get('id_provinsi');
-                $data['id_kabkot'] = $request->get('id_kabkot');
-                $data['id_kecamatan'] = $request->get('id_kecamatan');
-                $data['id_kelurahan'] = $request->get('id_kelurahan');
-                $data['jenis_pelapor'] = $request->get('jenis_pelapor');
-                $data['ada_nik'] = $request->get('memiliki_nik');
-                $data['nik'] = $request->get('nik');
-                $data['no_kk'] = $request->get('no_kk');
-                $data['no_kis'] = $request->get('no_kis');
-                $data['nama'] = $request->get('nama');
-                $data['tgl_lahir'] = $request->get('tgl_lahir');
-                $data['tempat_lahir'] = $request->get('tempat_lahir');
-                $data['alamat'] = $request->get('alamat');
-                $data['telp'] = $request->get('telpon');
-                $data['email'] = $request->get('email');
-                $data['hubungan_terlapor'] = $request->get('hubungan_terlapor');
-                $data['kepesertaan_program'] = $request->get('kepesertaan_program');
-                $data['kategori_pengaduan'] = $request->get('kategori_pengaduan');
-                $data['level_program'] = $request->get('level_program');
-                $data['sektor_program'] = $request->get('sektor_program');
-                $data['no_kartu_program'] = $request->get('no_kartu_program');
-                $data['ringkasan_pengaduan']  = $request->get('ringkasan_pengaduan');
-                $data['detail_pengaduan']  = $request->get('detail_pengaduan');
-                // $data['tl_file']  = $request->get('detail_pengaduan');
-                $data['no_dtks'] = $request->get('no_dtks');
-                $data['tujuan'] = $request->get('tujuan');
-                $data['status_aksi'] = $request->get('status_aksi'); 
-                $data['createdby'] = Auth::user()->name;
-                $data['updatedby'] = Auth::user()->name;
-                Pengaduan::where('id',$id)->update($data);
+                $pengaduan['id_alur'] = $request->get('id_alur');
+                $pengaduan['no_pendaftaran'] = mt_rand(100, 1000);
+                $pengaduan['id_provinsi'] = $request->get('id_provinsi');
+                $pengaduan['id_kabkot'] = $request->get('id_kabkot');
+                $pengaduan['id_kecamatan'] = $request->get('id_kecamatan');
+                $pengaduan['id_kelurahan'] = $request->get('id_kelurahan');
+                $pengaduan['jenis_pelapor'] = $request->get('jenis_pelapor');
+                $pengaduan['ada_nik'] = $request->get('memiliki_nik');
+                $pengaduan['nik'] = $request->get('nik');
+                $pengaduan['no_kk'] = $request->get('no_kk');
+                $pengaduan['no_kis'] = $request->get('no_kis');
+                $pengaduan['nama'] = $request->get('nama');
+                $pengaduan['tgl_lahir'] = $request->get('tgl_lahir');
+                $pengaduan['tempat_lahir'] = $request->get('tempat_lahir');
+                $pengaduan['alamat'] = $request->get('alamat');
+                $pengaduan['telp'] = $request->get('telpon');
+                $pengaduan['email'] = $request->get('email');
+                $pengaduan['hubungan_terlapor'] = $request->get('hubungan_terlapor');
+                $pengaduan['id_program_sosial'] = $request->get('id_program_sosial');
+                $pengaduan['kepesertaan_program'] = $request->get('kepesertaan_program');
+                $pengaduan['no_peserta'] = $request->get('no_peserta');
+                $pengaduan['level_program'] = $request->get('level_program');
+                $pengaduan['sektor_program'] = $request->get('sektor_program');
+                $pengaduan['no_kartu_program'] = $request->get('no_kartu_program');
+                $pengaduan['ringkasan_pengaduan']  = $request->get('ringkasan_pengaduan');
+                $pengaduan['detail_pengaduan']  = $request->get('detail_pengaduan');
+                // $pengaduan['tl_file']  = $request->get('detail_pengaduan');
+                $pengaduan['no_dtks'] = $request->get('no_dtks');
+                $pengaduan['tujuan'] = $request->get('tujuan');
+                $pengaduan['status_aksi'] = $request->get('status_aksi'); 
+                $pengaduan['createdby'] = Auth::user()->name;
+                $pengaduan['updatedby'] = Auth::user()->name;
+                dd($pengaduan);
+                Pengaduan::where('id',$id)->update($pengaduan);
 
-                return redirect('pengaduans')->withSuccess('Data Berhasil Diubah');
+                return redirect('pengaduans')->withSuccess('pengaduan Berhasil Diubah');
             } else {
                 $cek = Prelist::where('nik', '=', $request->get('nik'))->exists();
                 if ($cek) {
                     return redirect('pengaduans')->withWarning('NIK Sudah Terdaftar Di Prelist');
                 } else {
 
-                    $data['id_provinsi'] = $request->get('id_provinsi');
-                    $data['id_kabkot'] = $request->get('id_kabkot');
-                    $data['id_kecamatan'] = $request->get('id_kecamatan');
-                    $data['id_kelurahan'] = $request->get('id_kelurahan');
-                    $data['nik'] = $request->get('nik');
-                    $data['no_kk'] = $request->get('no_kk');
-                    $data['no_kis'] = $request->get('no_kis');
-                    $data['nama'] = $request->get('nama');
-                    $data['tgl_lahir'] = $request->get('tgl_lahir');
-                    $data['alamat'] = $request->get('alamat');
-                    $data['telp'] = $request->get('telpon');
-                    $data['email'] = $request->get('email');
-                    $data['status_data'] = 'prelistdtks';
+                    $pengaduan['id_provinsi'] = $request->get('id_provinsi');
+                    $pengaduan['id_kabkot'] = $request->get('id_kabkot');
+                    $pengaduan['id_kecamatan'] = $request->get('id_kecamatan');
+                    $pengaduan['id_kelurahan'] = $request->get('id_kelurahan');
+                    $pengaduan['nik'] = $request->get('nik');
+                    $pengaduan['no_kk'] = $request->get('no_kk');
+                    $pengaduan['no_kis'] = $request->get('no_kis');
+                    $pengaduan['nama'] = $request->get('nama');
+                    $pengaduan['tgl_lahir'] = $request->get('tgl_lahir');
+                    $pengaduan['alamat'] = $request->get('alamat');
+                    $pengaduan['telp'] = $request->get('telpon');
+                    $pengaduan['email'] = $request->get('email');
+                    $pengaduan['status_pengaduan'] = 'prelistdtks';
 
-                    Prelist::where('id',$id)->update($data);
-                    return redirect('pengaduans')->withSuccess('Data Berhasil Disimpan Di Prelist');
+                    Prelist::where('id',$id)->update($pengaduan);
+                    return redirect('pengaduans')->withSuccess('pengaduan Berhasil Disimpan Di Prelist');
                 }
             }
         } else {
            
                 // dd($pengaduan);
-                $data['id_alur'] = $request->get('id_alur');
-                $data['no_pendaftaran'] = mt_rand(100, 1000);
-                $data['id_provinsi'] = $request->get('id_provinsi');
-                $data['id_kabkot'] = $request->get('id_kabkot');
-                $data['id_kecamatan'] = $request->get('id_kecamatan');
-                $data['id_kelurahan'] = $request->get('id_kelurahan');
-                $data['jenis_pelapor'] = $request->get('jenis_pelapor');
-                $data['ada_nik'] = $request->get('memiliki_nik');
-                $data['nik'] = $request->get('nik');
-                $data['no_kk'] = $request->get('no_kk');
-                $data['no_kis'] = $request->get('no_kis');
-                $data['nama'] = $request->get('nama');
-                $data['tgl_lahir'] = $request->get('tgl_lahir');
-                $data['tempat_lahir'] = $request->get('tempat_lahir');
-                $data['alamat'] = $request->get('alamat');
-                $data['telp'] = $request->get('telpon');
-                $data['email'] = $request->get('email');
-                $data['hubungan_terlapor'] = $request->get('hubungan_terlapor');
-                $data['kepesertaan_program'] = $request->get('kepesertaan_program');
-                $data['kategori_pengaduan'] = $request->get('kategori_pengaduan');
-                $data['level_program'] = $request->get('level_program');
-                $data['sektor_program'] = $request->get('sektor_program');
-                $data['no_kartu_program'] = $request->get('no_kartu_program');
-                $data['ringkasan_pengaduan']  = $request->get('ringkasan_pengaduan');
-                $data['detail_pengaduan']  = $request->get('detail_pengaduan');
-                // $data['tl_file']  = $request->get('detail_pengaduan');
-                $data['no_dtks'] = $request->get('no_dtks');
-                $data['tujuan'] = $request->get('tujuan');
-                $data['status_aksi'] = $request->get('status_aksi'); 
-                $data['createdby'] = Auth::user()->name;
-                $data['updatedby'] = Auth::user()->name;
-                // dd($data);
+                $pengaduan['id_alur'] = $request->get('id_alur');
+                $pengaduan['no_pendaftaran'] = mt_rand(100, 1000);
+                $pengaduan['id_provinsi'] = $request->get('id_provinsi');
+                $pengaduan['id_kabkot'] = $request->get('id_kabkot');
+                $pengaduan['id_kecamatan'] = $request->get('id_kecamatan');
+                $pengaduan['id_kelurahan'] = $request->get('id_kelurahan');
+                $pengaduan['jenis_pelapor'] = $request->get('jenis_pelapor');
+                $pengaduan['ada_nik'] = $request->get('memiliki_nik');
+                $pengaduan['nik'] = $request->get('nik');
+                $pengaduan['no_kk'] = $request->get('no_kk');
+                $pengaduan['no_kis'] = $request->get('no_kis');
+                $pengaduan['nama'] = $request->get('nama');
+                $pengaduan['tgl_lahir'] = $request->get('tgl_lahir');
+                $pengaduan['tempat_lahir'] = $request->get('tempat_lahir');
+                $pengaduan['alamat'] = $request->get('alamat');
+                $pengaduan['telp'] = $request->get('telpon');
+                $pengaduan['email'] = $request->get('email');
+                $pengaduan['hubungan_terlapor'] = $request->get('hubungan_terlapor');
+                $pengaduan['id_program_sosial'] = $request->get('id_program_sosial');
+                $pengaduan['kepesertaan_program'] = $request->get('kepesertaan_program');
+                $pengaduan['no_peserta'] = $request->get('no_peserta');
+                $pengaduan['level_program'] = $request->get('level_program');
+                $pengaduan['sektor_program'] = $request->get('sektor_program');
+                $pengaduan['no_kartu_program'] = $request->get('no_kartu_program');
+                $pengaduan['ringkasan_pengaduan']  = $request->get('ringkasan_pengaduan');
+                $pengaduan['detail_pengaduan']  = $request->get('detail_pengaduan');
+                // $pengaduan['tl_file']  = $request->get('detail_pengaduan');
+                $pengaduan['no_dtks'] = $request->get('no_dtks');
+                $pengaduan['tujuan'] = $request->get('tujuan');
+                $pengaduan['status_aksi'] = $request->get('status_aksi'); 
+                $pengaduan['createdby'] = Auth::user()->name;
+                $pengaduan['updatedby'] = Auth::user()->name;
+                // dd($pengaduan);
 
-                Pengaduan::where('id',$id)->update($data);
+                Pengaduan::where('id',$id)->update($pengaduan);
 
                 return redirect('pengaduans')->withSuccess('Data Berhasil Diubah');
         }

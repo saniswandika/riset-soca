@@ -199,18 +199,18 @@
             
             {{-- kepesertaan --}}
             <div form-group row>
-                <h4><b>PENCATATAN KEPESERTAAN</b></h4>
+                <h4><b>CATATAN KEPESERTAAN</b></h4>
             </div>
             <div class="form-group row">
-                <label class="col-sm-2 col-form-label">Kepesertaan Program</label>
+                <label class="col-sm-2 col-form-label">Program</label>
                 <div class="col-sm-5">
-                    <input type="text" class="form-control"  name="kepesertaan_program">
+                    <input type="text" class="form-control"  name="id_program_sosial">
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">No Peserta <span class="text-danger">*</label>
                 <div class="col-sm-5">
-                    <input type="text" class="form-control"  name="kategori_pengaduan" required>
+                    <input type="text" class="form-control"  name="no_peserta" required>
                 </div>
             </div>
             <div class="form-group row">
@@ -232,14 +232,12 @@
                 <h4><b>PENGADUAN PROGRAM</b></h4>
             </div>
             <div class="form-group row">
-                <label class="col-sm-2 col-form-label">level program</label>
+                <label class="col-sm-2 col-form-label">Kepesertaan Program</label>
                 <div class="col-sm-5">
-                    <select class="form-control form-control-lg" name="level_program">
-                        <option selected>Pilih...</option>
-                        <option>Large select</option>
-                      </select>
+                    <input type="text" class="form-control"  name="kepesertaan_program">
                 </div>
             </div>
+           
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Kategori Pengaduan <span class="text-danger">*</label>
                 <div class="col-sm-5">
@@ -260,6 +258,15 @@
                         </div>
                     </div>
             
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">level program</label>
+                <div class="col-sm-5">
+                    <select class="form-control form-control-lg" name="level_program">
+                        <option selected>Pilih...</option>
+                        <option>Large select</option>
+                      </select>
                 </div>
             </div>
             <div class="form-group row">
@@ -316,7 +323,7 @@
                     <select class="form-control form-control-lg" name="status_aksi">
                         <option selected>Pilih...</option>
                         @foreach ($alur as $a )
-                            <option value="{{ $a->id_alur }}">{{ $a->name }}</option>
+                            <option value="{{ $a->name }}">{{ $a->name }}</option>
                             {{-- <option value="{{ $a->id_alur }}">{{ $a->name }}</option> --}}
                         @endforeach
                         
@@ -333,19 +340,17 @@
                                     @if($item->name == 'Front Office kota')
                                         @foreach ($rolebackoffice as $backoffice )
                                         
-                                        <option value='{{ $backoffice->id }}'>{{ $backoffice->name }}</option>
+                                        <option value='{{ $backoffice->name }}'>{{ $backoffice->name }}</option>
                                         {{-- <option value="Teruskan">Large select</option> --}}
                                         @endforeach
                                     @else
                                         @foreach ($roleid as $idrole )
                                     
-                                        <option value={{ $idrole->id }}>{{ $idrole->name }}</option>
+                                        <option value={{ $idrole->name }}>{{ $idrole->name }}</option>
                                         {{-- <option value="Teruskan">Large select</option> --}}
                                         @endforeach
                                     @endif
                                 @endforeach
-                               
-                            
                         </select>
                     </div>
             </div>

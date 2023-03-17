@@ -260,7 +260,7 @@
             
                 </div>
             </div>
-            <div class="form-group row">
+            {{-- <div class="form-group row">
                 <label class="col-sm-2 col-form-label">level program</label>
                 <div class="col-sm-5">
                     <select class="form-control form-control-lg" name="level_program">
@@ -268,7 +268,7 @@
                         <option>Large select</option>
                       </select>
                 </div>
-            </div>
+            </div> --}}
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Level Program</label>
                 <div class="col-sm-5">
@@ -326,7 +326,6 @@
                             <option value="{{ $a->name }}">{{ $a->name }}</option>
                             {{-- <option value="{{ $a->id_alur }}">{{ $a->name }}</option> --}}
                         @endforeach
-                        
                       </select>
                 </div>
             </div>

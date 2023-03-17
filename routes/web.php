@@ -86,7 +86,7 @@ Route::resource('rekomendasi_keringanan_pbbs', App\Http\Controllers\rekomendasi_
 
 Route::get('getdata', [PengaduanController::class, 'draft'])->name('getdata');
 Route::get('diproses', [PengaduanController::class, 'diproses'])->name('diproses');
-Route::get('dikembalikan', [PengaduanController::class, 'dikembalikan'])->name('dikembalikan');
+Route::get('teruskan', [PengaduanController::class, 'teruskan'])->name('teruskan');
 Route::get('/selesai', [PengaduanController::class, 'selesai'])->name('selesai');
 Route::get('/prelistDTKS', [PengaduanController::class, 'prelistDTKS'])->name('prelist_DTKS');
 Route::get('/prelistPage', [PengaduanController::class, 'prelistPage'])->name('prelistPage');

@@ -339,13 +339,13 @@
                                     @if($item->name == 'Front Office kota')
                                         @foreach ($rolebackoffice as $backoffice )
                                         
-                                        <option value='{{ $backoffice->name }}'>{{ $backoffice->name }}</option>
+                                        <option value='{{ $backoffice->id }}'>{{ $backoffice->name }}</option>
                                         {{-- <option value="Teruskan">Large select</option> --}}
                                         @endforeach
                                     @else
                                         @foreach ($roleid as $idrole )
                                     
-                                        <option value={{ $idrole->name }}>{{ $idrole->name }}</option>
+                                        <option value={{ $idrole->id }}>{{ $idrole->name }}</option>
                                         {{-- <option value="Teruskan">Large select</option> --}}
                                         @endforeach
                                     @endif

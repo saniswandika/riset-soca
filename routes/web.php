@@ -27,7 +27,7 @@ use Symfony\Component\HttpKernel\Profiler\Profile;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 Route::get('pengaduans', function () {
     return view('pengaduans.index');

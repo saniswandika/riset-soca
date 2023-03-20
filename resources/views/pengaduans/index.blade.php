@@ -111,10 +111,11 @@
         <ul class="nav nav-tabs" id="myTab" role="tablist">
           <?php
               $userid = Auth::user()->id;
-              $usersrole = DB::table('model_has_roles')->where('model_id', $userid)->get();
+              $usersrole = DB::table('model_has_roles')->leftJoin('users', 'users.id', '=', 'model_has_roles.model_id')->leftJoin('roles', 'roles.id', '=', 'model_has_roles.role_id')->where('model_id', $userid)->get();
+              // dd($usersrole);
           ?>
           @foreach ($usersrole as $item)
-              @if ($item->role_id == 7)
+              @if ($item->name == 'fasilitator')
                 <li class="nav-item">
                   <a class="nav-link" id="tab1" data-toggle="tab" href="#table1" role="tab" aria-controls="table1" aria-selected="true" >Draft</a>
                 </li>

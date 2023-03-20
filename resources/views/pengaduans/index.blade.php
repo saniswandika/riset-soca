@@ -114,19 +114,19 @@
               $usersrole = DB::table('model_has_roles')->where('model_id', $userid)->get();
           ?>
           @foreach ($usersrole as $item)
-              @if ($item->role_id == 1)
+              @if ($item->role_id == 7)
                 <li class="nav-item">
                   <a class="nav-link" id="tab1" data-toggle="tab" href="#table1" role="tab" aria-controls="table1" aria-selected="true" >Draft</a>
                 </li>
               @endif
           @endforeach
-             
+          <li class="nav-item">
+            <a class="nav-link" id="tab4" data-toggle="tab" href="#table4" role="tab" aria-controls="table4" aria-selected="false">Teruskan</a>
+          </li>
           <li class="nav-item">
             <a class="nav-link" id="tab2" data-toggle="tab" href="#table2" role="tab" aria-controls="table2" aria-selected="false">Diproses</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" id="tab4" data-toggle="tab" href="#table4" role="tab" aria-controls="table4" aria-selected="false">Dikembalikan</a>
-          </li>
+         
           <li class="nav-item">
             <a class="nav-link" id="tab3" data-toggle="tab" href="#table3" role="tab" aria-controls="table3" aria-selected="false">Selesai</a>
           </li>
@@ -207,7 +207,7 @@
               </table>
           </div>
            <div class="tab-pane fade table-responsive" id="table4" role="tabpanel" aria-labelledby="tab4" style="margin-top: 20px;">
-                <table id="dikembalikan" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
+                <table id="teruskan" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
                   <thead>
                     <tr>
                         <th>No Pendaftaran</th>
@@ -249,7 +249,8 @@
               serverSide: true,
               ajax: {
                   url: '/getdata',
-                  type: 'GET'
+                  type: 'GET',
+                  dataSrc: 'data.data'
               },
               buttons: [
                         {
@@ -265,7 +266,7 @@
                     { data: 'created_at', name: 'created_at' },
                     { data: 'jenis_pelapor', name: 'jenis_pelapor' },
                     { data: 'id_kelurahan', name: 'id_kelurahan' },
-                    { data: 'nama', name: 'nama' },
+                    { data: 'nama', name: 'Terlapor' },
                     { data: 'nik', name: 'nik' },
                     { data: 'no_kk', name: 'no_kk' },
                     { data: 'kepesertaan_program', name: 'kepesertaan_program' },
@@ -294,7 +295,7 @@
                     { data: 'created_at', name: 'created_at' },
                     { data: 'jenis_pelapor', name: 'jenis_pelapor' },
                     { data: 'id_kelurahan', name: 'id_kelurahan' },
-                    { data: 'nama', name: 'nama' },
+                    { data: 'nama', name: 'Terlapor' },
                     { data: 'nik', name: 'nik' },
                     { data: 'no_kk', name: 'no_kk' },
                     { data: 'kepesertaan_program', name: 'kepesertaan_program' },
@@ -310,12 +311,13 @@
                 ],
                 
             });
-            $('#dikembalikan').DataTable({
+            $('#teruskan').DataTable({
               processing: true,
               serverSide: true,
               ajax: {
-                  url: '/dikembalikan',
-                  type: 'GET'
+                  url: '/teruskan',
+                  type: 'GET',
+                  dataSrc: 'data.data'
               },
                 // ajax: "{{ route('getdata') }}",
                 columns: [

@@ -294,9 +294,8 @@
                     <div class="col-sm-5">
                         <select class="form-control form-control-lg" value="{{ $pengaduan->level_program }}"
                             name="level_program">
-                            <option selected>Pilih...</option>
                             <option selected value="{{ $pengaduan->level_program }}">{{ $pengaduan->level_program }}.</option>
-
+                            <option selected value="1">asdad</option>
                         </select>
                         {{-- <select class="custom-select" id="inputGroupSelect01" name="level_program">
                         <option selected>Pilih...</option>
@@ -311,7 +310,7 @@
                     <label class="col-sm-2 col-form-label">Sektor Program</label>
                     <div class="col-sm-5">
                         <select class="form-control form-control-lg" name="sektor_program">
-                            <option selected value="{{ $pengaduan->sektor_program }}">Pilih...</option>
+                            <option selected value="{{ $pengaduan->sektor_program }}">{{ $pengaduan->sektor_program }}</option>
                             <option></option>
                         </select>
                     </div>
@@ -365,13 +364,13 @@
                                         @if($item->name == 'Front Office kota')
                                             @foreach ($rolebackoffice as $backoffice )
                                             
-                                            <option value='{{ $backoffice->id }}'>{{ $backoffice->name }}</option>
+                                            <option value="{{ $backoffice->name }}">{{ $backoffice->name }}</option>
                                             {{-- <option value="Teruskan">Large select</option> --}}
                                             @endforeach
                                         @else
                                             @foreach ($roleid as $idrole )
                                         
-                                            <option value={{ $idrole->id }}>{{ $idrole->name }}</option>
+                                            <option value="{{ $idrole->name }}">{{ $idrole->name }}</option>
                                             {{-- <option value="Teruskan">Large select</option> --}}
                                             @endforeach
                                         @endif

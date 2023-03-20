@@ -490,10 +490,6 @@ class PengaduanController extends AppBaseController
             ->join('model_has_roles', 'model_has_roles.role_id', '=', 'pengaduans.tujuan')
             ->join('indonesia_villages as b', 'b.code', '=', 'pengaduans.id_kelurahan')
             ->select('pengaduans.*','b.name_village');
-        // dd($query);
-            // ->orwhere('pengaduans.status_aksi', 'kembali');
-        // dd($query);
-        // Get the authenticated user's ID and wilayah data
         $user_id = Auth::user()->id;
         $user_wilayah = DB::table('wilayahs')
             ->leftJoin('model_has_roles', 'model_has_roles.model_id', '=', 'wilayahs.createdby')

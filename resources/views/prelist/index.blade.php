@@ -1,4 +1,7 @@
 @extends('layouts.masterTemplate')
+
+@section('title', 'Prelist DTKS')
+
 @section('content')
 
 {{-- <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/css/bootstrap.css"/> --}}
@@ -119,9 +122,9 @@
           <li class="nav-item">
             <a class="nav-link" id="tab5" data-toggle="tab" href="#table5" role="tab" aria-controls="table5" aria-selected="false">Prelist DTKS</a>
           </li>
-          <li class="nav-item ml-auto" style="margin-left: auto">
+          {{-- <li class="nav-item ml-auto" style="margin-left: auto">
             <a href="/pengaduans/create" class="btn btn-primary ml-2">Tambah Data</a>
-          </li>
+          </li> --}}
         </ul>
         <div class="tab-content" id="myTabContent">
           <div class="tab-pane fade show table-responsive" id="table1" role="tabpanel" aria-labelledby="tab1" style="margin-top: 20px;">
@@ -223,19 +226,13 @@
             <table id="prelistDtks" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
               <thead>
                 <tr>
-                  <th>No Pendaftaran</th>
-                    <th>Tgl Pendaftaran</th>
-                    <th>Layanan</th>
-                    <th>Faskesos</th>
-                    <th>Terlapor</th>
-                    <th>NIK Terlapor</th>
-                    <th>No. KK Terlapor</th>
-                    <th>Sektor Program</th>
-                    <th>Program</th>
-                    <th>Catatan</th>
-                    {{-- <th>Status</th>
-                    <th>Durasi (hari)</th> --}}
-                    <th>Aksi</th>
+                    <th class="text-center">No</th>
+                    <th class="text-center">Kecamatan</th>
+                    <th class="text-center">Kelurahan</th>
+                    <th class="text-center">NIK</th>
+                    <th class="text-center">Nama KRT</th>
+                    <th class="text-center">Alamat</th>
+                    <th class="text-center">Aksi</th>
                 </tr>
               </thead>
               <tbody>
@@ -257,128 +254,128 @@
 <script>
 
     $(document).ready(function () {
-            $('#datatable').DataTable({
-              processing: true,
-              serverSide: true,
-              ajax: {
-                  url: '/getdata',
-                  type: 'GET'
-              },
-              buttons: [
-                        {
-                            text: 'My button',
-                            action: function ( e, dt, node, config ) {
-                                alert( 'Button activated' );
-                            }
-                        }
-                    ],
-                // ajax: "{{ route('getdata') }}",
-                columns: [
-                    { data: 'no_pendaftaran', name: 'no_pendaftaran' },
-                    { data: 'created_at', name: 'created_at' },
-                    { data: 'jenis_pelapor', name: 'jenis_pelapor' },
-                    { data: 'id_kelurahan', name: 'id_kelurahan' },
-                    { data: 'nama', name: 'nama' },
-                    { data: 'nik', name: 'nik' },
-                    { data: 'no_kk', name: 'no_kk' },
-                    { data: 'keluhan_id_program', name: 'keluhan_id_program' },
-                    { data: 'keluhan_detail', name: 'keluhan_detail' },
-                    { data: 'tl_catatan', name: 'tl_catatan' },
-                    { data : null, 
-                      className: "dt-center editor-delete",
-                      orderable: false,
-                      "mRender" : function ( data, type, row ) {
-                        return '<div class="input-group-append"><a href="/pengaduans/'+data.id +'/edit" class="btn btn-secondary btn-sm">Edit</a><a href="/pengaduans/'+data.id +'/delete" class="btn btn-danger btn-sm">Delete</a></div>';
-                    }
-                    }
-                ],
-            });
-      });
-      $('#mytable2').DataTable({
-              processing: true,
-              serverSide: true,
-              ajax: {
-                  url: '/diproses',
-                  type: 'GET',
-                  dataSrc: 'data.data'
-              },
-                columns: [
-                    { data: 'no_pendaftaran', name: 'no_pendaftaran' },
-                    { data: 'created_at', name: 'created_at' },
-                    { data: 'jenis_pelapor', name: 'jenis_pelapor' },
-                    { data: 'name_village', name: 'name_village' },
-                    { data: 'nama', name: 'nama' },
-                    { data: 'nik', name: 'nik' },
-                    { data: 'no_kk', name: 'no_kk' },
-                    { data: 'keluhan_id_program', name: 'keluhan_id_program' },
-                    { data: 'keluhan_detail', name: 'keluhan_detail' },
-                    { data: 'tl_catatan', name: 'tl_catatan' },
-                    { data : null, 
-                      className: "dt-center editor-delete",
-                      orderable: false,
-                      "mRender" : function ( data, type, row ) {
-                        return '<td><a href="/pengaduans/'+data.id +'/edit" class="btn btn-secondary btn-sm">Edit</a><a href="/pengaduans/'+data.id +'/delete" class="btn btn-danger btn-sm">Delete</a></td>';
-                    }
-                    }
-                ],
+      //       $('#datatable').DataTable({
+      //         processing: true,
+      //         serverSide: true,
+      //         ajax: {
+      //             url: '/getdata',
+      //             type: 'GET'
+      //         },
+      //         buttons: [
+      //                   {
+      //                       text: 'My button',
+      //                       action: function ( e, dt, node, config ) {
+      //                           alert( 'Button activated' );
+      //                       }
+      //                   }
+      //               ],
+      //           // ajax: "{{ route('getdata') }}",
+      //           columns: [
+      //               { data: 'no_pendaftaran', name: 'no_pendaftaran' },
+      //               { data: 'created_at', name: 'created_at' },
+      //               { data: 'jenis_pelapor', name: 'jenis_pelapor' },
+      //               { data: 'id_kelurahan', name: 'id_kelurahan' },
+      //               { data: 'nama', name: 'nama' },
+      //               { data: 'nik', name: 'nik' },
+      //               { data: 'no_kk', name: 'no_kk' },
+      //               { data: 'keluhan_id_program', name: 'keluhan_id_program' },
+      //               { data: 'keluhan_detail', name: 'keluhan_detail' },
+      //               { data: 'tl_catatan', name: 'tl_catatan' },
+      //               { data : null, 
+      //                 className: "dt-center editor-delete",
+      //                 orderable: false,
+      //                 "mRender" : function ( data, type, row ) {
+      //                   return '<div class="input-group-append"><a href="/pengaduans/'+data.id +'/edit" class="btn btn-secondary btn-sm">Edit</a><a href="/pengaduans/'+data.id +'/delete" class="btn btn-danger btn-sm">Delete</a></div>';
+      //               }
+      //               }
+      //           ],
+      //       });
+      // });
+      // $('#mytable2').DataTable({
+      //         processing: true,
+      //         serverSide: true,
+      //         ajax: {
+      //             url: '/diproses',
+      //             type: 'GET',
+      //             dataSrc: 'data.data'
+      //         },
+      //           columns: [
+      //               { data: 'no_pendaftaran', name: 'no_pendaftaran' },
+      //               { data: 'created_at', name: 'created_at' },
+      //               { data: 'jenis_pelapor', name: 'jenis_pelapor' },
+      //               { data: 'name_village', name: 'name_village' },
+      //               { data: 'nama', name: 'nama' },
+      //               { data: 'nik', name: 'nik' },
+      //               { data: 'no_kk', name: 'no_kk' },
+      //               { data: 'keluhan_id_program', name: 'keluhan_id_program' },
+      //               { data: 'keluhan_detail', name: 'keluhan_detail' },
+      //               { data: 'tl_catatan', name: 'tl_catatan' },
+      //               { data : null, 
+      //                 className: "dt-center editor-delete",
+      //                 orderable: false,
+      //                 "mRender" : function ( data, type, row ) {
+      //                   return '<td><a href="/pengaduans/'+data.id +'/edit" class="btn btn-secondary btn-sm">Edit</a><a href="/pengaduans/'+data.id +'/delete" class="btn btn-danger btn-sm">Delete</a></td>';
+      //               }
+      //               }
+      //           ],
                 
-            });
-            $('#dikembalikan').DataTable({
-              processing: true,
-              serverSide: true,
-              ajax: {
-                  url: '/dikembalikan',
-                  type: 'GET'
-              },
-                // ajax: "{{ route('getdata') }}",
-                columns: [
-                    { data: 'no_pendaftaran', name: 'no_pendaftaran' },
-                    { data: 'created_at', name: 'created_at' },
-                    { data: 'jenis_pelapor', name: 'jenis_pelapor' },
-                    { data: 'id_kelurahan', name: 'id_kelurahan' },
-                    { data: 'nama', name: 'nama' },
-                    { data: 'nik', name: 'nik' },
-                    { data: 'no_kk', name: 'no_kk' },
-                    { data: 'keluhan_id_program', name: 'keluhan_id_program' },
-                    { data: 'keluhan_detail', name: 'keluhan_detail' },
-                    { data: 'tl_catatan', name: 'tl_catatan' },
-                    { data : null, 
-                      className: "dt-center editor-delete",
-                      orderable: false,
-                      "mRender" : function ( data, type, row ) {
-                        return '<td><a href="/pengaduans/'+data.id +'/edit" class="btn btn-secondary btn-sm">Edit</a><a href="/pengaduans/'+data.id +'/delete" class="btn btn-danger btn-sm">Delete</a></td>';
-                    }
-                    }
-                ],
-            });
-            $('#selesai').DataTable({
-              processing: true,
-              serverSide: true,
-              ajax: {
-                  url: '/selesai',
-                  type: 'GET'
-              },
-                // ajax: "{{ route('getdata') }}",
-                columns: [
-                    { data: 'no_pendaftaran', name: 'no_pendaftaran' },
-                    { data: 'created_at', name: 'created_at' },
-                    { data: 'jenis_pelapor', name: 'jenis_pelapor' },
-                    { data: 'id_kelurahan', name: 'id_kelurahan' },
-                    { data: 'nama', name: 'nama' },
-                    { data: 'nik', name: 'nik' },
-                    { data: 'no_kk', name: 'no_kk' },
-                    { data: 'keluhan_id_program', name: 'keluhan_id_program' },
-                    { data: 'keluhan_detail', name: 'keluhan_detail' },
-                    { data: 'tl_catatan', name: 'tl_catatan' },
-                    { data : null, 
-                      className: "dt-center editor-delete",
-                      orderable: false,
-                      "mRender" : function ( data, type, row ) {
-                        return '<td><a href="/pengaduans/'+data.id +'/edit" class="btn btn-secondary btn-sm">Edit</a><a href="/pengaduans/'+data.id +'/delete" class="btn btn-danger btn-sm">Delete</a></td>';
-                    }
-                    }
-                ],
-            });
+      //       });
+      //       $('#dikembalikan').DataTable({
+      //         processing: true,
+      //         serverSide: true,
+      //         ajax: {
+      //             url: '/dikembalikan',
+      //             type: 'GET'
+      //         },
+      //           // ajax: "{{ route('getdata') }}",
+      //           columns: [
+      //               { data: 'no_pendaftaran', name: 'no_pendaftaran' },
+      //               { data: 'created_at', name: 'created_at' },
+      //               { data: 'jenis_pelapor', name: 'jenis_pelapor' },
+      //               { data: 'id_kelurahan', name: 'id_kelurahan' },
+      //               { data: 'nama', name: 'nama' },
+      //               { data: 'nik', name: 'nik' },
+      //               { data: 'no_kk', name: 'no_kk' },
+      //               { data: 'keluhan_id_program', name: 'keluhan_id_program' },
+      //               { data: 'keluhan_detail', name: 'keluhan_detail' },
+      //               { data: 'tl_catatan', name: 'tl_catatan' },
+      //               { data : null, 
+      //                 className: "dt-center editor-delete",
+      //                 orderable: false,
+      //                 "mRender" : function ( data, type, row ) {
+      //                   return '<td><a href="/pengaduans/'+data.id +'/edit" class="btn btn-secondary btn-sm">Edit</a><a href="/pengaduans/'+data.id +'/delete" class="btn btn-danger btn-sm">Delete</a></td>';
+      //               }
+      //               }
+      //           ],
+      //       });
+            // $('#selesai').DataTable({
+            //   processing: true,
+            //   serverSide: true,
+            //   ajax: {
+            //       url: '/selesai',
+            //       type: 'GET'
+            //   },
+            //     // ajax: "{{ route('getdata') }}",
+            //     columns: [
+            //         { data: 'no_pendaftaran', name: 'no_pendaftaran' },
+            //         { data: 'created_at', name: 'created_at' },
+            //         { data: 'jenis_pelapor', name: 'jenis_pelapor' },
+            //         { data: 'id_kelurahan', name: 'id_kelurahan' },
+            //         { data: 'nama', name: 'nama' },
+            //         { data: 'nik', name: 'nik' },
+            //         { data: 'no_kk', name: 'no_kk' },
+            //         { data: 'keluhan_id_program', name: 'keluhan_id_program' },
+            //         { data: 'keluhan_detail', name: 'keluhan_detail' },
+            //         { data: 'tl_catatan', name: 'tl_catatan' },
+            //         { data : null, 
+            //           className: "dt-center editor-delete",
+            //           orderable: false,
+            //           "mRender" : function ( data, type, row ) {
+            //             return '<td><a href="/pengaduans/'+data.id +'/edit" class="btn btn-secondary btn-sm">Edit</a><a href="/pengaduans/'+data.id +'/delete" class="btn btn-danger btn-sm">Delete</a></td>';
+            //         }
+            //         }
+            //     ],
+            // });
             $('#prelistDtks').DataTable({
               processing: true,
               serverSide: true,
@@ -388,25 +385,22 @@
               },
                 // ajax: "{{ route('getdata') }}",
                 columns: [
-                    { data: 'no_pendaftaran', name: 'no_pendaftaran' },
-                    { data: 'created_at', name: 'created_at' },
-                    { data: 'jenis_pelapor', name: 'jenis_pelapor' },
+                    { data: 'no', name: 'no'  },
+                    { data: 'id_kecamatan', name: 'id_kecamatan' },
                     { data: 'id_kelurahan', name: 'id_kelurahan' },
-                    { data: 'nama', name: 'nama' },
                     { data: 'nik', name: 'nik' },
-                    { data: 'no_kk', name: 'no_kk' },
-                    { data: 'keluhan_id_program', name: 'keluhan_id_program' },
-                    { data: 'keluhan_detail', name: 'keluhan_detail' },
-                    { data: 'tl_catatan', name: 'tl_catatan' },
+                    { data: 'nama', name: 'nama' },
+                    { data: 'alamat', name: 'alamat' },
                     { data : null, 
                       className: "dt-center editor-delete",
                       orderable: false,
                       "mRender" : function ( data, type, row ) {
-                        return '<td><a href="/pengaduans/'+data.id +'/edit" class="btn btn-secondary btn-sm">Edit</a><a href="/pengaduans/'+data.id +'/delete" class="btn btn-danger btn-sm">Delete</a></td>';
+                        return '<td><div class="input-group-append d-flex flex-column justify-content-center"><a href="/pengaduans/'+data.id +'" class="btn btn-success btn-sm"><i class="fas fa-search"></i> View</a><a href="/pengaduans/'+data.id +'/edit" class="btn btn-primary btn-sm"><i class="far fa-edit"></i> Edit</a></div></td>';
                     }
                     }
                 ],
             });
+          });
     $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
         var target = $(e.target).attr("href"); // mendapatkan href dari tab aktif
         $(target).find('table').DataTable().columns.adjust().responsive.recalc(); // menyesuaikan ulang lebar kolom dan responsivitas tabel

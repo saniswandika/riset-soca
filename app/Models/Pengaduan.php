@@ -26,20 +26,26 @@ class Pengaduan extends Model
         'telp',
         'email',
         'hubungan_terlapor',
+        'no_peserta',
+        'id_program_sosial',
         'file_penunjang',
-        'keluhan_tipe',
-        'keluhan_id_program',
-        'keluhan_detail',
-        'keluhan_foto',
+        'kepesertaan_program',
+        'kategori_pengaduan',
+        'level_program',
+        'sektor_program',
+        'no_kartu_program',
+        'ringkasan_pengaduan',
+        'detail_pengaduan',
         'tl_catatan',
         'tl_file',
         'createdby',
         'updatedby',
         'ada_dtks',
-        'prelist_dtks',
         'no_dtks',
         'tempat_lahir',
-        'diteruskan'
+        'status_aksi',
+        'petugas',
+        'tujuan'
     ];
 
     protected $casts = [

@@ -157,6 +157,7 @@
                               <button type="submit" class="btn btn-primary">Submit</button>
                           </div> --}}
                       </div>
+                      
                       {!! Form::close() !!}
                     </div>
                   </div>
@@ -201,6 +202,23 @@
                                   {!! Form::password('confirm-password', array('placeholder' => 'Confirm Password','class' => 'form-control')) !!}
                               </div>
                           </div>
+                          <div class="form-group">
+                            <strong>Role:</strong>
+                            <select class="form-control" name="roles" id="exampleFormControlSelect1">
+                              <option selected>
+                                {{-- @if(!empty($user->getRoleNames()))
+                                  @foreach($user->getRoleNames() as $v)
+                                      <label class="badge badge-success">{{ $v }}</label>
+                                  @endforeach
+                                @endif --}}
+                              </option>
+                              @foreach ($roles as $role )
+                                <option value="{{ $role->name }}">{{ $role->name }}</option>
+                              @endforeach
+                          </select> 
+                            
+                            {{-- {!! Form::select('roles[]', $roles,[], array('class' => 'form-control','option')) !!} --}}
+                        </div>
                           <div class="col-xs-12 col-sm-12 col-md-12 text-center">
                               <button type="submit" class="btn btn-primary">Submit</button>
                           </div>

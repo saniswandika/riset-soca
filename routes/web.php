@@ -27,7 +27,13 @@ use Symfony\Component\HttpKernel\Profiler\Profile;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
+});
+Route::get('pengaduans', function () {
+    return view('pengaduans.index');
+});
+Route::get('pengaduans/dashboard', function () {
+    return view('pengaduans.dashboard');
 });
 Route::get('/formulir', [App\Http\Controllers\FormTamuController::class, 'index'])->name('FormTamu.index');
 Route::post('/formulir/store', [App\Http\Controllers\FormTamuController::class, 'store'])->name('FormTamu.store');
@@ -80,9 +86,10 @@ Route::resource('rekomendasi_keringanan_pbbs', App\Http\Controllers\rekomendasi_
 
 Route::get('getdata', [PengaduanController::class, 'draft'])->name('getdata');
 Route::get('diproses', [PengaduanController::class, 'diproses'])->name('diproses');
-Route::get('dikembalikan', [PengaduanController::class, 'dikembalikan'])->name('dikembalikan');
+Route::get('teruskan', [PengaduanController::class, 'teruskan'])->name('teruskan');
 Route::get('/selesai', [PengaduanController::class, 'selesai'])->name('selesai');
 Route::get('/prelistDTKS', [PengaduanController::class, 'prelistDTKS'])->name('prelist_DTKS');
+Route::get('/prelistPage', [PengaduanController::class, 'prelistPage'])->name('prelistPage');
 // Route::get('/pengaduans/create', [PengaduanController::class, 'create'])->name('pengaduans.create');
 Route::get('/pengaduans/search', [PengaduanController::class, 'search'])->name('pengaduans.search');
 Route::get('/pengaduans/{pengaduan}/delete', [PengaduanController::class, 'destroy'])->name('pengaduans.delet2');

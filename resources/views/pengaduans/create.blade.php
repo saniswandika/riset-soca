@@ -353,6 +353,19 @@
                         </select>
                     </div>
             </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Status Aksi</label>
+                <div class="col-sm-5">
+                    <select class="form-control form-control-lg" name="petugas">
+                        <option selected>Pilih...</option>
+                        <option value='3'>back</option>
+                            {{-- @foreach ($alur as $a ) --}}
+                                {{-- <option value="{{ $a->name }}">{{ $a->name }}</option> --}}
+                                {{-- <option value="{{ $a->id_alur }}">{{ $a->name }}</option> --}}
+                            {{-- @endforeach --}}
+                      </select>
+                </div>
+            </div>
                     {{-- @include('pengaduans.fields') --}}
             <div class="card-footer">
                 <a href="{{ route('pengaduans.index') }}" class="btn btn-default"> Batal </a>

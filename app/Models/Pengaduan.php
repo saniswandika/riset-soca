@@ -44,6 +44,7 @@ class Pengaduan extends Model
         'no_dtks',
         'tempat_lahir',
         'status_aksi',
+        'petugas',
         'tujuan'
     ];
 

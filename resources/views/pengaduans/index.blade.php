@@ -121,13 +121,13 @@
                 </li>
               @endif
           @endforeach
-          <li class="nav-item">
-            <a class="nav-link" id="tab4" data-toggle="tab" href="#table4" role="tab" aria-controls="table4" aria-selected="false">Teruskan</a>
-          </li>
+          
           <li class="nav-item">
             <a class="nav-link" id="tab2" data-toggle="tab" href="#table2" role="tab" aria-controls="table2" aria-selected="false">Diproses</a>
           </li>
-         
+          <li class="nav-item">
+            <a class="nav-link" id="tab4" data-toggle="tab" href="#table4" role="tab" aria-controls="table4" aria-selected="false">Teruskan</a>
+          </li>
           <li class="nav-item">
             <a class="nav-link" id="tab3" data-toggle="tab" href="#table3" role="tab" aria-controls="table3" aria-selected="false">Selesai</a>
           </li>
@@ -141,7 +141,7 @@
                 <thead>
                   <tr>
                     <th>No Pendaftaran</th>
-                    <th>Tgl Pendaftaran</th>
+                    {{-- <th>Tgl Pendaftaran</th>
                     <th>Layanan</th>
                     <th>Faskesos</th>
                     <th>Terlapor</th>
@@ -152,7 +152,7 @@
                     <th>Catatan</th>
                     {{-- <th>Status</th>
                     <th>Durasi (hari)</th> --}}
-                    <th>Aksi</th>
+                    {{-- <th>Aksi</th> --}} --}}
                   </tr>
                 </thead>
               <tbody>
@@ -263,23 +263,23 @@
                     ],
                 // ajax: "{{ route('getdata') }}",
                 columns: [
-                    { data: 'no_pendaftaran', name: 'no_pendaftaran' },
-                    { data: 'created_at', name: 'created_at' },
-                    { data: 'jenis_pelapor', name: 'jenis_pelapor' },
-                    { data: 'id_kelurahan', name: 'id_kelurahan' },
-                    { data: 'nama', name: 'Terlapor' },
-                    { data: 'nik', name: 'nik' },
-                    { data: 'no_kk', name: 'no_kk' },
-                    { data: 'kepesertaan_program', name: 'kepesertaan_program' },
-                    { data: 'ringkasan_pengaduan', name: 'ringkasan_pengaduan' },
-                    { data: 'tl_catatan', name: 'tl_catatan' },
-                    { data : null, 
-                      className: "dt-center editor-delete",
-                      orderable: false,
-                      "mRender" : function ( data, type, row ) {
-                        return '<td><div class="input-group-append d-flex flex-column justify-content-center"><a href="/pengaduans/'+data.id +'" class="btn btn-success btn-sm"><i class="fas fa-search"></i> View</a><a href="/pengaduans/'+data.id +'/edit" class="btn btn-primary btn-sm"><i class="far fa-edit"></i> Edit</a></div></td>';
-                    }
-                    }
+                    { data: 'Nama', name: 'no_pendaftaran' },
+                    // { data: 'created_at', name: 'created_at' },
+                    // { data: 'jenis_pelapor', name: 'jenis_pelapor' },
+                    // { data: 'id_kelurahan', name: 'id_kelurahan' },
+                    // { data: 'nama', name: 'Terlapor' },
+                    // { data: 'nik', name: 'nik' },
+                    // { data: 'no_kk', name: 'no_kk' },
+                    // { data: 'kepesertaan_program', name: 'kepesertaan_program' },
+                    // { data: 'ringkasan_pengaduan', name: 'ringkasan_pengaduan' },
+                    // { data: 'tl_catatan', name: 'tl_catatan' },
+                    // { data : null, 
+                    //   className: "dt-center editor-delete",
+                    //   orderable: false,
+                    //   "mRender" : function ( data, type, row ) {
+                    //     return '<td><div class="input-group-append d-flex flex-column justify-content-center"><a href="/pengaduans/'+data.id +'" class="btn btn-success btn-sm"><i class="fas fa-search"></i> View</a><a href="/pengaduans/'+data.id +'/edit" class="btn btn-primary btn-sm"><i class="far fa-edit"></i> Edit</a></div></td>';
+                    // }
+                    // }
                 ],
             });
       });
@@ -346,7 +346,8 @@
               serverSide: true,
               ajax: {
                   url: '/selesai',
-                  type: 'GET'
+                  type: 'GET',
+                  dataSrc: 'data.data'
               },
                 // ajax: "{{ route('getdata') }}",
                 columns: [
@@ -364,7 +365,7 @@
                       className: "dt-center editor-delete",
                       orderable: false,
                       "mRender" : function ( data, type, row ) {
-                        return '<td><<div class="input-group-append d-flex flex-column justify-content-center"><a href="/pengaduans/'+data.id +'" class="btn btn-success btn-sm"><i class="fas fa-search"></i> View</a><a href="/pengaduans/'+data.id +'/edit" class="btn btn-primary btn-sm"><i class="far fa-edit"></i> Edit</a></div></td>';
+                        return '<td><div class="input-group-append d-flex flex-column justify-content-center"><a href="/pengaduans/'+data.id +'" class="btn btn-success btn-sm"><i class="fas fa-search"></i> View</a><a href="/pengaduans/'+data.id +'/edit" class="btn btn-primary btn-sm"><i class="far fa-edit"></i> Edit</a></div></td>';
                     }
                     }
                 ],

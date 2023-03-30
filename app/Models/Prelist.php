@@ -17,10 +17,8 @@ class Prelist extends Model
         'id_kelurahan',
         'nik',
         'no_kk',
-        'no_kis',
         'nama',
         'tgl_lahir',
-        'alamat',
         'telp',
         'email'
     ];

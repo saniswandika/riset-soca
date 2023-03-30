@@ -119,14 +119,6 @@
                 <li class="nav-item">
                   <a class="nav-link" id="tab1" data-toggle="tab" href="#table1" role="tab" aria-controls="table1" aria-selected="true" >Draft</a>
                 </li>
-            @elseif ($item->name == 'Front Office Kota')
-                <li class="nav-item">
-                  <a class="nav-link" id="tab1" data-toggle="tab" href="#table1" role="tab" aria-controls="table1" aria-selected="true" >Draft</a>
-                </li>
-            @elseif ($item->name == 'Front Office Kelurahan')
-              <li class="nav-item">
-                <a class="nav-link" id="tab1" data-toggle="tab" href="#table1" role="tab" aria-controls="table1" aria-selected="true" >Draft</a>
-              </li>
               @endif
           @endforeach
           
@@ -139,9 +131,14 @@
           <li class="nav-item">
             <a class="nav-link" id="tab3" data-toggle="tab" href="#table3" role="tab" aria-controls="table3" aria-selected="false">Selesai</a>
           </li>
+          @auth
           <li class="nav-item ml-auto" style="margin-left: auto">
-            <a href="/pengaduans/create" class="btn btn-primary ml-2">Tambah Data</a>
+            @if (Auth::user()->hasRole(['fasilitator', 'Front Office Kelurahan', 'Front Office kota']))
+              <a href="/pengaduans/create" class="btn btn-primary ml-2">Tambah Data</a>
+            @endif
           </li>
+        @endauth
+        
         </ul>
         <div class="tab-content" id="myTabContent">
           <div class="tab-pane fade show table-responsive" id="table1" role="tabpanel" aria-labelledby="tab1" style="margin-top: 20px;">
@@ -149,7 +146,7 @@
                 <thead>
                   <tr>
                     <th>No Pendaftaran</th>
-                    <th>Tgl Pendaftaran</th>
+                    {{-- <th>Tgl Pendaftaran</th>
                     <th>Layanan</th>
                     <th>Faskesos</th>
                     <th>Terlapor</th>
@@ -158,10 +155,9 @@
                     <th>Sektor Program</th>
                     <th>Program</th>
                     <th>Catatan</th>
-                    <th>Status</th>
-                    <th>Aksi</th> 
-                    {{-- <th>Durasi (hari)</th>  --}}
-                 
+                    {{-- <th>Status</th>
+                    <th>Durasi (hari)</th> --}}
+                    {{-- <th>Aksi</th> --}} --}}
                   </tr>
                 </thead>
               <tbody>
@@ -272,23 +268,23 @@
                     ],
                 // ajax: "{{ route('getdata') }}",
                 columns: [
-                    { data: 'no_pendaftaran', name: 'no_pendaftaran' },
-                    { data: 'created_at', name: 'created_at' },
-                    { data: 'jenis_pelapor', name: 'jenis_pelapor' },
-                    { data: 'id_kelurahan', name: 'id_kelurahan' },
-                    { data: 'nama', name: 'Terlapor' },
-                    { data: 'nik', name: 'nik' },
-                    { data: 'no_kk', name: 'no_kk' },
-                    { data: 'kepesertaan_program', name: 'kepesertaan_program' },
-                    { data: 'ringkasan_pengaduan', name: 'ringkasan_pengaduan' },
-                    { data: 'tl_catatan', name: 'tl_catatan' },
-                    { data : null, 
-                      className: "dt-center editor-delete",
-                      orderable: false,
-                      "mRender" : function ( data, type, row ) {
-                        return '<td><div class="input-group-append d-flex flex-column justify-content-center"><a href="/pengaduans/'+data.id +'" class="btn btn-success btn-sm"><i class="fas fa-search"></i> View</a><a href="/pengaduans/'+data.id +'/edit" class="btn btn-primary btn-sm"><i class="far fa-edit"></i> Edit</a></div></td>';
-                    }
-                    }
+                    { data: 'Nama', name: 'no_pendaftaran' },
+                    // { data: 'created_at', name: 'created_at' },
+                    // { data: 'jenis_pelapor', name: 'jenis_pelapor' },
+                    // { data: 'id_kelurahan', name: 'id_kelurahan' },
+                    // { data: 'nama', name: 'Terlapor' },
+                    // { data: 'nik', name: 'nik' },
+                    // { data: 'no_kk', name: 'no_kk' },
+                    // { data: 'kepesertaan_program', name: 'kepesertaan_program' },
+                    // { data: 'ringkasan_pengaduan', name: 'ringkasan_pengaduan' },
+                    // { data: 'tl_catatan', name: 'tl_catatan' },
+                    // { data : null, 
+                    //   className: "dt-center editor-delete",
+                    //   orderable: false,
+                    //   "mRender" : function ( data, type, row ) {
+                    //     return '<td><div class="input-group-append d-flex flex-column justify-content-center"><a href="/pengaduans/'+data.id +'" class="btn btn-success btn-sm"><i class="fas fa-search"></i> View</a><a href="/pengaduans/'+data.id +'/edit" class="btn btn-primary btn-sm"><i class="far fa-edit"></i> Edit</a></div></td>';
+                    // }
+                    // }
                 ],
             });
       });

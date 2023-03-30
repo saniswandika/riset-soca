@@ -34,7 +34,8 @@ class PengaduanController extends AppBaseController
 
     public function index(Request $request)
     {
-
+        // $role = auth::user()->id;
+        // dd($role);
         return view('pengaduans.index');
     }
 
@@ -59,6 +60,7 @@ class PengaduanController extends AppBaseController
             ->leftjoin('indonesia_villages as b', 'b.code', '=', 'w.kelurahan_id')
             ->where('status_wilayah', '1')
             ->where('w.createdby', $userid)->get();
+        
         $alur = DB::table('alur')
             ->where('name', 'Draft')
             // ->where('name', 'supervisor')
@@ -104,11 +106,11 @@ class PengaduanController extends AppBaseController
                 $data['ada_nik'] = $request->get('memiliki_nik');
                 $data['nik'] = $request->get('nik');
                 $data['no_kk'] = $request->get('no_kk');
-                $data['no_kis'] = $request->get('no_kis');
+                // $data['no_kis'] = $request->get('no_kis');
                 $data['nama'] = $request->get('nama');
                 $data['tgl_lahir'] = $request->get('tgl_lahir');
                 $data['tempat_lahir'] = $request->get('tempat_lahir');
-                $data['alamat'] = $request->get('alamat');
+                // $data['alamat'] = $request->get('alamat');
                 $data['telp'] = $request->get('telpon');
                 $data['email'] = $request->get('email');
                 $data['hubungan_terlapor'] = $request->get('hubungan_terlapor');
@@ -155,10 +157,10 @@ class PengaduanController extends AppBaseController
                     $data['id_kelurahan'] = $request->get('id_kelurahan');
                     $data['nik'] = $request->get('nik');
                     $data['no_kk'] = $request->get('no_kk');
-                    $data['no_kis'] = $request->get('no_kis');
+                    // $data['no_kis'] = $request->get('no_kis');
                     $data['nama'] = $request->get('nama');
                     $data['tgl_lahir'] = $request->get('tgl_lahir');
-                    $data['alamat'] = $request->get('alamat');
+                    // $data['alamat'] = $request->get('alamat');
                     $data['telp'] = $request->get('telpon');
                     $data['email'] = $request->get('email');
                     $data['status_data'] = 'prelistdtks';
@@ -176,11 +178,11 @@ class PengaduanController extends AppBaseController
                 $data['ada_nik'] = $request->get('memiliki_nik');
                 $data['nik'] = $request->get('nik');
                 $data['no_kk'] = $request->get('no_kk');
-                $data['no_kis'] = $request->get('no_kis');
+                // $data['no_kis'] = $request->get('no_kis');
                 $data['nama'] = $request->get('nama');
                 $data['tgl_lahir'] = $request->get('tgl_lahir');
                 $data['tempat_lahir'] = $request->get('tempat_lahir');
-                $data['alamat'] = $request->get('alamat');
+                // $data['alamat'] = $request->get('alamat');
                 $data['telp'] = $request->get('telpon');
                 $data['email'] = $request->get('email');
                 $data['hubungan_terlapor'] = $request->get('hubungan_terlapor');
@@ -226,11 +228,11 @@ class PengaduanController extends AppBaseController
             $data['ada_nik'] = $request->get('memiliki_nik');
             $data['nik'] = $request->get('nik');
             $data['no_kk'] = $request->get('no_kk');
-            $data['no_kis'] = $request->get('no_kis');
+            // $data['no_kis'] = $request->get('no_kis');
             $data['nama'] = $request->get('nama');
             $data['tgl_lahir'] = $request->get('tgl_lahir');
             $data['tempat_lahir'] = $request->get('tempat_lahir');
-            $data['alamat'] = $request->get('alamat');
+            // $data['alamat'] = $request->get('alamat');
             $data['telp'] = $request->get('telpon');
             $data['email'] = $request->get('email');
             $data['hubungan_terlapor'] = $request->get('hubungan_terlapor');
@@ -319,6 +321,7 @@ class PengaduanController extends AppBaseController
             ->where('model_id','=', $userid)
             ->first();
         //tujuan
+      
         if ($checkuserrole->name == 'fasilitator') {
             $roleid = DB::table('roles')
             ->where('name', 'Back Ofiice kelurahan')
@@ -350,7 +353,7 @@ class PengaduanController extends AppBaseController
             ->orWhere('name', 'Selesai')
             ->get();
         }
-
+       
         $checkroles = DB::table('model_has_roles')
             ->leftjoin('roles', 'roles.id', '=', 'model_has_roles.role_id')
             ->where('model_id','=', $userid)
@@ -384,11 +387,11 @@ class PengaduanController extends AppBaseController
                 $pengaduan['ada_nik'] = $request->get('memiliki_nik');
                 $pengaduan['nik'] = $request->get('nik');
                 $pengaduan['no_kk'] = $request->get('no_kk');
-                $pengaduan['no_kis'] = $request->get('no_kis');
+                // $pengaduan['no_kis'] = $request->get('no_kis');
                 $pengaduan['nama'] = $request->get('nama');
                 $pengaduan['tgl_lahir'] = $request->get('tgl_lahir');
                 $pengaduan['tempat_lahir'] = $request->get('tempat_lahir');
-                $pengaduan['alamat'] = $request->get('alamat');
+                // $pengaduan['alamat'] = $request->get('alamat');
                 $pengaduan['telp'] = $request->get('telpon');
                 $pengaduan['email'] = $request->get('email');
                 $pengaduan['hubungan_terlapor'] = $request->get('hubungan_terlapor');
@@ -424,10 +427,10 @@ class PengaduanController extends AppBaseController
                     $pengaduan['id_kelurahan'] = $request->get('id_kelurahan');
                     $pengaduan['nik'] = $request->get('nik');
                     $pengaduan['no_kk'] = $request->get('no_kk');
-                    $pengaduan['no_kis'] = $request->get('no_kis');
+                    // $pengaduan['no_kis'] = $request->get('no_kis');
                     $pengaduan['nama'] = $request->get('nama');
                     $pengaduan['tgl_lahir'] = $request->get('tgl_lahir');
-                    $pengaduan['alamat'] = $request->get('alamat');
+                    // $pengaduan['alamat'] = $request->get('alamat');
                     $pengaduan['telp'] = $request->get('telpon');
                     $pengaduan['email'] = $request->get('email');
                     $pengaduan['status_pengaduan'] = 'prelistdtks';
@@ -449,11 +452,11 @@ class PengaduanController extends AppBaseController
                 $pengaduan['ada_nik'] = $request->get('memiliki_nik');
                 $pengaduan['nik'] = $request->get('nik');
                 $pengaduan['no_kk'] = $request->get('no_kk');
-                $pengaduan['no_kis'] = $request->get('no_kis');
+                // $pengaduan['no_kis'] = $request->get('no_kis');
                 $pengaduan['nama'] = $request->get('nama');
                 $pengaduan['tgl_lahir'] = $request->get('tgl_lahir');
                 $pengaduan['tempat_lahir'] = $request->get('tempat_lahir');
-                $pengaduan['alamat'] = $request->get('alamat');
+                // $pengaduan['alamat'] = $request->get('alamat');
                 $pengaduan['telp'] = $request->get('telpon');
                 $pengaduan['email'] = $request->get('email');
                 $pengaduan['hubungan_terlapor'] = $request->get('hubungan_terlapor');
@@ -509,23 +512,47 @@ class PengaduanController extends AppBaseController
             ->leftjoin('wilayahs', 'wilayahs.createdby', '=', 'pengaduans.createdby')
             ->leftjoin('model_has_roles', 'model_has_roles.model_id', '=', 'pengaduans.tujuan')
             ->leftjoin('indonesia_villages as b', 'b.code', '=', 'pengaduans.id_kelurahan')
-           
             ->select('pengaduans.*', 'b.name_village')
             ->distinct();
         $user_id = Auth::user()->id;
         $user_wilayah = DB::table('wilayahs')
-            // ->leftJoin('model_has_roles', 'model_has_roles.model_id', '=', 'wilayahs.createdby')
-            ->where('createdby', $user_id)
-            ->where(function ($query) {
-                $query->where('status_wilayah', 1);
-            })
-            ->first();
-             $query->Where(function($query) use ($user_wilayah) {
-                        $query->where('pengaduans.id_kelurahan', $user_wilayah->kelurahan_id);
-                        $query->where('pengaduans.status_aksi', 'Draft');     
-                        $query->where('pengaduans.createdby',  Auth::user()->id);
-                // })
-            });
+        ->leftJoin('model_has_roles', 'model_has_roles.model_id', '=', 'wilayahs.createdby')
+        ->leftJoin('users', 'users.id', '=', 'model_has_roles.model_id')
+        ->leftJoin('roles', 'roles.id', '=', 'model_has_roles.role_id')
+        ->where('createdby', $user_id)
+        ->where(function ($query) {
+            $query->where('status_wilayah', 1);
+        })
+        ->first();
+        // dd($user_wilayah);
+            if ($user_wilayah->name == 'fasilitator' ) {
+                 $query->Where(function($query) use ($user_wilayah) {
+                            $query->where('pengaduans.id_kelurahan', $user_wilayah->kelurahan_id);
+                            $query->where('pengaduans.status_aksi', 'Draft');     
+                            $query->where('pengaduans.createdby',  Auth::user()->name);
+                });
+
+            }
+             
+            if ($user_wilayah->name == 'Front Office kota' ) {
+                $query->orWhere(function($query) use ($user_wilayah) {
+                    $query->where('pengaduans.id_kelurahan', $user_wilayah->kelurahan_id);
+                    $query->where('pengaduans.status_aksi', 'Draft');     
+                    $query->where('pengaduans.createdby',  Auth::user()->name);
+                    //  dd($va);
+                 });
+
+            }
+             
+            if ($user_wilayah->name == 'Front Office Kelurahan' ) {
+                $query->orWhere(function($query) use ($user_wilayah) {
+                    $query->where('pengaduans.id_kelurahan', $user_wilayah->kelurahan_id);
+                    $query->where('pengaduans.status_aksi', 'Draft');     
+                    $query->where('pengaduans.createdby',  Auth::user()->name);
+                    //  dd($va);
+                 });
+
+            }
         if ($request->has('search')) {
             // dd($query);
             
@@ -559,11 +586,12 @@ class PengaduanController extends AppBaseController
     {
         $user_name = Auth::user()->name;
         $query = DB::table('pengaduans')
-            ->leftJoin('users', 'users.name', '=', 'pengaduans.createdby')
-            // ->leftJoin('log_pengaduan', 'log_pengaduan.id_trx_pengaduan', '=', 'pengaduans.id')
-            ->leftJoin('model_has_roles', 'model_has_roles.model_id', '=', 'pengaduans.tujuan')
-            ->leftJoin('indonesia_villages as b', 'b.code', '=', 'pengaduans.id_kelurahan')
+            ->join('users', 'users.name', '=', 'pengaduans.createdby')
+            // ->join('log_pengaduan', 'log_pengaduan.id_trx_pengaduan', '=', 'pengaduans.id')
+            ->join('model_has_roles', 'model_has_roles.role_id', '=', 'pengaduans.tujuan')
+            ->join('indonesia_villages as b', 'b.code', '=', 'pengaduans.id_kelurahan')
             ->select('pengaduans.*', 'b.name_village');
+        // dd($query);
         $user_id = Auth::user()->id;
         $user_wilayah = DB::table('wilayahs')
             ->leftJoin('model_has_roles', 'model_has_roles.model_id', '=', 'wilayahs.createdby')
@@ -574,25 +602,69 @@ class PengaduanController extends AppBaseController
                 $query->where('status_wilayah', 1);
             })
             ->first();
-        // dd($user_wilayah);
+        //    dd($user_wilayah);
             if ($user_wilayah->name == 'fasilitator' ) {
+                // dd($user_wilayah->role_id); 
                 $query->orWhere(function($query) use ($user_wilayah) {
-                        $query->where('pengaduans.id_kelurahan', $user_wilayah->kelurahan_id)
-                             ->where('pengaduans.tujuan', $user_wilayah->role_id);
-                            
-                     // dd($va);
+                       $query->where('pengaduans.id_kelurahan', '=' , $user_wilayah->kelurahan_id)
+                             ->where('pengaduans.tujuan', '=' , $user_wilayah->role_id)
+                            ->where(function($query){
+                                $query->where('pengaduans.status_aksi', '=', 'Teruskan')
+                                      ->orWhere('pengaduans.status_aksi', '=', 'kembalikan');
+                            }); 
                  });
+                // dd($query);
+            }
+            if ($user_wilayah->name == 'Front Office kota' ) {
+                //  dd($user_wilayah->role_id);
+                $query->orWhere(function($query) use ($user_wilayah) {
+                       $query->where('pengaduans.id_kelurahan', '=' , $user_wilayah->kelurahan_id)
+                                ->where('pengaduans.tujuan', '=' ,$user_wilayah->role_id)
+                                ->where(function($query){
+                                    $query->where('pengaduans.status_aksi', '=', 'Teruskan')
+                                          ->orWhere('pengaduans.status_aksi', '=', 'kembalikan');
+                                });
+                    });
+
+            }
+            if ($user_wilayah->name == 'Front Office Kelurahan' ) {
+                //  dd($user_wilayah->role_id);
+                $query->orWhere(function($query) use ($user_wilayah) {
+                       $query->where('pengaduans.id_kelurahan', '=' , $user_wilayah->kelurahan_id)
+                                ->where('pengaduans.tujuan', '=' ,$user_wilayah->role_id)
+                                ->where('pengaduans.petugas', '=' , $user_wilayah->model_id)
+                                ->where(function($query){
+                                    $query->where('pengaduans.status_aksi', '=', 'Teruskan')
+                                          ->orWhere('pengaduans.status_aksi', '=', 'kembalikan');
+                                });
+                    });
 
             }
             if ($user_wilayah->name == 'Back Ofiice kelurahan' ) {
+                // dd($user_wilayah);
                 $query->orWhere(function($query) use ($user_wilayah) {
-                    $query->where('pengaduans.id_kelurahan', $user_wilayah->kelurahan_id)
-                            ->where('pengaduans.tujuan', $user_wilayah->role_id)
-                            ->where('pengaduans.petugas', auth::user()->id)
-                            ->where('pengaduans.status_aksi', 'Teruskan')
-                            ->orwhere('pengaduans.status_aksi', 'kembalikan');
+                    $query->where('pengaduans.id_kelurahan', '=' ,$user_wilayah->kelurahan_id)
+                            ->where('pengaduans.tujuan', '=' , $user_wilayah->role_id)
+                            // ->where('pengaduans.petugas', '=' , auth::user()->id)
+                            ->where(function($query){
+                                $query->where('pengaduans.status_aksi', '=', 'Teruskan')
+                                      ->orWhere('pengaduans.status_aksi', '=', 'kembalikan');
+                            })->exists();
                     // dd($va);
                 });
+            }
+            if ($user_wilayah->name == 'Front Office Kelurahan' ) {
+                $query->orWhere(function($query) use ($user_wilayah) {
+                    $query->where('pengaduans.id_kelurahan', '=' ,$user_wilayah->kelurahan_id)
+                            ->where('pengaduans.tujuan', '=' , $user_wilayah->role_id)
+                            ->where('pengaduans.petugas', '=' , auth::user()->id)
+                            ->where(function($query){
+                                $query->where('pengaduans.status_aksi', '=', 'Teruskan')
+                                      ->orWhere('pengaduans.status_aksi', '=', 'kembalikan');
+                            })->exists();
+                    // dd($va);
+                });
+
             }
             if ($request->has('search')) {
                 // dd($query);
@@ -630,7 +702,7 @@ class PengaduanController extends AppBaseController
         $query = DB::table('pengaduans')
                 ->join('users', 'users.name', '=', 'pengaduans.createdby')
                 ->join('log_pengaduan', 'log_pengaduan.id_trx_pengaduan', '=', 'pengaduans.id')
-                ->join('model_has_roles', 'model_has_roles.model_id', '=', 'pengaduans.tujuan')
+                ->join('model_has_roles', 'model_has_roles.role_id', '=', 'pengaduans.tujuan')
                 ->join('indonesia_villages as b', 'b.code', '=', 'pengaduans.id_kelurahan')
                 ->select('pengaduans.*', 'b.name_village','log_pengaduan.*');
                 
@@ -648,25 +720,74 @@ class PengaduanController extends AppBaseController
             ->first();
             // dd($user_wilayah);
             if ($user_wilayah->name == 'fasilitator' ) {
-                    $query->orWhere(function($query) use ($user_wilayah) {
-                           $query->where('pengaduans.id_kelurahan', $user_wilayah->kelurahan_id)
-                                ->where('pengaduans.tujuan','!=', $user_wilayah->role_id)
-                                ->where('log_pengaduan.petugas','=', $user_wilayah->model_id);
-                               
-                        // dd($va);
+                $query = DB::table('pengaduans')
+                    ->join('users', 'users.name', '=', 'pengaduans.createdby')
+                    ->join('log_pengaduan', 'log_pengaduan.id_trx_pengaduan', '=', 'pengaduans.id')
+                    // ->join('model_has_roles', 'model_has_roles.model_id', '=', 'pengaduans.tujuan')
+                    ->join('indonesia_villages as b', 'b.code', '=', 'pengaduans.id_kelurahan')
+                    ->select('pengaduans.*','b.name_village','log_pengaduan.tujuan','log_pengaduan.petugas' )
+                    ->orWhere(function($query) use ($user_wilayah) {
+                        $query->where('pengaduans.id_kelurahan', $user_wilayah->kelurahan_id)
+                                    ->where('log_pengaduan.tujuan','!=', $user_wilayah->role_id)
+                                    ->where('log_pengaduan.petugas','!=', $user_wilayah->model_id)
+                                    ->where(function($query){
+                                        $query->where('pengaduans.status_aksi', '=', 'Teruskan')
+                                            ->orWhere('pengaduans.status_aksi', '=', 'kembalikan');
+                                    });
                     });
-            }elseif ($user_wilayah->name == 'Back Ofiice kelurahan' ) {
-                // dd($user_wilayah);
-                
-                $query->orWhere(function($query) use ($user_wilayah) {
-                    $query->where('pengaduans.id_kelurahan', $user_wilayah->kelurahan_id)
-                        //  ->where('pengaduans.tujuan','!=', $user_wilayah->role_id)
-                         ->where('log_pengaduan.petugas','=', $user_wilayah->model_id)
-                         ->where('log_pengaduan.tujuan', $user_wilayah->role_id);
-                         // ->where('log_pengaduan.petugas', $user_wilayah->model_id);
-                         // ->where('pengaduans.status_aksi', 'Teruskan');
-             });
-              
+            }
+            if ($user_wilayah->name == 'Front Office kota' ) {
+                $query = DB::table('pengaduans')
+                        ->join('users', 'users.name', '=', 'pengaduans.createdby')
+                        ->join('log_pengaduan', 'log_pengaduan.id_trx_pengaduan', '=', 'pengaduans.id')
+                        // ->join('model_has_roles', 'model_has_roles.model_id', '=', 'pengaduans.tujuan')
+                        ->join('indonesia_villages as b', 'b.code', '=', 'pengaduans.id_kelurahan')
+                        ->select('pengaduans.*', 'b.name_village','log_pengaduan.*')
+                        ->orWhere(function($query) use ($user_wilayah) {
+                               $query->where('pengaduans.id_kelurahan', $user_wilayah->kelurahan_id)
+                                            ->where('pengaduans.tujuan','=', $user_wilayah->role_id)
+                                            ->where('pengaduans.petugas','=', $user_wilayah->model_id)
+                                            ->where(function($query){
+                                                $query->where('pengaduans.status_aksi', '=', 'Teruskan')
+                                                      ->orWhere('pengaduans.status_aksi', '=', 'kembalikan');
+                                            });
+                            });
+            }
+            if ($user_wilayah->name == 'Back Ofiice kelurahan' ) {
+                $query = DB::table('pengaduans')
+                        ->join('users', 'users.name', '=', 'pengaduans.createdby')
+                        ->join('log_pengaduan', 'log_pengaduan.id_trx_pengaduan', '=', 'pengaduans.id')
+                        // ->join('model_has_roles', 'model_has_roles.model_id', '=', 'pengaduans.tujuan')
+                        ->join('indonesia_villages as b', 'b.code', '=', 'pengaduans.id_kelurahan')
+                        ->select('pengaduans.*','b.name_village','log_pengaduan.tujuan','log_pengaduan.petugas' )
+                        ->orWhere(function($query) use ($user_wilayah) {
+                            $query->where('pengaduans.id_kelurahan', $user_wilayah->kelurahan_id)
+                                         ->where('log_pengaduan.tujuan','=', $user_wilayah->role_id)
+                                         ->where('log_pengaduan.petugas','=', $user_wilayah->model_id)
+                                         ->where(function($query){
+                                             $query->where('pengaduans.status_aksi', '=', 'Teruskan')
+                                                   ->orWhere('pengaduans.status_aksi', '=', 'kembalikan');
+                                         });
+                        });
+            }
+            if ($user_wilayah->name == 'Front Office Kelurahan' ) {
+                //  dd($user_wilayah->model_id);
+                $query = DB::table('pengaduans')
+                    ->join('users', 'users.name', '=', 'pengaduans.createdby')
+                    ->join('log_pengaduan', 'log_pengaduan.id_trx_pengaduan', '=', 'pengaduans.id')
+                    // ->join('model_has_roles', 'model_has_roles.model_id', '=', 'pengaduans.tujuan')
+                    ->join('indonesia_villages as b', 'b.code', '=', 'pengaduans.id_kelurahan')
+                    ->select('pengaduans.*','b.name_village','log_pengaduan.tujuan','log_pengaduan.petugas' )
+                    ->orWhere(function($query) use ($user_wilayah) {
+                        $query->where('pengaduans.id_kelurahan', $user_wilayah->kelurahan_id)
+                                    ->where('log_pengaduan.tujuan','!=', $user_wilayah->role_id)
+                                    ->where('pengaduans.petugas','!=', $user_wilayah->model_id)
+                                    ->where('log_pengaduan.petugas','=', $user_wilayah->model_id)
+                                    ->where(function($query){
+                                        $query->where('pengaduans.status_aksi', '=', 'Teruskan')
+                                              ->orWhere('pengaduans.status_aksi', '=', 'Kemabalikan');
+                                    });
+                    });
             }
         if ($request->has('search')) {
             $search = $request->search['value'];
@@ -674,19 +795,13 @@ class PengaduanController extends AppBaseController
                 $query->where('pengaduans.nama', 'like', "%$search%");
             });
         }
-      
-        // Get total count of filtered items
         $total_filtered_items = $query->count();
-        // Add ordering
         if ($request->has('order')) {
             $order_column = $request->order[0]['column'];
             $order_direction = $request->order[0]['dir'];
             $query->orderBy($request->input('columns.' . $order_column . '.data'), $order_direction);
         }
-        // Get paginated data
         $data = $query->paginate($request->input('length'));
-        // dd($data);
-        // mengubah data JSON menjadi objek PHP
 
         return response()->json([
             'draw' => $request->input('draw'),
@@ -718,24 +833,58 @@ class PengaduanController extends AppBaseController
         // dd($user_wilayah);
                 // Add where conditions based on user's wilayah data
             if ($user_wilayah->name == 'fasilitator' ) {
-                    $query->orWhere(function($query) use ($user_wilayah) {
-                        $query->where('pengaduans.id_kelurahan', $user_wilayah->kelurahan_id)
-                             ->where('pengaduans.tujuan','!=', $user_wilayah->role_id)
-                             ->where('log_pengaduan.petugas','=', $user_wilayah->model_id)
-                             ->where('pengaduans.status_aksi', 'Selesai')
-                             ->orwhere('pengaduans.status_aksi', 'Ditolak');
-                     // dd($va);
-                });
-            }else
-            $query->orWhere(function($query) use ($user_wilayah) {
-                $query->where('pengaduans.id_kelurahan', $user_wilayah->kelurahan_id)
-                        // ->where('pengaduans.tujuan', $value->role_id)
-                        ->where('pengaduans.createdby', $user_wilayah->name)
-                        ->where('pengaduans.status_aksi', 'Teruskan')
-                        ->orwhere('pengaduans.status_aksi', 'kembalikan')
-                        ->orWhere('model_has_roles.model_id', $user_wilayah->role_id);
+                $query = DB::table('pengaduans')
+                        ->join('users', 'users.name', '=', 'pengaduans.createdby')
+                        ->join('log_pengaduan', 'log_pengaduan.id_trx_pengaduan', '=', 'pengaduans.id')
+                        ->join('indonesia_villages as b', 'b.code', '=', 'pengaduans.id_kelurahan')
+                        ->select('pengaduans.*','b.name_village','log_pengaduan.tujuan','log_pengaduan.petugas' )
+                        ->orWhere(function($query) use ($user_wilayah) {
+                            $query->where('pengaduans.id_kelurahan', $user_wilayah->kelurahan_id)
+                                        ->where('log_pengaduan.tujuan','=', $user_wilayah->role_id)
+                                        ->where('log_pengaduan.petugas','=', $user_wilayah->model_id)
+                                        ->where(function($query){
+                                            $query->where('pengaduans.status_aksi', '=', 'Tolak')
+                                                ->orWhere('pengaduans.status_aksi', '=', 'Selesai');
+                                        });
+                        });
+            }elseif ($user_wilayah->name == 'Back Ofiice kelurahan' ) {
+                // dd($user_wilayah);
+                $query = DB::table('pengaduans')
+                        ->join('users', 'users.name', '=', 'pengaduans.createdby')
+                        ->join('log_pengaduan', 'log_pengaduan.id_trx_pengaduan', '=', 'pengaduans.id')
+                        // ->join('model_has_roles', 'model_has_roles.model_id', '=', 'pengaduans.tujuan')
+                        ->join('indonesia_villages as b', 'b.code', '=', 'pengaduans.id_kelurahan')
+                        ->select('pengaduans.*','b.name_village','log_pengaduan.tujuan','log_pengaduan.petugas' )
+                        ->orWhere(function($query) use ($user_wilayah) {
+                            $query->where('pengaduans.id_kelurahan', $user_wilayah->kelurahan_id)
+                                         ->where('log_pengaduan.tujuan','!=', $user_wilayah->role_id)
+                                         ->where('log_pengaduan.petugas','!=', $user_wilayah->model_id)
+                                         ->where(function($query){
+                                             $query->where('pengaduans.status_aksi', '=', 'Tolak')
+                                                   ->orWhere('pengaduans.status_aksi', '=', 'Selesai');
+                                         });
+                        });
                 // dd($query);
-            });
+            }
+            if ($user_wilayah->name == 'Front Office Kelurahan' ) {
+                //  dd($user_wilayah->role_id);
+                $query = DB::table('pengaduans')
+                    ->join('users', 'users.name', '=', 'pengaduans.createdby')
+                    ->join('log_pengaduan', 'log_pengaduan.id_trx_pengaduan', '=', 'pengaduans.id')
+                    // ->join('model_has_roles', 'model_has_roles.model_id', '=', 'pengaduans.tujuan')
+                    ->join('indonesia_villages as b', 'b.code', '=', 'pengaduans.id_kelurahan')
+                    ->select('pengaduans.*','b.name_village','log_pengaduan.tujuan','log_pengaduan.petugas' )
+                    ->orWhere(function($query) use ($user_wilayah) {
+                        $query->where('pengaduans.id_kelurahan', $user_wilayah->kelurahan_id)
+                                    // ->where('log_pengaduan.tujuan','=', $user_wilayah->role_id)
+                                    ->where('log_pengaduan.petugas','=', $user_wilayah->model_id)
+                                    ->where(function($query){
+                                        $query->where('pengaduans.status_aksi', '=', 'Tolak')
+                                              ->orWhere('pengaduans.status_aksi', '=', 'Selesai');
+                                    });
+                    });
+
+            }
         if ($request->has('search') && !empty($request->search['value'])) {
             $search = $request->search['value'];
             $query = DB::table('pengaduans')

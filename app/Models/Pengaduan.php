@@ -22,7 +22,6 @@ class Pengaduan extends Model
         'no_kis',
         'nama',
         'tgl_lahir',
-        'alamat',
         'telp',
         'email',
         'hubungan_terlapor',

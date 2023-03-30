@@ -120,7 +120,7 @@
               </div>
             </div>
             <div class="col-6 d-lg-flex d-none h-100 my-auto pe-0 position-absolute top-0 end-0 text-center justify-content-center flex-column">
-              <div class="position-relative bg-gradient-dark h-100 m-3 px-7 border-radius-lg d-flex flex-column justify-content-center overflow-hidden" style="background-image: url('https://asset.kompas.com/crops/_QBFvchNV7JtOIaVkEg0JFZfLJU=/0x0:1000x667/750x500/data/photo/2022/07/25/62dec6809a479.jpg');
+              <div class="position-relative bg-gradient-dark h-100 m-3 px-7 border-radius-lg d-flex flex-column justify-content-center overflow-hidden" style="background-image: url('https://bandungklik.com/wp-content/uploads/2021/10/balai_kota_bandung_klik.jpg');
           background-size: cover;">
                 <span class="mask bg-gradient-dark opacity-6"></span>
                 <h4 class="mt-5 text-white font-weight-bolder position-relative">"Kesejahteraan Sosial dari, oleh, dan untuk Masyarakat menuju Bandung yang Bebas Penyandang Masalah Kesejahteraan Sosial (PMKS)."</h4>

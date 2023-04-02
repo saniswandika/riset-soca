@@ -4,11 +4,11 @@
 
 @section('content')
     <div class="row">
-        <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+        <div class="col-sm-4 mb-xl-0 mb-4">
             <div class="card">
-                <div class="card-body p-3">
+                <div class="card-body text-center">
                     <div class="row">
-                        <div class="col-8">
+                        <div class="">
                             <div class="numbers">
                                 <p class="text-sm mb-0 text-uppercase font-weight-bold">Total Pengaduan</p>
                                 <h5 class="font-weight-bolder">
@@ -29,11 +29,10 @@
                 </div>
             </div>
         </div>
-        <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+        <div class="col-sm-4 mb-xl-0 mb-4">
             <div class="card">
-                <div class="card-body p-3">
-                    <div class="row">
-                        <div class="col-8">
+                <div class="card-body text-center">
+                        <div class="">
                             <div class="numbers">
                                 <p class="text-sm mb-0 text-uppercase font-weight-bold">Pengaduan Kepesertaan Program</p>
                                 <h5 class="font-weight-bolder">
@@ -45,20 +44,14 @@
                                 </p> --}}
                             </div>
                         </div>
-                        {{-- <div class="col-4 text-end">
-                            <div class="icon icon-shape bg-gradient-danger shadow-danger text-center rounded-circle">
-                                <i class="ni ni-world text-lg opacity-10" aria-hidden="true"></i>
-                            </div>
-                        </div> --}}
-                    </div>
                 </div>
             </div>
         </div>
-        <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+        <div class="col-sm-4 mb-xl-0 mb-4">
             <div class="card">
-                <div class="card-body p-3">
+                <div class="card-body text-center">
                     <div class="row">
-                        <div class="col-8">
+                        <div class="">
                             <div class="numbers">
                                 <p class="text-sm mb-0 text-uppercase font-weight-bold">Pengaduan Kebutuhan Program</p>
                                 <h5 class="font-weight-bolder">
@@ -81,49 +74,55 @@
         </div>
        
     </div>
-    
     <div class="row mt-4">
-        <div class="col-lg-9 mb-lg-6 mb-4">
+        <div class="col-lg-12 mb-lg-6 mb-4">
             <div class="card my-4">
                 <div class="card-header pb-0 p-3">
                     <div class="d-flex justify-content-between">
-                        <h6 class="mb-2">Sebaran Data Berdasarkan Program Sosial</h6>
+                        <h6 class="mb-2 mt-2">Sebaran Data Berdasarkan Program Sosial</h6>
                     </div>
                 </div>
-                <div class="table-responsive ml-4 mr-4">
-                    <table class="table table-bordered align-items-center ml-4 mr-4 ">
-                        <thead>
-                            <tr>
-                              <th>Layanan</th>
-                              <th>Jumlah Permintaan</th>
-                              <th>Jumlah Surat Terbit</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr>
-                                <td>Layanan A</td>
-                                <td>10</td>
-                                <td>8</td>
-                            </tr>
-                            <tr>
-                                <td>Layanan B</td>
-                                <td>20</td>
-                                <td>18</td>
-                            </tr>
-                            <tr>
-                                <td>Layanan C</td>
-                                <td>15</td>
-                                <td>12</td>
-                            </tr>
-                            <tr>
-                                <td>Layanan D</td>
-                                <td>5</td>
-                                <td>4</td>
-                            </tr>
-                        </tbody>
-                        
-                    </table>
+                <div class="col-lg-8 mb-lg-0 mb-4">
+                    <div class="body">
+                        <div class="container ">
+                            <div class="table-responsive ml-4 mr-4">
+                                <table class="table table-bordered align-items-center mb-7">
+                                    <thead>
+                                        <tr>
+                                          <th>Layanan</th>
+                                          <th>Jumlah Permintaan</th>
+                                          <th>Jumlah Surat Terbit</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+                                        <tr>
+                                            <td>Program Pendidikan</td>
+                                            <td>10</td>
+                                            <td>8</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Program Sembako</td>
+                                            <td>20</td>
+                                            <td>18</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Program 3</td>
+                                            <td>15</td>
+                                            <td>12</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Layanan D</td>
+                                            <td>5</td>
+                                            <td>4</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div> 
+                    </div>
                 </div>
+               
+               
             </div>
         </div>
         {{-- <div class="col-lg-5">

@@ -119,14 +119,6 @@
                 <li class="nav-item">
                   <a class="nav-link" id="tab1" data-toggle="tab" href="#table1" role="tab" aria-controls="table1" aria-selected="true" >Draft</a>
                 </li>
-            @elseif ($item->name == 'Front Office kota')
-                <li class="nav-item">
-                  <a class="nav-link" id="tab1" data-toggle="tab" href="#table1" role="tab" aria-controls="table1" aria-selected="true" >Draft</a>
-                </li>
-            @elseif ($item->name == 'Front Office Kelurahan')
-              <li class="nav-item">
-                <a class="nav-link" id="tab1" data-toggle="tab" href="#table1" role="tab" aria-controls="table1" aria-selected="true" >Draft</a>
-              </li>
               @endif
           @endforeach
           
@@ -139,9 +131,14 @@
           <li class="nav-item">
             <a class="nav-link" id="tab3" data-toggle="tab" href="#table3" role="tab" aria-controls="table3" aria-selected="false">Selesai</a>
           </li>
+          @auth
           <li class="nav-item ml-auto" style="margin-left: auto">
-            <a href="/pengaduans/create" class="btn btn-primary ml-2">Tambah Data</a>
+            @if (Auth::user()->hasRole(['fasilitator', 'Front Office Kelurahan', 'Front Office kota']))
+              <a href="/pengaduans/create" class="btn btn-primary ml-2">Tambah Data</a>
+            @endif
           </li>
+        @endauth
+        
         </ul>
         
         <div class="tab-content" id="myTabContent">
@@ -150,7 +147,7 @@
                 <thead>
                   <tr>
                     <th>No Pendaftaran</th>
-                    <th>Tgl Pendaftaran</th>
+                    {{-- <th>Tgl Pendaftaran</th>
                     <th>Layanan</th>
                     <th>Faskesos</th>
                     <th>Terlapor</th>

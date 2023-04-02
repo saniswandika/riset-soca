@@ -374,28 +374,28 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">Tujuan <span class="text-danger">*</label>
+                    <label class="col-sm-2 col-form-label">Tujuan</label>
                     <div class="col-sm-5">
-                        <select class="form-control form-control-lg" name="tujuan" required>
-                            {{-- data sebelumnya --}}
-                            @foreach ($checkroles as $item)
-                                @if ($item->id == $pengaduan->tujuan)
-                                    <option selected value="{{ $pengaduan->tujuan }}">{{ $item->name }} </option>
-                                @endif
-                                {{-- data selanjutnya --}}
-                            @endforeach
+                        <select class="form-control form-control-lg" name="tujuan">
+                            <option selected>Pilih...</option>
                             @foreach ($checkroles as $item)
                                 {{-- {{ $item->name }} --}}
                                 @if ($item->name == 'Front Office kota')
                                     @foreach ($rolebackoffice as $backoffice)
-                                        <option {{ $pengaduan->tujuan == $backoffice->id ? 'selected' : '' }}
-                                            value="{{ $backoffice->id }}">{{ $backoffice->name }}</option>
+                                        <option value='{{ $backoffice->id }}'>{{ $backoffice->name }}</option>
                                         {{-- <option value="Teruskan">Large select</option> --}}
+                                    @endforeach
+                                @elseif ($item->name == 'Back Ofiice kelurahan')
+                                    @foreach ($createdby as $c)
+                                        <option value='{{ $c->id }}'>{{ $c->name }}</option>
+                                    @endforeach
+                                @elseif ($item->name == 'supervisor')
+                                    @foreach ($createdby as $c)
+                                        <option value='{{ $c->id }}'>{{ $c->name}}</option>
                                     @endforeach
                                 @else
                                     @foreach ($roleid as $idrole)
-                                        <option {{ $pengaduan->tujuan == $idrole->id ? 'selected' : '' }}
-                                            value="{{ $idrole->id }}">{{ $idrole->name }}</option>
+                                        <option value={{ $idrole->id }}>{{ $idrole->name }}</option>
                                         {{-- <option value="Teruskan">Large select</option> --}}
                                     @endforeach
                                 @endif
@@ -412,12 +412,20 @@
                                 {{-- {{ $item->name }} --}}
                                 @if ($item->name == 'Front Office kota')
                                     @foreach ($rolebackoffice as $backoffice)
-                                        <option value="{{ $backoffice->id }}">{{ $backoffice->name }}</option>
+                                        <option value='{{ $backoffice->id }}'>{{ $backoffice->name }}</option>
                                         {{-- <option value="Teruskan">Large select</option> --}}
+                                    @endforeach
+                                @elseif ($item->name == 'Back Ofiice kelurahan')
+                                    @foreach ($createdby as $c)
+                                        <option value='{{ $c->id }}'>{{ $c->createdby }}</option>
+                                    @endforeach
+                                @elseif ($item->name == 'supervisor')
+                                    @foreach ($createdby as $c)
+                                        <option value='{{ $c->id }}'>{{ $c->createdby }}</option>
                                     @endforeach
                                 @else
                                     @foreach ($roleid as $idrole)
-                                        <option value="{{ $idrole->id }}">{{ $idrole->name }}</option>
+                                        <option value={{ $idrole->id }}>{{ $idrole->name }}</option>
                                         {{-- <option value="Teruskan">Large select</option> --}}
                                     @endforeach
                                 @endif

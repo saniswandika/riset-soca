@@ -425,7 +425,7 @@ class ClassLoader
     public function loadClass($class)
     {
         if ($file = $this->findFile($class)) {
-            includeFile($file);
+            (self::$includeFile)($file);
 
             return true;
         }
@@ -555,18 +555,23 @@ class ClassLoader
 
         return false;
     }
-}
 
-/**
- * Scope isolated include.
- *
- * Prevents access to $this/self from included files.
- *
- * @param  string $file
- * @return void
- * @private
- */
-function includeFile($file)
-{
-    include $file;
+    private static function initializeIncludeClosure(): void
+    {
+        if (self::$includeFile !== null) {
+            return;
+        }
+
+        /**
+         * Scope isolated include.
+         *
+         * Prevents access to $this/self from included files.
+         *
+         * @param  string $file
+         * @return void
+         */
+        self::$includeFile = static function($file) {
+            include $file;
+        };
+    }
 }

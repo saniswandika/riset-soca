@@ -9,11 +9,13 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\LaporanTamuController;
 use App\Http\Controllers\PengaduanController;
-use app\Models\Pengaduan;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\FormTamuController;
 use App\Http\Controllers\PengaturanWilayahController;
 use App\Http\Controllers\DependantDropdownController;
+use App\Http\Controllers\pdfController;
+use App\Models\Pengaduan;
+use Dompdf\Adapter\PDFLib;
 use Symfony\Component\HttpKernel\Profiler\Profile;
 /*
 |--------------------------------------------------------------------------
@@ -25,6 +27,22 @@ use Symfony\Component\HttpKernel\Profiler\Profile;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+
+// Route::get('/pdf/{id}', function ($id) {
+
+//     $pengaduan = Pengaduan::find($id);
+//     $data = [
+//         'title' => 'Laporan Pengaduan '.$pengaduan->no_pengaduan,
+//         'content' => view('pdfview', compact('pengaduan'))->render()
+//     ];
+
+//     $pdf = PDF::loadView('pdfview', $data);
+//     return $pdf->stream();
+
+// });
+
+Route::get('/pdf/{id}', [pdfController::class, 'show']);
 
 Route::get('/', function () {
     return view('auth.login');
@@ -90,6 +108,9 @@ Route::get('teruskan', [PengaduanController::class, 'teruskan'])->name('teruskan
 Route::get('/selesai', [PengaduanController::class, 'selesai'])->name('selesai');
 Route::get('/prelistDTKS', [PengaduanController::class, 'prelistDTKS'])->name('prelist_DTKS');
 Route::get('/prelistPage', [PengaduanController::class, 'prelistPage'])->name('prelistPage');
+
+Route::get('/detailpengaduan/{detailpengaduan}', [PengaduanController::class, 'detail_pengaduan'])->name('detailpengaduan');
+
 // Route::get('/pengaduans/create', [PengaduanController::class, 'create'])->name('pengaduans.create');
 Route::get('/pengaduans/search', [PengaduanController::class, 'search'])->name('pengaduans.search');
 Route::get('/pengaduans/{pengaduan}/delete', [PengaduanController::class, 'destroy'])->name('pengaduans.delet2');

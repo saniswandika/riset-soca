@@ -40,7 +40,7 @@ class Pengaduan extends Model
         'createdby',
         'updatedby',
         'ada_dtks',
-        'no_dtks',
+        'status_dtks',
         'tempat_lahir',
         'status_aksi',
         'petugas',

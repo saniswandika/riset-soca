@@ -10,14 +10,16 @@
             </h1>
         </div>
 
-        {!! Form::open(['route' => 'pengaduans.store', 'method' => 'POST']) !!}
+        {{-- {!! Form::open(['route' => 'pengaduans.store', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!} --}}
+        {!! Form::open(array_merge(['route' => 'pengaduans.store', 'method' => 'POST', 'enctype' => 'multipart/form-data'])) !!}
+
 
         <div class="card-body shadow-lg">
             @foreach ($wilayah as $item)
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Provinsi</label>
                     <div class="col-sm-5">
-                        <input type="text" required class="form-control" value="{{ $item->name_prov }}" name="nama_provinsi"
+                        <input type="text" class="form-control" value="{{ $item->name_prov }}" name="nama_provinsi"
                             readonly>
                         <input type="hidden" value="{{ $item->province_id }}" name="id_provinsi">
                     </div>
@@ -25,7 +27,7 @@
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Kab/Kota</label>
                     <div class="col-sm-5">
-                        <input type="text" required class="form-control" value="{{ $item->name_cities }}"
+                        <input type="text" class="form-control" value="{{ $item->name_cities }}"
                             name="id_kabkot" readonly>
                         <input type="hidden" value="{{ $item->kota_id }}" name="id_kabkot" id="id_kabkot">
 
@@ -34,7 +36,7 @@
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Kecamatan</label>
                     <div class="col-sm-5">
-                        <input type="text" required class="form-control" value="{{ $item->name_districts }}"
+                        <input type="text" class="form-control" value="{{ $item->name_districts }}"
                             name="name_kecamatan" readonly>
                         <input type="hidden" value="{{ $item->kecamatan_id }}" name="id_kecamatan" id="id_kecamatan">
                     </div>
@@ -42,7 +44,7 @@
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Kelurahan</label>
                     <div class="col-sm-5">
-                        <input type="text" required class="form-control" value="{{ $item->name_village }}"
+                        <input type="text" class="form-control" value="{{ $item->name_village }}"
                             name="name_kelurahan" readonly>
                         <input type="hidden" value="{{ $item->kelurahan_id }}" name="id_kelurahan" id="id_kabkot">
                     </div>
@@ -60,14 +62,14 @@
                         <div class="col">
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" id="inlineCheckbox1" value="Diri_Sendiri"
-                                    name="jenis_pelapor" required>
+                                    name="jenis_pelapor">
                                 <label class="form-check-label" for="inlineCheckbox1">Diri Sendiri</label>
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" id="inlineCheckbox2" value="Orang Lain"
-                                    name="jenis_pelapor" required>
+                                    name="jenis_pelapor">
                                 <label class="form-check-label" for="inlineCheckbox2">Orang Lain</label>
                             </div>
                         </div>
@@ -108,16 +110,16 @@
                     <div class="row">
                         <input type="text" id="name-input" class="form-control"
                                 aria-label="Text input with checkbox" id="nodtks"
-                                name="no_dtks" readonly hidden>
+                                name="status_dtks" readonly hidden>
                         <div class="col">
                             <div class="form-check form-check-inline">
-                                <input type="radio" class="form-check-input" name="status_dtks" id="status_dtks" value="1" disabled>
+                                <input type="radio" class="form-check-input" name="status_dtks" id="status_dtks" value="1" >
                                 <label class="form-check-label" for="inlineCheckbox1">Terdaftar</label>
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-check form-check-inline">
-                                <input type="radio" class="form-check-input" name="status_dtks" id="status_dtks" value="0" disabled checked>
+                                <input type="radio" class="form-check-input" name="status_dtks" id="status_dtks" value="0">
                                 <label class="form-check-label" for="inlineCheckbox2">Tidak Terdaftar</label>
                             </div>
                         </div>
@@ -146,25 +148,25 @@
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Nama <span class="text-danger">*</label>
                 <div class="col-sm-5">
-                    <input type="text" class="form-control" name="nama" required>
+                    <input type="text" class="form-control" name="nama">
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Tempat Lahir <span class="text-danger">*</label>
                 <div class="col-sm-5">
-                    <input type="text" class="form-control" name="tempat_lahir" required>
+                    <input type="text" class="form-control" name="tempat_lahir">
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Tanggal Lahir <span class="text-danger">*</label>
                 <div class="col-sm-5">
-                    <input type="date" class="form-control" name="tgl_lahir" required>
+                    <input type="date" class="form-control" name="tgl_lahir">
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Telpon <span class="text-danger">*</label>
                 <div class="col-sm-5">
-                    <input type="tel" class="form-control" name="telpon" required>
+                    <input type="tel" class="form-control" name="telpon">
                     <small id="nikhelper" class="form-text text-muted">
                         Harus angka, max 13 digit
                     </small>
@@ -245,14 +247,14 @@
                         <div class="col">
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" id="inlineCheckbox1"
-                                    value="Kepesertaan Program" name="kategori_pengaduan" required>
+                                    value="Kepesertaan Program" name="kategori_pengaduan">
                                 <label class="form-check-label" for="inlineCheckbox1">Kepesertaan Program</label>
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" id="inlineCheckbox2"
-                                    value="Kebutuhan Program" name="kategori_pengaduan" required>
+                                    value="Kebutuhan Program" name="kategori_pengaduan">
                                 <label class="form-check-label" for="inlineCheckbox2">Kebutuhan Program</label>
                             </div>
                         </div>
@@ -302,19 +304,19 @@
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Ringkasan Pengaduan <span class="text-danger">*</label>
                 <div class="col-sm-5">
-                    <input type="text" class="form-control" name="ringkasan_pengaduan" required>
+                    <input type="text" class="form-control" name="ringkasan_pengaduan">
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Detail Pengaduan <span class="text-danger">*</label>
                 <div class="col-sm-5">
-                    <textarea class="form-control" name="detail_pengaduan" required></textarea>
+                    <textarea class="form-control" name="detail_pengaduan"></textarea>
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">File Penunjang</label>
                 <div class="col-sm-5">
-                    <input type="file" name="file_penunjang">
+                    <input type="file" name="tl_file">
                 </div>
             </div>
             <div class="form-group row">

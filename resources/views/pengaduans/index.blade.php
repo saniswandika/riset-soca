@@ -119,7 +119,7 @@
                 <li class="nav-item">
                   <a class="nav-link" id="tab1" data-toggle="tab" href="#table1" role="tab" aria-controls="table1" aria-selected="true" >Draft</a>
                 </li>
-            @elseif ($item->name == 'Front Office Kota')
+            @elseif ($item->name == 'Front Office kota')
                 <li class="nav-item">
                   <a class="nav-link" id="tab1" data-toggle="tab" href="#table1" role="tab" aria-controls="table1" aria-selected="true" >Draft</a>
                 </li>
@@ -143,6 +143,7 @@
             <a href="/pengaduans/create" class="btn btn-primary ml-2">Tambah Data</a>
           </li>
         </ul>
+        
         <div class="tab-content" id="myTabContent">
           <div class="tab-pane fade show table-responsive" id="table1" role="tabpanel" aria-labelledby="tab1" style="margin-top: 20px;">
             <table id="datatable" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
@@ -158,10 +159,9 @@
                     <th>Sektor Program</th>
                     <th>Program</th>
                     <th>Catatan</th>
-                    <th>Status</th>
+                    {{-- <th>Status</th>
+                    <th>Durasi (hari)</th> --}}
                     <th>Aksi</th> 
-                    {{-- <th>Durasi (hari)</th>  --}}
-                 
                   </tr>
                 </thead>
               <tbody>
@@ -275,7 +275,7 @@
                     { data: 'no_pendaftaran', name: 'no_pendaftaran' },
                     { data: 'created_at', name: 'created_at' },
                     { data: 'jenis_pelapor', name: 'jenis_pelapor' },
-                    { data: 'id_kelurahan', name: 'id_kelurahan' },
+                    { data: 'name_village', name: 'name_village' },
                     { data: 'nama', name: 'Terlapor' },
                     { data: 'nik', name: 'nik' },
                     { data: 'no_kk', name: 'no_kk' },
@@ -304,7 +304,7 @@
                     { data: 'no_pendaftaran', name: 'no_pendaftaran' },
                     { data: 'created_at', name: 'created_at' },
                     { data: 'jenis_pelapor', name: 'jenis_pelapor' },
-                    { data: 'id_kelurahan', name: 'id_kelurahan' },
+                    { data: 'name_village', name: 'name_village' },
                     { data: 'nama', name: 'Terlapor' },
                     { data: 'nik', name: 'nik' },
                     { data: 'no_kk', name: 'no_kk' },
@@ -334,7 +334,7 @@
                     { data: 'no_pendaftaran', name: 'no_pendaftaran' },
                     { data: 'created_at', name: 'created_at' },
                     { data: 'jenis_pelapor', name: 'jenis_pelapor' },
-                    { data: 'id_kelurahan', name: 'id_kelurahan' },
+                    { data: 'name_village', name: 'name_village' },
                     { data: 'nama', name: 'nama' },
                     { data: 'nik', name: 'nik' },
                     { data: 'no_kk', name: 'no_kk' },
@@ -363,7 +363,7 @@
                     { data: 'no_pendaftaran', name: 'no_pendaftaran' },
                     { data: 'created_at', name: 'created_at' },
                     { data: 'jenis_pelapor', name: 'jenis_pelapor' },
-                    { data: 'id_kelurahan', name: 'id_kelurahan' },
+                    { data: 'name_village', name: 'name_village' },
                     { data: 'nama', name: 'nama' },
                     { data: 'nik', name: 'nik' },
                     { data: 'no_kk', name: 'no_kk' },
@@ -391,7 +391,7 @@
                     { data: 'id_provinsi', name: 'id_provinsi' },
                     { data: 'id_kabkot', name: 'id_kabkot' },
                     { data: 'id_kecamatan', name: 'id_kecamatan' },
-                    { data: 'id_kelurahan', name: 'id_kelurahan' },
+                    { data: 'name_village', name: 'name_village' },
                     { data: 'nik', name: 'nik' },
                     { data: 'no_kk', name: 'no_kk' },
                     { data: 'no_kis', name: 'no_kis' },

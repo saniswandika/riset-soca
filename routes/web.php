@@ -9,11 +9,13 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\LaporanTamuController;
 use App\Http\Controllers\PengaduanController;
-use app\Models\Pengaduan;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\FormTamuController;
 use App\Http\Controllers\PengaturanWilayahController;
 use App\Http\Controllers\DependantDropdownController;
+use App\Http\Controllers\pdfController;
+use App\Models\Pengaduan;
+use Dompdf\Adapter\PDFLib;
 use Symfony\Component\HttpKernel\Profiler\Profile;
 /*
 |--------------------------------------------------------------------------
@@ -25,6 +27,22 @@ use Symfony\Component\HttpKernel\Profiler\Profile;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+
+// Route::get('/pdf/{id}', function ($id) {
+
+//     $pengaduan = Pengaduan::find($id);
+//     $data = [
+//         'title' => 'Laporan Pengaduan '.$pengaduan->no_pengaduan,
+//         'content' => view('pdfview', compact('pengaduan'))->render()
+//     ];
+
+//     $pdf = PDF::loadView('pdfview', $data);
+//     return $pdf->stream();
+
+// });
+
+Route::get('/pdf/{id}', [pdfController::class, 'show']);
 
 Route::get('/', function () {
     return view('auth.login');

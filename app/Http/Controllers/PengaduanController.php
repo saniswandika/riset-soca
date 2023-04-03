@@ -36,9 +36,9 @@ class PengaduanController extends AppBaseController
 
     public function index(Request $request)
     {
-        // $role = auth::user()->id;
-        // dd($role);
-        return view('pengaduans.index');
+
+        $kecamatan = DB::table('indonesia_districts')->select('id', 'name_districts')->orderBy('name_districts')->get();
+        return view('pengaduans.index',compact('kecamatan'));
     }
 
     /**
@@ -388,21 +388,19 @@ class PengaduanController extends AppBaseController
             ->where('status_wilayah', '1')
             ->where('w.createdby', $userid)->get();
 
-            
+
         $checkuserrole = DB::table('model_has_roles')
             ->leftjoin('roles', 'roles.id', '=', 'model_has_roles.role_id')
             ->where('model_id', '=', $userid)
             ->first();
         // dd($checkuserrole);
         //Tujuan
-        $createdby = DB::table('model_has_roles')
-                    ->leftjoin('users', 'users.id', '=', 'model_has_roles.model_id')
-                    ->where('name', 'Back Ofiice Kota')
-                    // ->where('name', 'supervisor')
-                    // ->orWhere('name', 'supervisor')
-                    ->get();
-       
-        // dd($createdby);
+        $createdby = DB::table('pengaduans')
+            ->join('users', 'pengaduans.createdby', '=', 'users.name')
+            ->join('model_has_roles', 'model_has_roles.model_id', '=', 'users.id')
+            ->join('roles', 'model_has_roles.role_id', '=', 'roles.id')
+            ->select('pengaduans.id', 'pengaduans.createdby', 'roles.name')
+            ->get();
         //Petugas
         // $createdby = DB::table('pengaduans')
         // ->join('users', 'pengaduans.createdby', '=', 'users.name')
@@ -692,7 +690,6 @@ class PengaduanController extends AppBaseController
             }
         if ($request->has('search')) {
             // dd($query);
-            
             $search = $request->search['value'];
             $query->where(function ($query) use ($search) {
                 $query->where('pengaduans.nama', 'like', "%$search%");
@@ -708,15 +705,15 @@ class PengaduanController extends AppBaseController
         }
         // Get paginated data
         $data = $query->paginate($request->input('length'));
-        // dd($data);
         // mengubah data JSON menjadi objek PHP
-
+    
         return response()->json([
             'draw' => $request->input('draw'),
             'recordsTotal' => Pengaduan::count(),
             'recordsFiltered' => $total_filtered_items,
             'data' => $data,
         ]);
+      
     }
 
     public function diproses(Request $request)
@@ -751,7 +748,6 @@ class PengaduanController extends AppBaseController
                     ->join('indonesia_villages as b', 'b.code', '=', 'pengaduans.id_kelurahan')
                     ->select('pengaduans.*', 'b.name_village');
             }
-
         // dd($query);
             if ($user_wilayah->name == 'fasilitator' ) {
                 // dd($user_wilayah->role_id); 

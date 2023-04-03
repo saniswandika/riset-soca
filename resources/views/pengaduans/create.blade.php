@@ -108,9 +108,6 @@
 
                 <div class="col-sm-5">
                     <div class="row">
-                        <input type="text" id="name-input" class="form-control"
-                                aria-label="Text input with checkbox" id="nodtks"
-                                name="status_dtks" readonly hidden>
                         <div class="col">
                             <div class="form-check form-check-inline">
                                 <input type="radio" class="form-check-input" name="status_dtks" id="status_dtks" value="1" >
@@ -336,11 +333,10 @@
                 <div class="col-sm-5">
                     <select class="form-control form-control-lg" name="tujuan">
                         <option selected>Pilih...</option>
-                        @foreach ($checkroles as $item)
                             {{-- {{ $item->name }} --}}
-                            @if ($item->name == 'Front Office kota')
+                            @if ($checkroles->name == 'Front Office kota')
                                 @foreach ($rolebackoffice as $backoffice)
-                                    <option value='{{ $backoffice->id }}'>{{ $backoffice->name }}</option>
+                                    <option value='{{ $backoffice->role_id }}'>{{ $backoffice->name }}</option>
                                     {{-- <option value="Teruskan">Large select</option> --}}
                                 @endforeach
                             @else
@@ -349,29 +345,32 @@
                                     {{-- <option value="Teruskan">Large select</option> --}}
                                 @endforeach
                             @endif
-                        @endforeach
+                        {{-- @endforeach --}}
                     </select>
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Petugas</label>
                 <div class="col-sm-5">
+                    {{-- <?php
+                        dd($checkroles); 
+                    ?> --}}
                     <select class="form-control form-control-lg" name="petugas">
                         <option selected>Pilih...</option>
-                        @foreach ($checkroles as $item)
+                        {{-- @foreach ($checkroles as $item) --}}
                             {{-- {{ $item->name }} --}}
-                            @if ($item->name == 'Front Office kota')
+                            @if ($checkroles->name == 'Front Office kota')
                                 @foreach ($rolebackoffice as $backoffice)
                                     <option value='{{ $backoffice->id }}'>{{ $backoffice->name }}</option>
                                     {{-- <option value="Teruskan">Large select</option> --}}
                                 @endforeach
                             @else
-                                @foreach ($roleid as $idrole)
+                                @foreach ($useridpetugas as $idrole)
                                     <option value={{ $idrole->id }}>{{ $idrole->name }}</option>
                                     {{-- <option value="Teruskan">Large select</option> --}}
                                 @endforeach
                             @endif
-                        @endforeach
+                        {{-- @endforeach --}}
                     </select>
                 </div>
             </div>

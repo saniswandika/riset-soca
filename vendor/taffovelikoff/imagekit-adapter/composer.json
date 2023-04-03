@@ -1,0 +1,48 @@
+{
+    "name": "taffovelikoff/imagekit-adapter",
+    "description": "Flysystem adapter for ImageKit.",
+    "keywords": [
+        "imagekit",
+        "tavvo",
+        "taffovelikoff",
+        "taffo",
+        "api",
+        "host",
+        "cdn",
+        "flysystem",
+        "adapter"
+    ],
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Taffo Velikoff",
+            "email": "contact@taffovelikoff.com",
+            "homepage": "https://taffovelikoff.com",
+            "role": "Developer"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "php": "^8.0",
+        "league/flysystem": "^2.0.4 || ^3.0.0",
+        "imagekit/imagekit": "^2.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "TaffoVelikoff\\ImageKitAdapter\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "TaffoVelikoff\\ImageKitAdapter\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit"
+    },
+    "require-dev": {
+        "phpspec/prophecy-phpunit": "^2.0.1",
+        "phpunit/phpunit": "^9.5.4"
+    }
+}

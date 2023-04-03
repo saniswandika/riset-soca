@@ -121,27 +121,35 @@
                 <div class="form-group row">
                     {{-- <div class="col-sm-2 col-form-label"> --}}
                     <label class="col-sm-2 col-form-label" for="inlineCheckbox1">Status DTKS</label>
-                    <input type="text" id="name-input" class="form-control" aria-label="Text input with checkbox"
-                        id="nodtks" value="{{ $pengaduan->no_dtks }}" name="no_dtks" readonly hidden>
+    
                     <div class="col-sm-5">
                         <div class="row">
+                            <input type="text" id="name-input" class="form-control"
+                                    aria-label="Text input with checkbox" id="nodtks"
+                                    name="status_dtks" readonly hidden>
                             <div class="col">
+                                {{-- <div class="form-check form-check-inline">
+                                    <input type="radio" class="form-check-input" name="memiliki_nik" value="0"
+                                        {{ $pengaduan->ada_nik == '0' ? 'checked' : '' }}>
+                                    <label class="form-check-label" for="inlineCheckbox2">Tidak</label>
+                                </div> --}}
                                 <div class="form-check form-check-inline">
-                                    <input type="radio" class="form-check-input" name="status_dtks" id="status_dtks"
-                                        value="1" disabled {{ $pengaduan->no_dtks ? 'checked' : ''}}>
+                                    <input type="radio" class="form-check-input" name="status_dtks" value="1"
+                                        {{ $pengaduan->status_dtks == '1' ? 'checked' : '' }}>
                                     <label class="form-check-label" for="inlineCheckbox1">Terdaftar</label>
                                 </div>
                             </div>
                             <div class="col">
                                 <div class="form-check form-check-inline">
-                                    <input type="radio" class="form-check-input" name="status_dtks" id="status_dtks"
-                                        value="0" disabled {{ !$pengaduan->no_dtks ? 'checked' : ''}}>
-                                    <label class="form-check-label" for="inlineCheckbox2">Tidak Terdaftar</label>
+                                    <input type="radio" class="form-check-input" name="status_dtks" value="0"
+                                        {{ $pengaduan->status_dtks == '0' ? 'checked' : '' }}>
+                                        <label class="form-check-label" for="inlineCheckbox2">Tidak Terdaftar</label>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+              
 
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label"></label>
@@ -377,25 +385,29 @@
                     <label class="col-sm-2 col-form-label">Tujuan</label>
                     <div class="col-sm-5">
                         <select class="form-control form-control-lg" name="tujuan">
-                            <option selected>Pilih...</option>
+                            {{-- <option selected>Pilih...</option> --}}
                             @foreach ($checkroles as $item)
                                 {{-- {{ $item->name }} --}}
                                 @if ($item->name == 'Front Office kota')
                                     @foreach ($rolebackoffice as $backoffice)
-                                        <option value='{{ $backoffice->id }}'>{{ $backoffice->name }}</option>
+                                        <option value='{{ $backoffice->role_id }}'>{{ $backoffice->name }}</option>
                                         {{-- <option value="Teruskan">Large select</option> --}}
                                     @endforeach
                                 @elseif ($item->name == 'Back Ofiice kelurahan')
                                     @foreach ($createdby as $c)
+                                        <option value='{{ $c->role_id }}'>{{ $c->name }}</option>
+                                    @endforeach
+                                @elseif ($item->name == 'Back Ofiice Kota')
+                                    @foreach ($rolebackoffice as $c)
                                         <option value='{{ $c->id }}'>{{ $c->name }}</option>
                                     @endforeach
                                 @elseif ($item->name == 'supervisor')
                                     @foreach ($createdby as $c)
-                                        <option value='{{ $c->id }}'>{{ $c->name}}</option>
+                                        <option value='{{ $c->role_id }}'>{{ $c->name}}</option>
                                     @endforeach
                                 @else
                                     @foreach ($roleid as $idrole)
-                                        <option value={{ $idrole->id }}>{{ $idrole->name }}</option>
+                                        <option value={{ $idrole->role_id }}>{{ $idrole->name }}</option>
                                         {{-- <option value="Teruskan">Large select</option> --}}
                                     @endforeach
                                 @endif
@@ -406,22 +418,28 @@
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Petugas <span class="text-danger">*</label>
                     <div class="col-sm-5">
-                        <select class="form-control form-control-lg" name="tujuan">
+                        <select class="form-control form-control-lg" name="petugas">
                             {{-- <option selected value="{{ $pengaduan->tujuan }}">{{ $pengaduan->tujuan }}</option> --}}
                             @foreach ($checkroles as $item)
                                 {{-- {{ $item->name }} --}}
                                 @if ($item->name == 'Front Office kota')
                                     @foreach ($rolebackoffice as $backoffice)
-                                        <option value='{{ $backoffice->id }}'>{{ $backoffice->name }}</option>
+                                        <option value='{{ $backoffice->model_id }}'>{{ $backoffice->name }} {{ $backoffice->model_id }}'</option>
                                         {{-- <option value="Teruskan">Large select</option> --}}
                                     @endforeach
                                 @elseif ($item->name == 'Back Ofiice kelurahan')
+                                    
                                     @foreach ($createdby as $c)
-                                        <option value='{{ $c->id }}'>{{ $c->createdby }}</option>
+                                        <option value='{{ $c->model_id }}'>{{ $c->name }}</option>
+                                    @endforeach
+                                @elseif ($item->name == 'Back Ofiice Kota')
+                                    
+                                    @foreach ($rolebackoffice as $c)
+                                        <option value='{{ $c->model_id }}'>{{ $c->name }}</option>
                                     @endforeach
                                 @elseif ($item->name == 'supervisor')
                                     @foreach ($createdby as $c)
-                                        <option value='{{ $c->id }}'>{{ $c->createdby }}</option>
+                                        <option value='{{ $c->model_id }}'>{{ $c->name }}</option>
                                     @endforeach
                                 @else
                                     @foreach ($roleid as $idrole)
@@ -463,7 +481,6 @@
                     $('#btn-submit').prop('disabled', true);
                     $('#draft').prop('disabled', false);
                 }
-
             };
             // tambahkan event listener untuk semua radio button dengan nama "options"
             $('input[type=radio][name=memiliki_nik]').change(function() {
@@ -490,7 +507,6 @@
                         Nik, // URL endpoint di mana Anda menangani permintaan ini di server Anda, dengan menyertakan ID yang dikirim melalui URL
                     method: 'GET',
                     success: function(data) {
-
                         // Tampilkan pesan berdasarkan hasil dari permintaan
                         if (data.found == true) {
                             $('#name-input').val(data

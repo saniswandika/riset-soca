@@ -403,6 +403,15 @@
                 0 => 'v9.52.5',
             ),
         ),
+        'imagekit/imagekit' => array(
+            'pretty_version' => '2.0.0',
+            'version' => '2.0.0.0',
+            'reference' => 'b43fe97c7ed100f6b6799f08736f58ef0eb4f579',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../imagekit/imagekit',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'infyomlabs/adminlte-templates' => array(
             'pretty_version' => 'v5.2.0',
             'version' => '5.2.0.0',
@@ -793,6 +802,15 @@
             'aliases' => array(),
             'dev_requirement' => true,
         ),
+        'phuclh/flysystem-imagekit' => array(
+            'pretty_version' => '0.0.4',
+            'version' => '0.0.4.0',
+            'reference' => 'b2c4d7f6475434e656bac664e477c347f89b6f17',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../phuclh/flysystem-imagekit',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'psr/container' => array(
             'pretty_version' => '2.0.2',
             'version' => '2.0.2.0',
@@ -1148,6 +1166,15 @@
             'aliases' => array(),
             'dev_requirement' => true,
         ),
+        'spatie/laravel-package-tools' => array(
+            'pretty_version' => '1.14.2',
+            'version' => '1.14.2.0',
+            'reference' => 'bab62023a4745a61170ad5424184533685e73c2d',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../spatie/laravel-package-tools',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'spatie/laravel-permission' => array(
             'pretty_version' => '5.10.0',
             'version' => '5.10.0.0',
@@ -1438,6 +1465,15 @@
             'install_path' => __DIR__ . '/../symfony/yaml',
             'aliases' => array(),
             'dev_requirement' => true,
+        ),
+        'taffovelikoff/imagekit-adapter' => array(
+            'pretty_version' => '2.0.0',
+            'version' => '2.0.0.0',
+            'reference' => 'b72523b257f2f9a56932896a0179b9ac0e9c637c',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../taffovelikoff/imagekit-adapter',
+            'aliases' => array(),
+            'dev_requirement' => false,
         ),
         'theseer/tokenizer' => array(
             'pretty_version' => '1.2.1',

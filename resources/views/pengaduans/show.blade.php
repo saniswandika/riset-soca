@@ -80,15 +80,15 @@
               ajax: {
                   url: "/detailpengaduan/" + id,
                   type: 'GET',
-                  "data": { "id": id },
+                  data: { "id": id },
               },
                 // ajax: "{{ route('getdata') }}",
                 columns: [
                     { data: 'created_at', name: 'created_at' },
-                    { data: 'created_by', name: 'created_by' },
-                    { data: 'id_alur', name: 'id_alur' },
-                    { data: 'catatan', name: 'catatan' },
-                    { data: 'file_pendukung', name: 'file_pendukung' }
+                    { data: 'name', name: 'name' },
+                    { data: 'status_aksi', name: 'status_aksi' },
+                    { data: 'tl_catatan', name: 'tl_catatan' },
+                    { data: 'tl_file', name: 'tl_file' }
                 ],
             });
     });

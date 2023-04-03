@@ -1,0 +1,63 @@
+{
+    "name": "phuclh/flysystem-imagekit",
+    "description": "A flysystem driver for Imagekit",
+    "keywords": [
+        "phuclh",
+        "laravel",
+        "flysystem-imagekit"
+    ],
+    "homepage": "https://github.com/phuclh/flysystem-imagekit",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "phucle",
+            "email": "me@phuclh.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^8.1",
+        "illuminate/contracts": "^9.0",
+        "imagekit/imagekit": "^2.0",
+        "spatie/laravel-package-tools": "^1.9.2"
+    },
+    "require-dev": {
+        "nunomaduro/collision": "^6.0",
+        "nunomaduro/larastan": "^2.0.1",
+        "orchestra/testbench": "^7.0",
+        "pestphp/pest": "^1.21",
+        "pestphp/pest-plugin-laravel": "^1.1",
+        "phpstan/extension-installer": "^1.1",
+        "phpstan/phpstan-deprecation-rules": "^1.0",
+        "phpstan/phpstan-phpunit": "^1.0",
+        "phpunit/phpunit": "^9.5",
+        "spatie/laravel-ray": "^1.26"
+    },
+    "autoload": {
+        "psr-4": {
+            "Phuclh\\Imagekit\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Phuclh\\Imagekit\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "analyse": "vendor/bin/phpstan analyse",
+        "test": "vendor/bin/pest",
+        "test-coverage": "vendor/bin/pest --coverage"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Phuclh\\Imagekit\\ImagekitServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

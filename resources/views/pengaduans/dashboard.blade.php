@@ -95,7 +95,7 @@
                                         </tr>
                                       </thead>
                                       <tbody>
-                                        <tr>
+                                        <tr class="text-align-right">
                                             <td>Program Pendidikan</td>
                                             <td>10</td>
                                             <td>8</td>

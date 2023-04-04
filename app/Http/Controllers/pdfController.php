@@ -15,7 +15,11 @@ class pdfController extends Controller
         $filename = 'Resi-Pengaduan_' . $pengaduan->nama . '.pdf';
         return $pdf->stream($filename);
     }
-
+    public function downloadFile($file_name)
+    {
+        $file_path = public_path('Download/Resi-Pengaduan-pdf' . $file_name);
+        return response()->download($file_path);
+    }
     // public function downloadPDF($id)
     // {
     //     $pengaduans = Pengaduan::find($id);

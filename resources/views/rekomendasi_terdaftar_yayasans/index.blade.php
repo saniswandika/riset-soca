@@ -1,6 +1,6 @@
 @extends('layouts.masterTemplate')
 
-@section('title', 'Rekomendasi Terdaftar Yayasan')
+@section('title', 'Menu Layanan')
 
 @section('content')
 
@@ -20,7 +20,7 @@
         <div class="col-12">
             <div class="card mb-4">
                 <div class="card-header pb-0">
-                    <h6>Table Rekomendasi</h6>
+                    <h6>Table Rekomendasi Yayasan</h6>
                 </div>
                 {{-- <div class="card-body px-0 pt-0 pb-2">
         <div class="table-responsive p-0">
@@ -118,14 +118,14 @@
                                 ->get();
                             // dd($usersrole);
                             ?>
-                            {{-- @foreach ($usersrole as $item)
-                                @if ($item->name == 'Front Office kota') --}}
+                            @foreach ($usersrole as $item)
+                                @if ($item->name == 'fasilitator')
                                     <li class="nav-item">
                                         <a class="nav-link" id="tab1" data-toggle="tab" href="#table1" role="tab"
                                             aria-controls="table1" aria-selected="true">Draft</a>
                                     </li>
-                                {{-- @endif --}}
-                            {{-- @endforeach --}}
+                                @endif
+                            @endforeach
 
                             <li class="nav-item">
                                 <a class="nav-link" id="tab2" data-toggle="tab" href="#table2" role="tab"
@@ -141,9 +141,9 @@
                             </li>
                             @auth
                                 <li class="nav-item ml-auto" style="margin-left: auto">
-                                    {{-- @if (Auth::user()->hasRole(['Front Office kota'])) --}}
-                                        <a href="/rekomendasi_terdaftar_yayasans/create" class="btn btn-primary ml-2">Tambah Data</a>
-                                    {{-- @endif --}}
+                                    @if (Auth::user()->hasRole(['fasilitator', 'Front Office Kelurahan', 'Front Office kota']))
+                                        <a href="rekomendasi_terdaftar_yayasans/create" class="btn btn-primary ml-2">Tambah Data</a>
+                                    @endif
                                 </li>
                             @endauth
 
@@ -156,13 +156,16 @@
                                     <thead>
                                         <tr>
                                             <th>No</th>
+                                            <th>No</th>
                                             <th>Kecamatan</th>
                                             <th>Kelurahan</th>
                                             <th>NIK</th>
-                                            <th>Nama Terlapor</th>
+                                            <th>Nama</th>
                                             <th>Alamat</th>
                                             <th>Status</th>
                                             <th>Petugas</th>
+                                            {{-- <th>Status</th>
+                        <th>Durasi (hari)</th> --}}
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
@@ -180,10 +183,12 @@
                                             <th>Kecamatan</th>
                                             <th>Kelurahan</th>
                                             <th>NIK</th>
-                                            <th>Nama Terlapor</th>
+                                            <th>Nama</th>
                                             <th>Alamat</th>
                                             <th>Status</th>
                                             <th>Petugas</th>
+                                            {{-- <th>Status</th>
+                        <th>Durasi (hari)</th> --}}
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
@@ -202,10 +207,12 @@
                                             <th>Kecamatan</th>
                                             <th>Kelurahan</th>
                                             <th>NIK</th>
-                                            <th>Nama Terlapor</th>
+                                            <th>Nama</th>
                                             <th>Alamat</th>
                                             <th>Status</th>
                                             <th>Petugas</th>
+                                            {{-- <th>Status</th>
+                        <th>Durasi (hari)</th> --}}
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
@@ -224,10 +231,12 @@
                                             <th>Kecamatan</th>
                                             <th>Kelurahan</th>
                                             <th>NIK</th>
-                                            <th>Nama Terlapor</th>
+                                            <th>Nama</th>
                                             <th>Alamat</th>
                                             <th>Status</th>
                                             <th>Petugas</th>
+                                            {{-- <th>Status</th>
+                        <th>Durasi (hari)</th> --}}
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
@@ -268,13 +277,13 @@
                                     data: 'Nama',
                                     name: 'no_pendaftaran'
                                 },
-                                // { data: 'created_at', name: 'created_at' },
-                                // { data: 'jenis_pelapor', name: 'jenis_pelapor' },
+                                // { data: 'id_kecamatan', name: 'id_kecamatan' },
+                                // { data: 'id_kelurahan', name: 'id_kelurahan' },
                                 // { data: 'id_kelurahan', name: 'id_kelurahan' },
                                 // { data: 'nama', name: 'Terlapor' },
                                 // { data: 'nik', name: 'nik' },
                                 // { data: 'no_kk', name: 'no_kk' },
-                                // { data: 'kepesertaan_program', name: 'kepesertaan_program' },
+                                // { data: 'petugas', name: 'petugas' },
                                 // { data: 'ringkasan_pengaduan', name: 'ringkasan_pengaduan' },
                                 // { data: 'tl_catatan', name: 'tl_catatan' },
                                 // { data : null, 
@@ -303,44 +312,36 @@
                                 }
                             },
                             columns: [{
-                                    data: 'no_pendaftaran',
-                                    name: 'no_pendaftaran'
+                                    data: 'id',
+                                    name: 'id'
                                 },
                                 {
-                                    data: 'created_at',
-                                    name: 'created_at'
-                                },
-                                {
-                                    data: 'jenis_pelapor',
-                                    name: 'jenis_pelapor'
+                                    data: 'id_kecamatan',
+                                    name: 'id_kecamatan'
                                 },
                                 {
                                     data: 'id_kelurahan',
                                     name: 'id_kelurahan'
                                 },
                                 {
-                                    data: 'nama',
-                                    name: 'Terlapor'
-                                },
-                                {
                                     data: 'nik',
                                     name: 'nik'
                                 },
                                 {
-                                    data: 'no_kk',
-                                    name: 'no_kk'
+                                    data: 'nama',
+                                    name: 'Terlapor'
                                 },
                                 {
-                                    data: 'kepesertaan_program',
-                                    name: 'kepesertaan_program'
+                                    data: 'alamat',
+                                    name: 'alamat'
                                 },
                                 {
-                                    data: 'ringkasan_pengaduan',
-                                    name: 'ringkasan_pengaduan'
+                                    data: 'status_alur',
+                                    name: 'status_alur'
                                 },
                                 {
-                                    data: 'tl_catatan',
-                                    name: 'tl_catatan'
+                                    data: 'petugas',
+                                    name: 'petugas'
                                 },
                                 {
                                     data: null,
@@ -395,9 +396,6 @@
                             table.draw();
                         });
                     });
-
-
-
                     $('#teruskan').DataTable({
                         processing: true,
                         serverSide: true,
@@ -408,16 +406,16 @@
                         },
                         // ajax: "{{ route('getdata') }}",
                         columns: [{
-                                data: 'no_pendaftaran',
-                                name: 'no_pendaftaran'
+                                data: 'id',
+                                name: 'id'
                             },
                             {
-                                data: 'created_at',
-                                name: 'created_at'
+                                data: 'id_kecamatan',
+                                name: 'id_kecamatan'
                             },
                             {
-                                data: 'jenis_pelapor',
-                                name: 'jenis_pelapor'
+                                data: 'id_kelurahan',
+                                name: 'id_kelurahan'
                             },
                             {
                                 data: 'id_kelurahan',
@@ -436,16 +434,8 @@
                                 name: 'no_kk'
                             },
                             {
-                                data: 'kepesertaan_program',
-                                name: 'kepesertaan_program'
-                            },
-                            {
-                                data: 'ringkasan_pengaduan',
-                                name: 'ringkasan_pengaduan'
-                            },
-                            {
-                                data: 'tl_catatan',
-                                name: 'tl_catatan'
+                                data: 'petugas',
+                                name: 'petugas'
                             },
                             {
                                 data: null,
@@ -471,74 +461,8 @@
                         },
                         // ajax: "{{ route('getdata') }}",
                         columns: [{
-                                data: 'no_pendaftaran',
-                                name: 'no_pendaftaran'
-                            },
-                            {
-                                data: 'created_at',
-                                name: 'created_at'
-                            },
-                            {
-                                data: 'jenis_pelapor',
-                                name: 'jenis_pelapor'
-                            },
-                            {
-                                data: 'id_kelurahan',
-                                name: 'id_kelurahan'
-                            },
-                            {
-                                data: 'nama',
-                                name: 'nama'
-                            },
-                            {
-                                data: 'nik',
-                                name: 'nik'
-                            },
-                            {
-                                data: 'no_kk',
-                                name: 'no_kk'
-                            },
-                            {
-                                data: 'kepesertaan_program',
-                                name: 'kepesertaan_program'
-                            },
-                            {
-                                data: 'ringkasan_pengaduan',
-                                name: 'ringkasan_pengaduan'
-                            },
-                            {
-                                data: 'tl_catatan',
-                                name: 'tl_catatan'
-                            },
-                            {
-                                data: null,
-                                className: "dt-center editor-delete",
-                                orderable: false,
-                                "mRender": function(data, type, row) {
-                                    return '<td><div class="input-group-append d-flex flex-column justify-content-center"><a href="/pengaduans/' +
-                                        data.id +
-                                        '" class="btn btn-success btn-sm"><i class="fas fa-search"></i> View</a><a href="/pengaduans/' +
-                                        data.id +
-                                        '/edit" class="btn btn-primary btn-sm"><i class="far fa-edit"></i> Edit</a></div></td>';
-                                }
-                            }
-                        ],
-                    });
-                    $('#prelistDtks').DataTable({
-                        processing: true,
-                        serverSide: true,
-                        ajax: {
-                            url: 'prelistDTKS',
-                            type: 'GET'
-                        },
-                        // ajax: "{{ route('getdata') }}",
-                        columns: [{
-                                data: 'id_provinsi',
-                                name: 'id_provinsi'
-                            },
-                            {
-                                data: 'id_kabkot',
-                                name: 'id_kabkot'
+                                data: 'id',
+                                name: 'id'
                             },
                             {
                                 data: 'id_kecamatan',
@@ -553,32 +477,20 @@
                                 name: 'nik'
                             },
                             {
-                                data: 'no_kk',
-                                name: 'no_kk'
-                            },
-                            {
-                                data: 'no_kis',
-                                name: 'no_kis'
-                            },
-                            {
                                 data: 'nama',
                                 name: 'nama'
-                            },
-                            {
-                                data: 'tgl_lahir',
-                                name: 'tgl_lahir'
                             },
                             {
                                 data: 'alamat',
                                 name: 'alamat'
                             },
                             {
-                                data: 'telp',
-                                name: 'telp'
+                                data: 'status_alur',
+                                name: 'status_alur'
                             },
                             {
-                                data: 'email',
-                                name: 'email'
+                                data: 'petugas',
+                                name: 'petugas'
                             },
                             {
                                 data: null,

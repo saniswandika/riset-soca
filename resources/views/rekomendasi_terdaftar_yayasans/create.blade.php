@@ -200,7 +200,6 @@
                 <label class="col-sm-2 col-form-label">Upload KTP</label>
                 <div class="col-sm-5">
                     <input type="file" id="file-upload" name="filektp">
-                    <button type="submit">Upload</button>
                 </div>
             </div>
             @if(isset($data['filektp']))
@@ -211,14 +210,12 @@
                 <label class="col-sm-2 col-form-label">Upload KK</label>
                 <div class="col-sm-5">
                     <input type="file" id="file-upload" name="filekk">
-                    <button type="submit">Upload</button>
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Upload File Surat Keterangan Terdaftar DTKS/Kurang Mampu</label>
                 <div class="col-sm-5">
                     <input type="file" id="file-upload" name="suket">
-                    <button type="submit">Upload</button>
                 </div>
             </div>
             <div class="form-group row">
@@ -231,7 +228,6 @@
                 <label class="col-sm-2 col-form-label">Upload Draft Formulir Kebutuhan Layanan</label>
                 <div class="col-sm-5">
                     <input type="file" id="file-upload" name="draftfrom">
-                    <button type="submit">Upload</button>
                 </div>
             </div>
             <div class="form-group row">
@@ -244,7 +240,6 @@
                 <label class="col-sm-2 col-form-label">File Penunjang</label>
                 <div class="col-sm-5">
                     <input type="file" id="file-upload" name="file">
-                    <button type="submit">Upload</button>
                 </div>
             </div> --}}
             <div class="form-group row">

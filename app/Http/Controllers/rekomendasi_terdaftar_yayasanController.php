@@ -349,7 +349,7 @@ class rekomendasi_terdaftar_yayasanController extends AppBaseController
             // ->orWhere('name', 'supervisor')
             ->get();
         $rekomendasiTerdaftarYayasan = $this->rekomendasiTerdaftarYayasanRepository->find($id);
-        return view('rekomendasi_terdafar_yayasans.edit', compact('wilayah', 'rekomendasiTerdaftarYayasan', 'roleid', 'getdata', 'alur', 'checkroles', 'rolebackoffice', 'createdby'));
+        return view('rekomendasi_terdaftar_yayasans.edit', compact('wilayah', 'rekomendasiTerdaftarYayasan', 'roleid', 'getdata', 'alur', 'checkroles', 'rolebackoffice', 'createdby'));
     }
 
     /**

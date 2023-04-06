@@ -8,6 +8,7 @@ use App\Http\Controllers\AppBaseController;
 use App\Models\logYayasan;
 use App\Models\Prelist;
 use App\Models\rekomendasi_terdaftar_yayasan;
+use App\Models\Roles;
 use App\Repositories\rekomendasi_terdaftar_yayasanRepository;
 use Illuminate\Http\Request;
 use Flash;
@@ -67,37 +68,71 @@ class rekomendasi_terdaftar_yayasanController extends AppBaseController
         //     // ->where('name', 'supervisor')
         //     ->orWhere('name', 'Teruskan')
         //     ->get();
+
+        //ALUR
+        $user = Auth::user();
+        $roles = $user->roles()->pluck('name');
+
+        if ($roles->contains('Front Office kota')) {
+            // Jika user memiliki role 'FO-Kota', maka tampilkan alur dengan nama 'Draft' dan 'Teruskan'
+            $alur = DB::table('alur')
+                ->whereIn('name', ['Draft', 'Teruskan'])
+                ->get();
+        } else if ($roles->contains('Back Ofiice Kota') || $roles->contains('Sekdis')) {
+            // Jika user memiliki role 'BO-Kota' atau 'Sekdis', maka tampilkan alur dengan nama 'Kembalikan', 'Tolak', dan 'Teruskan'
+            $alur = DB::table('alur')
+                ->whereIn('name', ['Kembalikan', 'Tolak', 'Teruskan'])
+                ->get();
+        } else if ($roles->contains('Kadis')) {
+            // Jika user memiliki role 'Kadus', maka tampilkan alur dengan nama 'Selesai' dan 'Tolak'
+            $alur = DB::table('alur')
+                ->whereIn('name', ['Selesai', 'Tolak'])
+                ->get();
+        } else {
+            // Jika user tidak memiliki role yang sesuai, maka tampilkan alur kosong
+            $alur = collect();
+        }
+
+
         $user = Auth::user();
         $roles = $user->roles()->pluck('name');
         
-        if ($roles->contains('Back Ofiice kelurahan') || $roles->contains('supervisor')) {
-            // Jika user memiliki role 'Back Ofiice kelurahan' atau 'supervisor', maka tampilkan alur dengan nama 'Kembalikan', 'Tolak', dan 'Teruskan'
-            $alur = DB::table('alur')
-                    ->whereIn('name', ['Kembalikan', 'Tolak', 'Teruskan'])
-                    ->get();
-        } else {
-            // Jika user tidak memiliki role 'Back Ofiice kelurahan' atau 'supervisor', maka tampilkan alur dengan nama 'Draft' dan 'Teruskan'
-            $alur = DB::table('alur')
-                    ->whereIn('name', ['Draft', 'Teruskan'])
-                    ->get();
+        if ($roles->contains('Front Office kota')) {
+            $roleid = DB::table('roles')
+                ->where('name', 'Back Ofiice Kota')
+                ->get();
+        } else if ($roles->contains('Back Ofiice Kota')) {
+            $roleid = DB::table('roles')
+                ->whereIn('name', ['Front Office kota', 'Sekdis'])
+                ->get();
+        } else if ($roles->contains('Sekdis')) {
+            $roleid = DB::table('roles')
+                ->whereIn('name', ['Back Ofiice Kota', 'Kadis'])
+                ->get();
+        } else if ($roles->contains('Kadis')) {
+            $roleid = DB::table('roles')
+                ->where('name', 'Front Office kota')
+                ->get();
         }
-        $roleid = DB::table('roles')
-            ->where('name', 'Back Ofiice kelurahan')
-            // ->where('name', 'supervisor')
-            ->orWhere('name', 'supervisor')
-            ->get();
-        $rolebackoffice = DB::table('roles')
-            ->where('name', 'Back Ofiice kelurahan')
-            // ->where('name', 'supervisor')
-            // ->orWhere('name', 'supervisor')
-            ->get();
-        $checkroles = DB::table('model_has_roles')
-            ->leftjoin('roles', 'roles.id', '=', 'model_has_roles.role_id')
-            ->where('model_id', '=', $userid)
-            ->get();
+            $checkroles = Roles::where('name', 'Front Office kota')
+                ->orWhere('name', 'Sekdis')
+                ->orWhere('name', 'Kadis')
+                ->get();
+           
+        // $rolebackoffice = DB::table('roles')
+        //     ->where('name', 'Back Ofiice kelurahan')
+        //     // ->where('name', 'supervisor')
+        //     // ->orWhere('name', 'supervisor')
+        //     ->get();
+        // $checkroles = DB::table('model_has_roles')
+        //     ->leftjoin('roles', 'roles.id', '=', 'model_has_roles.role_id')
+        //     ->where('model_id', '=', $userid)
+        //     ->get();
+
+
         // $checkroles = DB::table('model_has_roles')->where('model_id','=', $userid);
         // dd($alur);
-        return view('rekomendasi_terdaftar_yayasans.create', compact('wilayah', 'roleid', 'checkroles', 'rolebackoffice', 'alur'));
+        return view('rekomendasi_terdaftar_yayasans.create', compact('wilayah', 'roleid', 'checkroles', 'alur'));
     }
 
     /**
@@ -105,7 +140,7 @@ class rekomendasi_terdaftar_yayasanController extends AppBaseController
      */
     public function store(Request $request)
     {
-      
+
         $getdata = rekomendasi_terdaftar_yayasan::where('id', Auth::user()->id)->first();
 
         if ($request->file('filektp') != null) {
@@ -168,7 +203,7 @@ class rekomendasi_terdaftar_yayasanController extends AppBaseController
         $data['no_kk'] = $request->get('no_kk');
         // $data['no_kis'] = $request->get('no_kis');
         $data['nama'] = $request->get('nama');
-        $data['tgl_lahir'] = $request->get('tgl_lahir');    
+        $data['tgl_lahir'] = $request->get('tgl_lahir');
         // $data['alamat'] = $request->get('alamat');
         $data['telp'] = $request->get('telpon');
         $data['alamat'] = $request->get('alamat');
@@ -196,7 +231,7 @@ class rekomendasi_terdaftar_yayasanController extends AppBaseController
 
         $logpengaduan->save();
         // dd($logpengaduan);
-        
+
         return redirect('rekomendasi_terdafar_yayasans')->withSuccess('Data Berhasil Disimpan');
     }
 
@@ -237,7 +272,7 @@ class rekomendasi_terdaftar_yayasanController extends AppBaseController
         // dd($checkroles);
         return view('rekomendasi_terdafar_yayasans.show', compact('rekomendasiTerdaftarYayasan', 'roleid', 'wilayah', 'checkroles'));
     }
-    
+
 
     /**
      * Show the form for editing the specified rekomendasi_terdaftar_yayasan.
@@ -307,55 +342,81 @@ class rekomendasi_terdaftar_yayasanController extends AppBaseController
             ->where('b.id', $id)
             ->get();
         //alur
-        if ($checkuserrole->name == 'fasilitator') {
+        $user = Auth::user();
+        $roles = $user->roles()->pluck('name');
+
+        if ($roles->contains('Front Office kota')) {
+            // Jika user memiliki role 'FO-Kota', maka tampilkan alur dengan nama 'Draft' dan 'Teruskan'
             $alur = DB::table('alur')
-                ->where('name', 'Draft')
-                // ->where('name', 'supervisor')
-                ->orWhere('name', 'Teruskan')
+                ->whereIn('name', ['Draft', 'Teruskan'])
                 ->get();
-        } else if ($checkuserrole->name == 'Back Ofiice kelurahan') {
+        } else if ($roles->contains('Back Ofiice Kota') || $roles->contains('Sekdis')) {
+            // Jika user memiliki role 'BO-Kota' atau 'Sekdis', maka tampilkan alur dengan nama 'Kembalikan', 'Tolak', dan 'Teruskan'
             $alur = DB::table('alur')
-                ->where('name', 'Kembalikan')
-                // ->where('name', 'supervisor')
-                ->orWhere('name', 'Tolak')
-                ->orWhere('name', 'Selesai')
+                ->whereIn('name', ['Kembalikan', 'Tolak', 'Teruskan'])
                 ->get();
-        } else if ($checkuserrole->name == 'Front Office kota') {
+        } else if ($roles->contains('Kadis')) {
+            // Jika user memiliki role 'Kadus', maka tampilkan alur dengan nama 'Selesai' dan 'Tolak'
             $alur = DB::table('alur')
-                ->where('name', 'Kembalikan')
-                // ->where('name', 'supervisor')
-                ->orWhere('name', 'Tolak')
-                ->orWhere('name', 'Selesai')
+                ->whereIn('name', ['Selesai', 'Tolak'])
                 ->get();
-        } else if ($checkuserrole->name == 'Front Office Kelurahan') {
-            $alur = DB::table('alur')
-                ->where('name', 'Kembalikan')
-                // ->where('name', 'supervisor')
-                ->orWhere('name', 'Tolak')
-                ->orWhere('name', 'Selesai')
+        } else {
+            // Jika user tidak memiliki role yang sesuai, maka tampilkan alur kosong
+            $alur = collect();
+        }
+
+
+        $user = Auth::user();
+        $roles = $user->roles()->pluck('name');
+        
+        if ($roles->contains('Front Office kota')) {
+            $roleid = DB::table('roles')
+                ->where('name', 'Back Ofiice Kota')
+                ->get();
+        } else if ($roles->contains('Back Ofiice Kota')) {
+            $roleid = DB::table('roles')
+                ->whereIn('name', ['Front Office kota', 'Sekdis'])
+                ->get();
+        } else if ($roles->contains('Sekdis')) {
+            $roleid = DB::table('roles')
+                ->whereIn('name', ['Back Ofiice Kota', 'Kadis'])
+                ->get();
+        } else if ($roles->contains('Kadis')) {
+            $roleid = DB::table('roles')
+                ->where('name', 'Front Office kota')
                 ->get();
         }
 
-        $checkroles = DB::table('model_has_roles')
-            ->leftjoin('roles', 'roles.id', '=', 'model_has_roles.role_id')
-            ->where('model_id', '=', $userid)
-            ->get();
+        $role_id= null;
+        $users = DB::table('users as u')
+        ->join('model_has_roles as mhr', 'u.id', '=', 'mhr.model_id')
+        ->join('roles as r', 'mhr.role_id', '=', 'r.id')
+        ->select('u.id', 'u.name', 'u.email', 'r.name as role')
+        ->where('mhr.model_type', '=', 'App\Models\User')
+        ->where('mhr.role_id', '=', $role_id)
+        ->get();
 
-
-
-        $rolebackoffice = DB::table('roles')
-            ->where('name', 'Back Ofiice kelurahan')
-            // ->where('name', 'supervisor')
-            // ->orWhere('name', 'supervisor')
-            ->get();
         $rekomendasiTerdaftarYayasan = $this->rekomendasiTerdaftarYayasanRepository->find($id);
-        return view('rekomendasi_terdaftar_yayasans.edit', compact('wilayah', 'rekomendasiTerdaftarYayasan', 'roleid', 'getdata', 'alur', 'checkroles', 'rolebackoffice', 'createdby'));
-    }
 
+
+        return view('rekomendasi_terdaftar_yayasans.edit', compact('wilayah', 'rekomendasiTerdaftarYayasan','roleid', 'getdata', 'alur', 'createdby'));
+    }
+    public function getPetugas($id)
+    {
+        $users = DB::table('users as u')
+        ->join('model_has_roles as mhr', 'u.id', '=', 'mhr.model_id')
+        ->join('roles as r', 'mhr.role_id', '=', 'r.id')
+        ->select('u.id', 'u.name', 'u.email', 'r.name as role')
+        ->where('mhr.model_type', '=', 'App\Models\User')
+        ->where('mhr.role_id', '=', $id)
+        ->get();
+
+        return response()->json($users);
+    }
     /**
      * Update the specified rekomendasi_terdaftar_yayasan in storage.
      */
-    public function update($id, Updaterekomendasi_terdaftar_yayasanRequest $request)
+    public function update($id, Request $request)
     {
         $getdata = rekomendasi_terdaftar_yayasan::where('id', $id)->first();
         $data = $request->all();
@@ -368,7 +429,7 @@ class rekomendasi_terdaftar_yayasanController extends AppBaseController
         } elseif ($request->filektp != null) {
             $data['filektp'] = $getdata->nama_filektp;
         }
-    
+
         //programtahunan
         if ($request->file('filekk') != null) {
             $filekk = $request->file('filekk');
@@ -379,7 +440,7 @@ class rekomendasi_terdaftar_yayasanController extends AppBaseController
         } elseif ($request->filekk != null) {
             $data['filekk'] = $getdata->nama_filekk;
         }
-    
+
         //silabus
         if ($request->file('suket') != null) {
             $suket = $request->file('suket');
@@ -390,7 +451,7 @@ class rekomendasi_terdaftar_yayasanController extends AppBaseController
         } elseif ($request->suket != null) {
             $data['suket'] = $getdata->suket;
         }
-    
+
         //kkm
         if ($request->file('draftfrom') != null) {
             $draftfrom = $request->file('draftfrom');
@@ -401,21 +462,20 @@ class rekomendasi_terdaftar_yayasanController extends AppBaseController
         } elseif ($request->draftfrom != null) {
             $data['draftfrom'] = $getdata->draftfrom;
         }
-    
+
         $data['updatedby'] = Auth::user()->name;
         $getdata->update($data);
-    
+
         $logpengaduan = new logYayasan();
-        $logpengaduan['id_trx_pengaduan'] = $getdata->id;
+        $logpengaduan['id_trx_yayasan'] = $getdata->id;
         $logpengaduan['id_alur'] = $request->get('status_alur');
         $logpengaduan['petugas'] = $request->get('petugas');
         $logpengaduan['catatan']  = $request->get('tl_catatan');
         $logpengaduan['file_pendukung'] = $request->get('file_pendukung');
         $logpengaduan['tujuan'] = $request->get('tujuan');
-        $logpengaduan['createdby'] = Auth::user()->name;
+        $logpengaduan['created_by'] = Auth::user()->name;
         $logpengaduan->save();
-        return redirect()->route('rekomendasi-terdaftar-yayasan.index')->with('success', 'Data berhasil diupdate.');
-    
+        return redirect()->route('rekomendasi_terdaftar_yayasans.index')->with('success', 'Data berhasil diupdate.');
     }
 
     /**
@@ -426,7 +486,7 @@ class rekomendasi_terdaftar_yayasanController extends AppBaseController
     public function destroy($id)
     {
         $rekomendasi = rekomendasi_terdaftar_yayasan::findOrFail($id);
-    
+
         // delete uploaded files
         if (!empty($rekomendasi->filektp)) {
             Storage::delete('upload/ktp/' . $rekomendasi->filektp);
@@ -440,12 +500,11 @@ class rekomendasi_terdaftar_yayasanController extends AppBaseController
         if (!empty($rekomendasi->draftfrom)) {
             Storage::delete('upload/draftFrom/' . $rekomendasi->draftfrom);
         }
-    
+
         // delete the record
         $rekomendasi->delete();
-    
+
         return redirect()->route('rekomendasi-terdaftar.index')
             ->with('success', 'Rekomendasi terdaftar yayasan berhasil dihapus.');
     }
-    
 }

@@ -106,18 +106,19 @@
 
                 <div class="col-sm-5">
                     <div class="row">
-                        <input type="text" id="name-input" class="form-control"
-                                aria-label="Text input with checkbox" id="nodtks"
-                                name="no_dtks" readonly hidden>
+                        <input type="text" id="name-input" class="form-control" aria-label="Text input with checkbox"
+                            id="nodtks" name="no_dtks" readonly hidden>
                         <div class="col">
                             <div class="form-check form-check-inline">
-                                <input type="radio" class="form-check-input" name="status_dtks" id="status_dtks" value="1" disabled>
+                                <input type="radio" class="form-check-input" name="status_dtks" id="status_dtks"
+                                    value="1" disabled>
                                 <label class="form-check-label" for="inlineCheckbox1">Terdaftar</label>
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-check form-check-inline">
-                                <input type="radio" class="form-check-input" name="status_dtks" id="status_dtks" value="0" disabled checked>
+                                <input type="radio" class="form-check-input" name="status_dtks" id="status_dtks"
+                                    value="0" disabled checked>
                                 <label class="form-check-label" for="inlineCheckbox2">Tidak Terdaftar</label>
                             </div>
                         </div>
@@ -129,7 +130,8 @@
                 <div class="col-sm-5">
                     <div class="row">
                         <div class="col">
-                            <button class="btn btn-info" id="btn-check-id"><i class="fa fa-database"></i> Cek DTKS</button>
+                            <button class="btn btn-info" id="btn-check-id"><i class="fa fa-database"></i> Cek
+                                DTKS</button>
                         </div>
                     </div>
                 </div>
@@ -220,7 +222,8 @@
                 <div class="col-sm-5">
                     <div class="row">
                         <div class="col">
-                            <button class="btn btn-info" id="btn-check-id"><i class="fa fa-file"></i>  Tambah Kepesertaan</button>
+                            <button class="btn btn-info" id="btn-check-id"><i class="fa fa-file"></i> Tambah
+                                Kepesertaan</button>
                         </div>
                     </div>
                 </div>
@@ -334,19 +337,12 @@
                 <div class="col-sm-5">
                     <select class="form-control form-control-lg" name="tujuan">
                         <option selected>Pilih...</option>
-                        @foreach ($checkroles as $item)
-                            {{-- {{ $item->name }} --}}
-                            @if ($item->name == 'Front Office kota')
-                                @foreach ($rolebackoffice as $backoffice)
-                                    <option value='{{ $backoffice->id }}'>{{ $backoffice->name }}</option>
-                                    {{-- <option value="Teruskan">Large select</option> --}}
-                                @endforeach
-                            @else
-                                @foreach ($roleid as $idrole)
-                                    <option value={{ $idrole->id }}>{{ $idrole->name }}</option>
-                                    {{-- <option value="Teruskan">Large select</option> --}}
-                                @endforeach
-                            @endif
+
+                        @foreach ($roleid as $idrole)
+                            <option value={{ $idrole->id }}>{{ $idrole->name }}</option>
+                            {{-- <option value="Teruskan">Large select</option> --}}
+                        @endforeach
+
                         @endforeach
                     </select>
                 </div>
@@ -417,7 +413,7 @@
                     if (data.found == true) {
                         $('#name-input').val(data
                             .Id_DTKS
-                            ); // Set nilai input kedua ke nama yang diambil dari server jika ID ditemukan
+                        ); // Set nilai input kedua ke nama yang diambil dari server jika ID ditemukan
                         alert(' telah ditemukan di tabel DTKS. Dengan NO_DTKS: ' + data.Id_DTKS);
                     } else {
                         $('#name-input').val(

@@ -106,18 +106,19 @@
 
                 <div class="col-sm-5">
                     <div class="row">
-                        <input type="text" id="name-input" class="form-control"
-                                aria-label="Text input with checkbox" id="nodtks"
-                                name="no_dtks" readonly hidden>
+                        <input type="text" id="name-input" class="form-control" aria-label="Text input with checkbox"
+                            id="nodtks" name="no_dtks" readonly hidden>
                         <div class="col">
                             <div class="form-check form-check-inline">
-                                <input type="radio" class="form-check-input" name="status_dtks" id="status_dtks" value="1" disabled>
+                                <input type="radio" class="form-check-input" name="status_dtks" id="status_dtks"
+                                    value="1" disabled>
                                 <label class="form-check-label" for="inlineCheckbox1">Terdaftar</label>
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-check form-check-inline">
-                                <input type="radio" class="form-check-input" name="status_dtks" id="status_dtks" value="0" disabled checked>
+                                <input type="radio" class="form-check-input" name="status_dtks" id="status_dtks"
+                                    value="0" disabled checked>
                                 <label class="form-check-label" for="inlineCheckbox2">Tidak Terdaftar</label>
                             </div>
                         </div>
@@ -129,7 +130,8 @@
                 <div class="col-sm-5">
                     <div class="row">
                         <div class="col">
-                            <button class="btn btn-info" id="btn-check-id"><i class="fa fa-database"></i> Cek DTKS</button>
+                            <button class="btn btn-info" id="btn-check-id"><i class="fa fa-database"></i> Cek
+                                DTKS</button>
                         </div>
                     </div>
                 </div>
@@ -202,10 +204,10 @@
                     <input type="file" id="file-upload" name="filektp">
                 </div>
             </div>
-            @if(isset($data['filektp']))
+            @if (isset($data['filektp']))
                 <div>File KTP: {{ $data['filektp'] }}</div>
             @endif
-            
+
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Upload KK</label>
                 <div class="col-sm-5">
@@ -257,47 +259,27 @@
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Tujuan</label>
                 <div class="col-sm-5">
-                    <select class="form-control form-control-lg" name="tujuan">
+                    <select class="form-control form-control-lg" name="tujuan" id="tujuan">
                         <option selected>Pilih...</option>
-                        @foreach ($checkroles as $item)
-                            {{-- {{ $item->name }} --}}
-                            @if ($item->name == 'Front Office kota')
-                                @foreach ($rolebackoffice as $backoffice)
-                                    <option value='{{ $backoffice->id }}'>{{ $backoffice->name }}</option>
-                                    {{-- <option value="Teruskan">Large select</option> --}}
-                                @endforeach
-                            @else
-                                @foreach ($roleid as $idrole)
-                                    <option value={{ $idrole->id }}>{{ $idrole->name }}</option>
-                                    {{-- <option value="Teruskan">Large select</option> --}}
-                                @endforeach
-                            @endif
+                        @foreach ($roleid as $role)
+                            <option value="{{ $role->id }}">{{ $role->name }}</option>
                         @endforeach
                     </select>
                 </div>
             </div>
+
             <div class="form-group row">
-                <label class="col-sm-2 col-form-label">Petugas</label>
+                <label class="col-sm-2 col-form-label">Petugas <span class="text-danger">*</label>
                 <div class="col-sm-5">
-                    <select class="form-control form-control-lg" name="petugas">
-                        <option selected>Pilih...</option>
-                        @foreach ($checkroles as $item)
-                            {{-- {{ $item->name }} --}}
-                            @if ($item->name == 'Front Office kota')
-                                @foreach ($rolebackoffice as $backoffice)
-                                    <option value='{{ $backoffice->id }}'>{{ $backoffice->name }}</option>
-                                    {{-- <option value="Teruskan">Large select</option> --}}
-                                @endforeach
-                            @else
-                                @foreach ($roleid as $idrole)
-                                    <option value={{ $idrole->id }}>{{ $idrole->name }}</option>
-                                    {{-- <option value="Teruskan">Large select</option> --}}
-                                @endforeach
-                            @endif
-                        @endforeach
+                    <select class="form-control form-control-lg" name="petugas" id="petugas">
+                        {{-- <option selected value="{{ $rekomendasiTerdaftarYayasan->tujuan }}">{{ $rekomendasiTerdaftarYayasan->tujuan }}</option> --}}
+                       
                     </select>
                 </div>
             </div>
+
+
+
             {{-- @include('pengaduans.fields') --}}
             <div class="card-footer">
                 <a href="{{ route('rekomendasi_terdaftar_yayasans.index') }}" class="btn btn-default"> Batal </a>
@@ -314,6 +296,34 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
     <script>
+          $(document).ready(function() {
+                $('#tujuan').on('change', function() {
+                    var tujuan = $(this).val();
+                    var route = '{{ route('getPetugas','temp') }}';
+                    var url = route.replace('temp',tujuan); 
+                    if (tujuan) {
+                        $.ajax({
+                            url: url,
+                            type: 'GET',
+                            dataType: 'json',
+                            success: function(data) {
+                                $('#petugas').empty();
+                                $('#petugas').append(
+                                    '<option value="">Pilih...</option>');
+
+                                $.each(data, function(key, value) {
+                                    $('#petugas').append('<option value="' + value.id +
+                                        '">' + value.name + '</option>');
+                                });
+                            }
+                        });
+                    } else {
+                       
+                        $('#petugas').empty();
+                        $('#petugas').append('<option value="">Pilih...</option>');
+                    } 
+                });
+            });
         // tambahkan event listener untuk semua radio button dengan nama "options"
         $('input[type=radio][name=memiliki_nik]').change(function() {
             // periksa nilai radio button yang dipilih
@@ -342,7 +352,7 @@
                     if (data.found == true) {
                         $('#name-input').val(data
                             .Id_DTKS
-                            ); // Set nilai input kedua ke nama yang diambil dari server jika ID ditemukan
+                        ); // Set nilai input kedua ke nama yang diambil dari server jika ID ditemukan
                         alert(' telah ditemukan di tabel DTKS. Dengan NO_DTKS: ' + data.Id_DTKS);
                     } else {
                         $('#name-input').val(

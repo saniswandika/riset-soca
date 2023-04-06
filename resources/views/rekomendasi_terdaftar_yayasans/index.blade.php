@@ -141,9 +141,9 @@
                             </li>
                             @auth
                                 <li class="nav-item ml-auto" style="margin-left: auto">
-                                    @if (Auth::user()->hasRole(['fasilitator', 'Front Office Kelurahan', 'Front Office kota']))
+                                    {{-- @if (Auth::user()->hasRole(['fasilitator', 'Front Office Kelurahan', 'Front Office kota'])) --}}
                                         <a href="rekomendasi_terdaftar_yayasans/create" class="btn btn-primary ml-2">Tambah Data</a>
-                                    @endif
+                                    {{-- @endif --}}
                                 </li>
                             @endauth
 

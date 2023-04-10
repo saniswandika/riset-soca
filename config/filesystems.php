@@ -55,8 +55,21 @@ return [
             'use_path_style_endpoint' => env('AWS_USE_PATH_STYLE_ENDPOINT', false),
             'throw' => false,
         ],
+        'imagekit' => [
+            'driver' => 'imagekit',
+            'public_key' => env('IMAGEKIT_PUBLIC_KEY'),
+            'private_key' => env('IMAGEKIT_PRIVATE_KEY'),
+            'url_endpoint' => env('IMAGEKIT_URL_ENDPOINT'),
+            'options' => [
+                'use_subfolder' => true,
+                'folders' => env('IMAGEKIT_FOLDER', 'motor'),
+                'public' => true,
+            ],
+        ],
+        
 
     ],
+    
 
     /*
     |--------------------------------------------------------------------------

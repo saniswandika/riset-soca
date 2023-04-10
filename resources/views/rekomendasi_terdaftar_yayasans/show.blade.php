@@ -27,16 +27,16 @@
             <div class="card-body">
                 <div class="row">
                     <div class="card-header col-sm-6">
-                        <h3>Detail Pengaduan</h3>
+                        <h3>Detail Rekomendasi </h3>
                       </div>
                       <div class="card-header col-sm-6">
                         <a class="btn btn-primary" style="float: right"
-                           href="{{ route('pengaduans.index') }}">
-                                                        @lang('Kembali')
-                                                </a>
+                           href="{{ route('rekomendasi_terdafar_yayasans.index') }}">
+                           @lang('Kembali')
+                        </a>
                     </div>
                     <div class="card-body">
-                    @include('pengaduans.show_fields')
+                    @include('rekomendasi_terdafar_yayasans.show_fields')
                     </div>
                     <hr class="border horizontal dark">
                     <div class="card-footer">
@@ -58,9 +58,9 @@
                         </table>
                         <br>
                         <a class="btn btn-primary" style="float: right"
-                           href="{{ route('pengaduans.index') }}">
-                                                        @lang('kembali')
-                                                </a>
+                           href="{{ route('rekomendasi_terdafar_yayasans.index') }}">
+                            @lang('kembali')
+                        </a>
                     </div>
                 </div>
             </div>

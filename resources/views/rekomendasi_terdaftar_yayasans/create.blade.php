@@ -6,7 +6,7 @@
     <div class="card">
         <div class="card-header pb-0">
             <h3>
-                Tambah Data Rekomendasi Bantuan Pendidikan
+                Tambah Data Rekomendasi Yayasan
             </h3>
         </div>
 
@@ -60,14 +60,14 @@
                         <div class="col">
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" id="inlineCheckbox1" value="Diri_Sendiri"
-                                    name="jenis_pelapor" required>
+                                    name="jenis_laporan" required>
                                 <label class="form-check-label" for="inlineCheckbox1">Diri Sendiri</label>
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" id="inlineCheckbox2" value="Orang Lain"
-                                    name="jenis_pelapor" required>
+                                    name="jenis_laporan" required>
                                 <label class="form-check-label" for="inlineCheckbox2">Orang Lain</label>
                             </div>
                         </div>
@@ -76,87 +76,27 @@
                 </div>
             </div>
             <div class="form-group row">
-                <label class="col-sm-2 col-form-label">Apa Pelapor Memiliki NIK <span class="text-danger">*</label>
+                <label class="col-sm-2 col-form-label">Nama</label>
                 <div class="col-sm-5">
-                    <div class="row">
-                        <div class="col">
-                            <div class="form-check form-check-inline">
-                                <input type="radio" class="form-check-input" name="memiliki_nik" value="1">
-                                <label class="form-check-label" for="inlineCheckbox1">Ya</label>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="form-check form-check-inline">
-                                <input type="radio" class="form-check-input" name="memiliki_nik" value="0">
-                                <label class="form-check-label" for="inlineCheckbox2">Tidak</label>
-                            </div>
-                        </div>
-                    </div>
+                    <input type="text" id="id-input-nik" class="form-control" name="nama_ter">
                 </div>
             </div>
+           
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">NIK</label>
                 <div class="col-sm-5">
-                    <input type="number" id="id-input-nik" class="form-control" name="nik">
-                </div>
-            </div>
-            <div class="form-group row">
-                {{-- <div class="col-sm-2 col-form-label"> --}}
-                <label class="col-sm-2 col-form-label" for="inlineCheckbox1">Status DTKS</label>
-
-                <div class="col-sm-5">
-                    <div class="row">
-                        <input type="text" id="name-input" class="form-control" aria-label="Text input with checkbox"
-                            id="nodtks" name="no_dtks" readonly hidden>
-                        <div class="col">
-                            <div class="form-check form-check-inline">
-                                <input type="radio" class="form-check-input" name="status_dtks" id="status_dtks"
-                                    value="1" disabled>
-                                <label class="form-check-label" for="inlineCheckbox1">Terdaftar</label>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="form-check form-check-inline">
-                                <input type="radio" class="form-check-input" name="status_dtks" id="status_dtks"
-                                    value="0" disabled checked>
-                                <label class="form-check-label" for="inlineCheckbox2">Tidak Terdaftar</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-sm-2 col-form-label"></label>
-                <div class="col-sm-5">
-                    <div class="row">
-                        <div class="col">
-                            <button class="btn btn-info" id="btn-check-id"><i class="fa fa-database"></i> Cek
-                                DTKS</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-sm-2 col-form-label">No. KK</label>
-                <div class="col-sm-5">
-                    <input type="number" class="form-control" name="no_kk">
+                    <input type="number" class="form-control" name="nik_ter">
                     <small id="kkhelper" class="form-text text-muted">
                         Harus angka, 16 digit
                     </small>
                 </div>
             </div>
             <div class="form-group row">
-                <label class="col-sm-2 col-form-label">Nama <span class="text-danger">*</label>
-                <div class="col-sm-5">
-                    <input type="text" class="form-control" name="nama" required>
-                </div>
-            </div>
-            {{-- <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Tempat Lahir <span class="text-danger">*</label>
                 <div class="col-sm-5">
                     <input type="text" class="form-control" name="tempat_lahir" required>
                 </div>
-            </div> --}}
+            </div>
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Tanggal Lahir <span class="text-danger">*</label>
                 <div class="col-sm-5">
@@ -164,9 +104,31 @@
                 </div>
             </div>
             <div class="form-group row">
-                <label class="col-sm-2 col-form-label">Telpon <span class="text-danger">*</label>
+                <label class="col-sm-2 col-form-label">Jenis Kelamin <span class="text-danger">*</label>
                 <div class="col-sm-5">
-                    <input type="tel" class="form-control" name="telpon" required>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" id="inlineCheckbox1" value="Laki-Laki"
+                                    name="jenis_kelamin" required>
+                                <label class="form-check-label" for="inlineCheckbox1">Laki-Laki</label>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" id="inlineCheckbox2" value="Perempuan"
+                                    name="jenis_kelamin" required>
+                                <label class="form-check-label" for="inlineCheckbox2">Perempuan</label>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Telepon <span class="text-danger">*</label>
+                <div class="col-sm-5">
+                    <input type="tel" class="form-control" name="telp" required>
                     <small id="nikhelper" class="form-text text-muted">
                         Harus angka, max 13 digit
                     </small>
@@ -178,58 +140,146 @@
                     <input type="text" class="form-control" name="alamat">
                 </div>
             </div>
-            {{-- layanan --}}
-            {{-- <div form-group row>
-                <h4><b>LAYANAN</b></h4>
-            </div>
-            <div class="form-group row">
-                <label class="col-sm-2 col-form-label">Jenis Layanan Pengaduan</label>
-                <div class="col-sm-5">
-                    <select class="custom-select" id="inputGroupSelect01" name="jenis_layanan">
-                        <option selected>Pilih...</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
-                      </select>
-                </div>
-            </div> --}}
 
-            {{-- kepesertaan --}}
             <div form-group row>
-                <h5><b>Permohonan</b></h5>
+                <h5><b>PELAPOR</b></h5>
             </div>
-            <div class="form-group row">
-                <label class="col-sm-2 col-form-label">Upload KTP</label>
-                <div class="col-sm-5">
-                    <input type="file" id="file-upload" name="filektp">
-                </div>
-            </div>
-            @if (isset($data['filektp']))
-                <div>File KTP: {{ $data['filektp'] }}</div>
-            @endif
 
             <div class="form-group row">
-                <label class="col-sm-2 col-form-label">Upload KK</label>
+                <label class="col-sm-2 col-form-label">Nama</label>
                 <div class="col-sm-5">
-                    <input type="file" id="file-upload" name="filekk">
+                    <input type="text" id="id-input-nik" class="form-control" name="nama_pel">
+                </div>
+            </div>
+           
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">NIK</label>
+                <div class="col-sm-5">
+                    <input type="number" class="form-control" name="nik_pel">
+                    <small id="kkhelper" class="form-text text-muted">
+                        Harus angka, 16 digit
+                    </small>
                 </div>
             </div>
             <div class="form-group row">
-                <label class="col-sm-2 col-form-label">Upload File Surat Keterangan Terdaftar DTKS/Kurang Mampu</label>
+                <label class="col-sm-2 col-form-label">Tempat Lahir <span class="text-danger">*</label>
                 <div class="col-sm-5">
-                    <input type="file" id="file-upload" name="suket">
+                    <input type="text" class="form-control" name="tempat_lahirpel" required>
                 </div>
             </div>
             <div class="form-group row">
-                <label class="col-sm-2 col-form-label">Download Draft Formulir Kebutuhan Layanan</label>
+                <label class="col-sm-2 col-form-label">Tanggal Lahir <span class="text-danger">*</label>
+                <div class="col-sm-5">
+                    <input type="date" class="form-control" name="tgl_lahirpel" required>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Jenis Kelamin <span class="text-danger">*</label>
+                <div class="col-sm-5">
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" id="inlineCheckbox1" value="Laki-Laki"
+                                    name="jenis_kelaminpel" required>
+                                <label class="form-check-label" for="inlineCheckbox1">Laki-Laki</label>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" id="inlineCheckbox2" value="Perempuan"
+                                    name="jenis_kelaminpel" required>
+                                <label class="form-check-label" for="inlineCheckbox2">Perempuan</label>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Telepon <span class="text-danger">*</label>
+                <div class="col-sm-5">
+                    <input type="tel" class="form-control" name="telp" required>
+                    <small id="nikhelper" class="form-text text-muted">
+                        Harus angka, max 13 digit
+                    </small>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Alamat</label>
+                <div class="col-sm-5">
+                    <input type="text" class="form-control" name="alamat_pel">
+                </div>
+            </div>
+
+            <div form-group row>
+                <h5><b>PERMOHONAN</b></h5>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Nama Lembaga</label>
+                <div class="col-sm-5">
+                    <input type="text" id="id-input-nik" class="form-control" name="nama_lembaga">
+                </div>
+            </div>
+           
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Alamat</label>
+                <div class="col-sm-5">
+                    <input type="text" class="form-control" name="alamat_lembaga">
+                    </small>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Nama Ketua</label>
+                <div class="col-sm-5">
+                    <input type="text" class="form-control" name="nama_ketua" required>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Jenis Penyelenggaraan Kesos<span class="text-danger">*</label>
+                <div class="col-sm-5">
+                    <input type="text" class="form-control" name="jenis_kesos" required>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Status <span class="text-danger">*</label>
+                <div class="col-sm-5">
+                    <input type="tel" class="form-control" name="status" required>
+                    <small id="nikhelper" class="form-text text-muted">
+                        Harus angka, max 13 digit
+                    </small>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Lingkup Wilayah Kerja</label>
+                <div class="col-sm-5">
+                    <input type="text" class="form-control" name="wil_kerja">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Tipe</label>
+                <div class="col-sm-5">
+                    <input type="text" class="form-control" name="tipe">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Masa Berlaku</label>
+                <div class="col-sm-5">
+                    <input type="date" class="form-control" name="masa_berlaku">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Draft Permohonan Kebutuhan</label>
                 <div class="col-sm-5">
                     <a href="{{ url('draft/Draft_Rekomendasi') }}" download>Download File</a>
                 </div>
             </div>
             <div class="form-group row">
-                <label class="col-sm-2 col-form-label">Upload Draft Formulir Kebutuhan Layanan</label>
+                <label class="col-sm-2 col-form-label">Upload File Permohonan</label>
                 <div class="col-sm-5">
-                    <input type="file" id="file-upload" name="draftfrom">
+                    <input type="file" id="file-upload" name="file_permohonan">
                 </div>
             </div>
             <div class="form-group row">
@@ -238,12 +288,7 @@
                     <textarea class="form-control" name="catatan" required></textarea>
                 </div>
             </div>
-            {{-- <div class="form-group row">
-                <label class="col-sm-2 col-form-label">File Penunjang</label>
-                <div class="col-sm-5">
-                    <input type="file" id="file-upload" name="file">
-                </div>
-            </div> --}}
+      
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Status Aksi</label>
                 <div class="col-sm-5">
@@ -283,7 +328,6 @@
             {{-- @include('pengaduans.fields') --}}
             <div class="card-footer">
                 <a href="{{ route('rekomendasi_terdaftar_yayasans.index') }}" class="btn btn-default"> Batal </a>
-                <button class="btn btn-primary" id="draft" type="submit" disabled>simpan ke draft</button>
                 <button class="btn btn-primary" id="btn-submit" type="submit" disabled>Kirim</button>
             </div>
 

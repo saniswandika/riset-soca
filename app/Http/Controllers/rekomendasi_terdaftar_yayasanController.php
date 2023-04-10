@@ -143,53 +143,30 @@ class rekomendasi_terdaftar_yayasanController extends AppBaseController
 
         $getdata = rekomendasi_terdaftar_yayasan::where('id', Auth::user()->id)->first();
 
-        if ($request->file('filektp') != null) {
-            $filektp = $request->file('filektp');
-            $nama_filektp = time() . "_" . $filektp->getClientOriginalName();
+        if ($request->file('file_permohonan') != null) {
+            $file_permohonan = $request->file('file_permohonan');
+            $nama_file_permohonan = time() . "_" . $file_permohonan->getClientOriginalName();
             $tujuan = 'upload/ktp/';
-            $filektp->move($tujuan, $nama_filektp);
-        } elseif ($request->filektp != null) {
-            $nama_filektp = $getdata->nama_filektp;
+            $file_permohonan->move($tujuan, $nama_file_permohonan);
+        } elseif ($request->file_permohonan != null) {
+            $nama_file_permohonan = $getdata->nama_file_permohonan;
         } else {
-            $nama_filektp = null;
+            $nama_file_permohonan = null;
         }
 
         //programtahunan
-        if ($request->file('filekk') != null) {
-            $filekk = $request->file('filekk');
-            $nama_filekk = time() . "." . $filekk->getClientOriginalName();
+        if ($request->file('draft_rekomendasi') != null) {
+            $draft_rekomendasi = $request->file('draft_rekomendasi');
+            $nama_draft_rekomendasi = time() . "." . $draft_rekomendasi->getClientOriginalName();
             $tujuan = 'upload/kk/';
-            $filekk->move($tujuan, $nama_filekk);
-        } elseif ($request->filekk != null) {
-            $nama_filekk = $getdata->nama_filekk;
+            $draft_rekomendasi->move($tujuan, $nama_draft_rekomendasi);
+        } elseif ($request->draft_rekomendasi != null) {
+            $nama_draft_rekomendasi = $getdata->nama_draft_rekomendasi;
         } else {
-            $nama_filekk = null;
+            $nama_draft_rekomendasi = null;
         }
 
-        //silabus
-        if ($request->file('suket') != null) {
-            $suket = $request->file('suket');
-            $nama_filesuket = time() . "." . $suket->getClientOriginalName();
-            $tujuan = 'upload/suket/';
-            $suket->move($tujuan, $nama_filesuket);
-        } elseif ($request->suket != null) {
-            $nama_filesuket = $getdata->suket;
-        } else {
-            $nama_filesuket = null;
-        }
-
-        //kkm
-        if ($request->file('draftfrom') != null) {
-            $draftfrom = $request->file('draftfrom');
-            $nama_filedraftfrom = time() . "." . $draftfrom->getClientOriginalName();
-            $tujuan = 'upload/draftFrom/';
-            $draftfrom->move($tujuan, $nama_filedraftfrom);
-        } elseif ($request->draftfrom != null) {
-            $nama_filedraftfrom = $getdata->draftfrom;
-        } else {
-            $nama_filedraftfrom = null;
-        }
-
+   
         $data = new rekomendasi_terdaftar_yayasan();
         $data['id_alur'] = $request->get('id_alur');
         $data['no_pendaftaran'] = mt_rand(100, 1000);
@@ -198,21 +175,33 @@ class rekomendasi_terdaftar_yayasanController extends AppBaseController
         $data['id_kecamatan'] = $request->get('id_kecamatan');
         $data['id_kelurahan'] = $request->get('id_kelurahan');
         $data['jenis_pelapor'] = $request->get('jenis_pelapor');
-        $data['ada_nik'] = $request->get('memiliki_nik');
-        $data['nik'] = $request->get('nik');
-        $data['no_kk'] = $request->get('no_kk');
-        // $data['no_kis'] = $request->get('no_kis');
-        $data['nama'] = $request->get('nama');
+        $data['nik_ter'] = $request->get('nik_ter');
+        $data['nama_ter'] = $request->get('nama_ter');
+        $data['tempat_lahir'] = $request->get('tempat_lahir');
         $data['tgl_lahir'] = $request->get('tgl_lahir');
-        // $data['alamat'] = $request->get('alamat');
-        $data['telp'] = $request->get('telpon');
+        $data['jenis_kelamin'] = $request->get('jenis_kelamin');
+        $data['telp'] = $request->get('telp');
         $data['alamat'] = $request->get('alamat');
-        $data['filektp'] = $nama_filektp;
-        $data['filekk'] = $nama_filekk;
-        $data['suket'] = $nama_filesuket;
-        $data['draftfrom']  = $nama_filedraftfrom;
+        $data['nik_pel'] = $request->get('nik_pel');
+        $data['nama_pel'] = $request->get('nama_pel');
+        $data['tempat_lahirpel'] = $request->get('tempat_lahirpel');
+        $data['tgl_lahirpel'] = $request->get('tgl_lahirpel');
+        $data['jenis_kelaminpel'] = $request->get('jenis_kelaminpel');
+        $data['telp_pel'] = $request->get('telp_pel');
+        $data['alamat_pel'] = $request->get('alamat_pel');
+        $data['nama_lembaga'] = $request->get('nama_lembaga');
+        $data['alamat_lembaga'] = $request->get('alamat_lembaga');
+        $data['akta_notaris'] = $request->get('akta_notaris');
+        $data['no_akta'] = $request->get('no_akta');
+        $data['nama_ketua'] = $request->get('nama_ketua');
+        $data['jenis_kesos'] = $request->get('jenis_kesos');
+        $data['status'] = $request->get('status');
+        $data['wil_kerja'] = $request->get('wil_kerja');
+        $data['tipe'] = $request->get('tipe');
+        $data['masaberlaku'] = $request->get('masaberlaku');
+        $data['file_pemohonan'] = $file_permohonan;
+        $data['draft_rekomendasi'] = $draft_rekomendasi;
         $data['catatan']  = $request->get('catatan');
-        // $data['tl_file']  = $request->get('catatan');
         $data['status_alur'] = $request->get('status_alur');
         $data['tujuan'] = $request->get('tujuan');
         $data['petugas'] = $request->get('petugas');
@@ -224,7 +213,8 @@ class rekomendasi_terdaftar_yayasanController extends AppBaseController
         $logpengaduan['id_alur'] = $request->get('status_alur');
         $logpengaduan['petugas'] = $request->get('petugas');
         $logpengaduan['catatan']  = $request->get('tl_catatan');
-        $logpengaduan['file_pendukung'] = $request->get('file_pendukung');
+        $logpengaduan['file_permohonan'] = $request->get('file_permohonan');
+        $logpengaduan['draft_rekomendasi'] = $request->get('draft_rekomendasi');
         $logpengaduan['tujuan'] = $request->get('tujuan');
         $logpengaduan['created_by'] = Auth::user()->name;
         $logpengaduan['updated_by'] = Auth::user()->name;
@@ -420,47 +410,25 @@ class rekomendasi_terdaftar_yayasanController extends AppBaseController
     {
         $getdata = rekomendasi_terdaftar_yayasan::where('id', $id)->first();
         $data = $request->all();
-        if ($request->file('filektp') != null) {
-            $filektp = $request->file('filektp');
-            $nama_filektp = time() . "_" . $filektp->getClientOriginalName();
+        if ($request->file('file_permohonan') != null) {
+            $file_permohonan = $request->file('file_permohonan');
+            $nama_file_permohonan = time() . "_" . $file_permohonan->getClientOriginalName();
             $tujuan = 'upload/ktp/';
-            $filektp->move($tujuan, $nama_filektp);
-            $data['filektp'] = $nama_filektp;
-        } elseif ($request->filektp != null) {
-            $data['filektp'] = $getdata->nama_filektp;
+            $file_permohonan->move($tujuan, $nama_file_permohonan);
+            $data['file_permohonan'] = $nama_file_permohonan;
+        } elseif ($request->file_permohonan != null) {
+            $data['file_permohonan'] = $getdata->nama_file_permohonan;
         }
 
         //programtahunan
-        if ($request->file('filekk') != null) {
-            $filekk = $request->file('filekk');
-            $nama_filekk = time() . "." . $filekk->getClientOriginalName();
+        if ($request->file('draft_rekomendasi') != null) {
+            $draft_rekomendasi = $request->file('draft_rekomendasi');
+            $nama_draft_rekomendasi = time() . "." . $draft_rekomendasi->getClientOriginalName();
             $tujuan = 'upload/kk/';
-            $filekk->move($tujuan, $nama_filekk);
-            $data['filekk'] = $nama_filekk;
-        } elseif ($request->filekk != null) {
-            $data['filekk'] = $getdata->nama_filekk;
-        }
-
-        //silabus
-        if ($request->file('suket') != null) {
-            $suket = $request->file('suket');
-            $nama_filesuket = time() . "." . $suket->getClientOriginalName();
-            $tujuan = 'upload/suket/';
-            $suket->move($tujuan, $nama_filesuket);
-            $data['suket'] = $nama_filesuket;
-        } elseif ($request->suket != null) {
-            $data['suket'] = $getdata->suket;
-        }
-
-        //kkm
-        if ($request->file('draftfrom') != null) {
-            $draftfrom = $request->file('draftfrom');
-            $nama_filedraftfrom = time() . "." . $draftfrom->getClientOriginalName();
-            $tujuan = 'upload/draftFrom/';
-            $draftfrom->move($tujuan, $nama_filedraftfrom);
-            $data['draftfrom'] = $nama_filedraftfrom;
-        } elseif ($request->draftfrom != null) {
-            $data['draftfrom'] = $getdata->draftfrom;
+            $draft_rekomendasi->move($tujuan, $nama_draft_rekomendasi);
+            $data['draft_rekomendasi'] = $nama_draft_rekomendasi;
+        } elseif ($request->draft_rekomendasi != null) {
+            $data['draft_rekomendasi'] = $getdata->nama_draft_rekomendasi;
         }
 
         $data['updatedby'] = Auth::user()->name;

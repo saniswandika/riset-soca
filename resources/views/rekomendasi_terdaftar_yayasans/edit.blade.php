@@ -16,9 +16,9 @@
 
         <div class="card">
             <div class="card-header pb-0">
-                <h1>
+                <h2>
                     Ubah Rekomendasi Yayasan
-                </h1>
+                </h2>
             </div>
 
             {!! Form::model($rekomendasiTerdaftarYayasan, [
@@ -73,7 +73,7 @@
                         <div class="row">
                             <div class="col">
                                 <div class="form-check form-check-inline">
-                                    <input type="radio" class="form-check-input" id="option1" name="status"
+                                    <input type="radio" class="form-check-input" id="option1" name="jenis_laporan"
                                         value="1"
                                         {{ $rekomendasiTerdaftarYayasan->jenis_pelapor == 'Diri_Sendiri' ? 'checked' : '' }}
                                         checked disabled>
@@ -82,7 +82,7 @@
                             </div>
                             <div class="col">
                                 <div class="form-check form-check-inline">
-                                    <input type="radio" class="form-check-input" id="option1" name="status"
+                                    <input type="radio" class="form-check-input" id="option1" name="jenis_laporan"
                                         value="0"
                                         {{ $rekomendasiTerdaftarYayasan->jenis_pelapor == 'Orang Lain' ? 'checked' : '' }}
                                         disabled>
@@ -95,97 +95,30 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">Apa Pelapor Memiliki NIK <span class="text-danger">*</label>
+                    <label class="col-sm-2 col-form-label">Nama <span class="text-danger">*</label>
                     <div class="col-sm-5">
-                        <div class="row">
-                            <div class="col">
-                                <div class="form-check form-check-inline">
-                                    <input type="radio" class="form-check-input" name="memiliki_nik" value="1"
-                                        {{ $rekomendasiTerdaftarYayasan->ada_nik == '1' ? 'checked' : '' }} checked
-                                        disabled>
-                                    <label class="form-check-label" for="inlineCheckbox1">Ya</label>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="form-check form-check-inline">
-                                    <input type="radio" class="form-check-input" name="memiliki_nik" value="0"
-                                        {{ $rekomendasiTerdaftarYayasan->ada_nik == '0' ? 'checked' : '' }} disabled>
-                                    <label class="form-check-label" for="inlineCheckbox2">Tidak</label>
-                                </div>
-                            </div>
-                        </div>
+                        <input type="text" class="form-control" value="{{ $rekomendasiTerdaftarYayasan->nama }}"
+                            name="nama_ter" required readonly>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">NIK</label>
                     <div class="col-sm-5">
                         <input type="number" id="id-input-nik" value="{{ $rekomendasiTerdaftarYayasan->nik }}"
-                            class="form-control" name="nik" readonly>
+                            class="form-control" name="nik_ter" readonly>
                         <small id="nikhelper" class="form-text text-muted">
                             Harus angka, 16 digit
                         </small>
                     </div>
                 </div>
                 <div class="form-group row">
-                    {{-- <div class="col-sm-2 col-form-label"> --}}
-                    <label class="col-sm-2 col-form-label" for="inlineCheckbox1">Status DTKS</label>
-                    <input type="text" id="name-input" class="form-control" aria-label="Text input with checkbox"
-                        id="nodtks" value="{{ $rekomendasiTerdaftarYayasan->no_dtks }}" name="no_dtks" readonly
-                        hidden>
+                    <label class="col-sm-2 col-form-label">Tempat Lahir</label>
                     <div class="col-sm-5">
-                        <div class="row">
-                            <div class="col">
-                                <div class="form-check form-check-inline">
-                                    <input type="radio" class="form-check-input" name="status_dtks" id="status_dtks"
-                                        value="1" disabled
-                                        {{ $rekomendasiTerdaftarYayasan->no_dtks ? 'checked' : '' }}>
-                                    <label class="form-check-label" for="inlineCheckbox1">Terdaftar</label>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="form-check form-check-inline">
-                                    <input type="radio" class="form-check-input" name="status_dtks" id="status_dtks"
-                                        value="0" disabled
-                                        {{ !$rekomendasiTerdaftarYayasan->no_dtks ? 'checked' : '' }}>
-                                    <label class="form-check-label" for="inlineCheckbox2">Tidak Terdaftar</label>
-                                </div>
-                            </div>
-                        </div>
+                        <input type="text" class="form-control" value="{{ $rekomendasiTerdaftarYayasan->tempat_lahir }}"
+                            name="tempat_lahir" readonly>
                     </div>
                 </div>
-
-                <div class="form-group row">
-                    <label class="col-sm-2 col-form-label"></label>
-                    <div class="col-sm-5">
-                        <div class="row">
-                            <div class="col">
-                                <div class="form-check form-check-inline">
-                                    <button class="btn btn-info" id="btn-check-id"><i class="fa fa-database"
-                                            disabled></i> Cek DTKS</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">No. KK</label>
-                    <div class="col-sm-5">
-                        <input type="number" class="form-control" value="{{ $rekomendasiTerdaftarYayasan->no_kk }}"
-                            name="no_kk" readonly>
-                        <small id="kkhelper" class="form-text text-muted">
-                            Harus angka, 16 digit
-                        </small>
-                    </div>
-                </div>
-
-
-                <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">Nama <span class="text-danger">*</label>
-                    <div class="col-sm-5">
-                        <input type="text" class="form-control" value="{{ $rekomendasiTerdaftarYayasan->nama }}"
-                            name="nama" required readonly>
-                    </div>
-                </div>
+               
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Tanggal Lahir <span class="text-danger">*</label>
                     <div class="col-sm-5">
@@ -194,10 +127,36 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">Telpon <span class="text-danger">*</label>
+                    <label class="col-sm-2 col-form-label">Jenis Kelamin <span class="text-danger">*</label>
+                    <div class="col-sm-5">
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-check form-check-inline">
+                                    <input type="radio" class="form-check-input" id="option1" name="jenis_kelamin"
+                                        value="1"
+                                        {{ $rekomendasiTerdaftarYayasan->jenis_pelapor == 'Laki-Laki' ? 'checked' : '' }}
+                                        checked disabled>
+                                    <label class="form-check-label" for="inlineCheckbox1">Laki - Laki</label>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-check form-check-inline">
+                                    <input type="radio" class="form-check-input" id="option1" name="jenis_kelamin"
+                                        value="0"
+                                        {{ $rekomendasiTerdaftarYayasan->jenis_pelapor == 'Perempuan' ? 'checked' : '' }}
+                                        disabled>
+                                    <label class="form-check-label" for="inlineCheckbox2">Perempuan</label>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Telepon <span class="text-danger">*</label>
                     <div class="col-sm-5">
                         <input type="tel" class="form-control" value="{{ $rekomendasiTerdaftarYayasan->telp }}"
-                            name="telpon" required readonly>
+                            name="telp" required readonly>
                         <small id="nikhelper" class="form-text text-muted">
                             Harus angka, max 13 digit
                         </small>
@@ -210,82 +169,174 @@
                             name="alamat" readonly>
                     </div>
                 </div>
-                {{-- layanan --}}
-                {{-- <div form-group row>
-                <h4><b>LAYANAN</b></h4>
-            </div>
-            <div class="form-group row">
-                <label class="col-sm-2 col-form-label">Jenis Layanan rekomendasiTerdaftarYayasan</label>
-                <div class="col-sm-5">
-                    <select class="custom-select" id="inputGroupSelect01" name="jenis_layanan">
-                        <option selected>Pilih...</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
-                      </select>
-                </div>
-            </div> --}}
-
-                {{-- kepesertaan --}}
                 <div form-group row>
-                    <h5><b>Permohonan</b></h5>
+                    <h5><b>PELAPOR</b></h5>
                 </div>
                 <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">Upload KTP</label>
+                    <label class="col-sm-2 col-form-label">Nama <span class="text-danger">*</label>
                     <div class="col-sm-5">
-                        <input type="file" id="file-upload" name="filektp">
+                        <input type="text" class="form-control" value="{{ $rekomendasiTerdaftarYayasan->nama_pel }}"
+                            name="nama_pel" required readonly>
                     </div>
                 </div>
-                @if (isset($data['filektp']))
-                    <div>File KTP: {{ $data['filektp'] }}</div>
-                @endif
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">NIK</label>
+                    <div class="col-sm-5">
+                        <input type="number" id="id-input-nik" value="{{ $rekomendasiTerdaftarYayasan->nik_pel }}"
+                            class="form-control" name="nik_pel" readonly>
+                        <small id="nikhelper" class="form-text text-muted">
+                            Harus angka, 16 digit
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Tempat Lahir</label>
+                    <div class="col-sm-5">
+                        <input type="text" class="form-control" value="{{ $rekomendasiTerdaftarYayasan->tempat_lahirpel }}"
+                            name="tempat_lahirpel" readonly>
+                    </div>
+                </div>
+               
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Tanggal Lahir <span class="text-danger">*</label>
+                    <div class="col-sm-5">
+                        <input type="date" class="form-control" value="{{ $birthdate->format('Y-m-d') }}"
+                            name="tgl_lahirpel" required readonly>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Jenis Kelamin <span class="text-danger">*</label>
+                    <div class="col-sm-5">
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-check form-check-inline">
+                                    <input type="radio" class="form-check-input" id="option1" name="jenis_kelaminpel"
+                                        value="1"
+                                        {{ $rekomendasiTerdaftarYayasan->jenis_pelapor == 'Laki-Laki' ? 'checked' : '' }}
+                                        checked disabled>
+                                    <label class="form-check-label" for="inlineCheckbox1">Laki - Laki</label>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-check form-check-inline">
+                                    <input type="radio" class="form-check-input" id="option1" name="jenis_kelaminpel"
+                                        value="0"
+                                        {{ $rekomendasiTerdaftarYayasan->jenis_pelapor == 'Perempuan' ? 'checked' : '' }}
+                                        disabled>
+                                    <label class="form-check-label" for="inlineCheckbox2">Perempuan</label>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Telepon <span class="text-danger">*</label>
+                    <div class="col-sm-5">
+                        <input type="tel" class="form-control" value="{{ $rekomendasiTerdaftarYayasan->telp_pel }}"
+                            name="telp_pel" required readonly>
+                        <small id="nikhelper" class="form-text text-muted">
+                            Harus angka, max 13 digit
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Alamat</label>
+                    <div class="col-sm-5">
+                        <input type="text" class="form-control" value="{{ $rekomendasiTerdaftarYayasan->alamat_pel }}"
+                            name="alamat_pel" readonly>
+                    </div>
+                </div>
+                <div form-group row>
+                    <h5><b>PERMOHONAN</b></h5>
+                </div>
 
                 <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">Upload KK</label>
+                    <label class="col-sm-2 col-form-label">Nama Lembaga</label>
                     <div class="col-sm-5">
-                        <input type="file" id="file-upload" name="filekk">
+                        <input type="text" id="id-input-nik" class="form-control" value="{{$rekomendasiTerdaftarYayasan->nama_lembaga}}" name="nama_lembaga" readonly>
+                    </div>
+                </div>
+               
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Alamat</label>
+                    <div class="col-sm-5">
+                        <input type="number" class="form-control" value="{{$rekomendasiTerdaftarYayasan->alamat_lembaga}}"  name="alamat_lembaga" readonly>
+                        <small id="kkhelper" class="form-text text-muted">
+                            Harus angka, 16 digit
+                        </small>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">Upload File Surat Keterangan Terdaftar DTKS/Kurang Mampu</label>
+                    <label class="col-sm-2 col-form-label">Nama Ketua <span class="text-danger">*</label>
                     <div class="col-sm-5">
-                        <input type="file" id="file-upload" name="suket">
+                        <input type="text" class="form-control" value="{{$rekomendasiTerdaftarYayasan->nama_ketua}}" name="nama_ketua" readonly>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">Download Draft Formulir Kebutuhan Layanan</label>
+                    <label class="col-sm-2 col-form-label">Jenis Penyelenggaraan Kesos<span class="text-danger">*</label>
                     <div class="col-sm-5">
-                        <a href="{{ url('draft/Draft_Rekomendasi') }}" download>Download File</a>
+                        <input type="text" class="form-control" value="{{$rekomendasiTerdaftarYayasan->jenis_kesos}}" name="jenis_kesos" readonly>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">Upload Draft Formulir Kebutuhan Layanan</label>
+                    <label class="col-sm-2 col-form-label">Status <span class="text-danger">*</label>
                     <div class="col-sm-5">
-                        <input type="file" id="file-upload" name="draftfrom">
+                        <input type="tel" class="form-control"  value="{{$rekomendasiTerdaftarYayasan->status}}"  name="status" readonly>
+                        <small id="nikhelper" class="form-text text-muted">
+                            Harus angka, max 13 digit
+                        </small>
                     </div>
                 </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Lingkup Wilayah Kerja</label>
+                    <div class="col-sm-5">
+                        <input type="text" class="form-control" value="{{$rekomendasiTerdaftarYayasan->wil_kerja}}"  name="wil_kerja" readonly>
+                    </div>
+                </div>
+    
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Tipe</label>
+                    <div class="col-sm-5">
+                        <input type="text" class="form-control" value="{{$rekomendasiTerdaftarYayasan->tipe}}" name="tipe" readonly>
+                    </div>
+                </div>
+    
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Masa Berlaku</label>
+                    <div class="col-sm-5">
+                        <input type="date" class="form-control" value="{{$rekomendasiTerdaftarYayasan->masa_berlaku}}"  name="masa_berlaku" readonly>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Draft Permohonan Kebutuhan</label>
+                    <div class="col-sm-5">
+                       <button> <a href="{{ url('draft/Draft_Rekomendasi') }}" target="_blank">Lihat File</a></button>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Upload File Draft Rekomendasi Yayasan</label>
+                    <div class="col-sm-5">
+                        <input type="file" id="file-upload" name="draft_rekomendasi">
+                    </div>
+                </div>
+
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Catatan <span class="text-danger">*</label>
                     <div class="col-sm-5">
                         <textarea class="form-control" name="detail_rekomendasiTerdaftarYayasan">{{ $rekomendasiTerdaftarYayasan->catatan }}</textarea>
                     </div>
                 </div>
-                <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">File Penunjang</label>
-                    <div class="col-sm-5">
-                        <input type="file" name="file_penunjang">
-                    </div>
-                </div>
+              
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Status Aksi</label>
                     <div class="col-sm-5">
                         <select class="form-control form-control-lg" name="status_aksi" required>
                             <option selected value="{{ $rekomendasiTerdaftarYayasan->status_aksi }}">
-                                {{ $rekomendasiTerdaftarYayasan->status_aksi }}</option>
-
+                              Pilih...  {{ $rekomendasiTerdaftarYayasan->status_aksi }}</option>
                             @foreach ($alur as $a)
                                 <option value="{{ $a->id_alur }}">{{ $a->name }}</option>
-                                {{-- <option value="{{ $a->id_alur }}">{{ $a->name }}</option> --}}
                             @endforeach
 
                         </select>
@@ -298,7 +349,6 @@
                             <option selected>Pilih...</option>
                             @foreach ($roleid as $idrole)
                                 <option value={{ $idrole->id }}>{{ $idrole->name }}</option>
-                                {{-- <option value="Teruskan">Large select</option> --}}
                             @endforeach
                         </select>
                     </div>
@@ -307,16 +357,13 @@
                     <label class="col-sm-2 col-form-label">Petugas <span class="text-danger">*</label>
                     <div class="col-sm-5">
                         <select class="form-control form-control-lg" name="petugas" id="petugas">
-                            {{-- <option selected value="{{ $rekomendasiTerdaftarYayasan->tujuan }}">{{ $rekomendasiTerdaftarYayasan->tujuan }}</option> --}}
                         </select>
                     </div>
                 </div>
             </div>
-            {{-- @include('rekomendasiTerdaftarYayasans.fields') --}}
             <div class="card-footer">
                 <a href="{{ route('rekomendasi_terdaftar_yayasans.index') }}" class="btn btn-default"> Batal </a>
-                <button class="btn btn-primary" id="draft" type="submit">simpan ke draft</button>
-                <button class="btn btn-primary" id="btn-submit" type="submit">kirim</button>
+                <button class="btn btn-primary" id="btn-submit" type="submit">Kirim</button>
             </div>
 
 
@@ -345,7 +392,7 @@
 
                                 $.each(data, function(key, value) {
                                     $('#petugas').append('<option value="' + value.id +
-                                        '">' + value.name + '</option>');
+                                        '">'+ value.name + '</option>');
                                 });
                             }
                         });

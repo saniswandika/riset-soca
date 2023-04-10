@@ -15,8 +15,10 @@ use App\Http\Controllers\PengaturanWilayahController;
 use App\Http\Controllers\DependantDropdownController;
 use App\Http\Controllers\pdfController;
 use App\Models\Pengaduan;
+use App\Models\rekomendasi_terdaftar_yayasan;
 use Dompdf\Adapter\PDFLib;
 use Symfony\Component\HttpKernel\Profiler\Profile;
+use App\Http\Controllers\rekomendasi_terdaftar_yayasanController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -92,6 +94,8 @@ Route::resource('pengaduans', App\Http\Controllers\PengaduanController::class);
 Route::resource('rekomendasi_pengangkatan_anaks', App\Http\Controllers\rekomendasi_pengangkatan_anakController::class);
 Route::resource('pengaduans', App\Http\Controllers\PengaduanController::class);
 Route::resource('rekomendasi_terdaftar_yayasans', App\Http\Controllers\rekomendasi_terdaftar_yayasanController::class);
+Route::get('/petugas/{id}', [rekomendasi_terdaftar_yayasanController::class, 'getPetugas'])->name('getPetugas');
+
 Route::resource('rekomendasi_pub', App\Http\Controllers\rekomendasi_pengumpulan_undian_berhadiahController::class);
 Route::resource('rekomendasi_bantuan_pendidikans', App\Http\Controllers\rekomendasi_bantuan_pendidikanController::class);
 Route::resource('rekomendasi_rekativasi_pbi_jks', App\Http\Controllers\rekomendasi_rekativasi_pbi_jkController::class);

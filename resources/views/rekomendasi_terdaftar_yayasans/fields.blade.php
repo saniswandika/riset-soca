@@ -1,17 +1,8 @@
-<!-- Nama Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('nama', 'Nama:') !!}
-    {!! Form::text('nama', null, ['class' => 'form-control', 'required']) !!}
+<div form-group row>
+    <h4><b>LOKASI</b></h4>
 </div>
+<br>
+<input type="radio" name="options" value="1">Option 2<br>
+<input type="radio" name="options" value="0">Option 1<br>
 
-<!-- No Kk Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('no_kk', 'No Kk:') !!}
-    {!! Form::text('no_kk', null, ['class' => 'form-control', 'required']) !!}
-</div>
-
-<!-- Nik Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('nik', 'Nik:') !!}
-    {!! Form::text('nik', null, ['class' => 'form-control', 'required']) !!}
-</div>
+<button id="btn-submit" disabled>Submit</button>

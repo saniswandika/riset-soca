@@ -128,7 +128,7 @@
                 <div class="col-sm-5">
                     <div class="row">
                         <div class="col">
-                            <button class="btn btn-info" id="btn-check-id"><i class="fa fa-database"></i> Cek DTKS</button>
+                            <a class="btn btn-info" id="btn-check-id"><i class="fa fa-database"></i> Cek DTKS</a>
                         </div>
                     </div>
                 </div>
@@ -331,46 +331,20 @@
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Tujuan</label>
                 <div class="col-sm-5">
-                    <select class="form-control form-control-lg" name="tujuan">
-                        <option selected>Pilih...</option>
-                            {{-- {{ $item->name }} --}}
-                            @if ($checkroles->name == 'Front Office kota')
-                                @foreach ($rolebackoffice as $backoffice)
-                                    <option value='{{ $backoffice->role_id }}'>{{ $backoffice->name }}</option>
-                                    {{-- <option value="Teruskan">Large select</option> --}}
-                                @endforeach
-                            @else
-                                @foreach ($roleid as $idrole)
-                                    <option value={{ $idrole->id }}>{{ $idrole->name }}</option>
-                                    {{-- <option value="Teruskan">Large select</option> --}}
-                                @endforeach
-                            @endif
-                        {{-- @endforeach --}}
+                        <select class="form-control" name="tujuan" id="tujuan" required>
+                            <option>==Pilih Salah Satu==</option>
+                            @foreach ($roles as $item)
+                                <option value="{{ $item->id }}">{{ $item->name_roles}}</option>
+                            @endforeach
+                        </select>
                     </select>
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Petugas</label>
                 <div class="col-sm-5">
-                    {{-- <?php
-                        dd($checkroles); 
-                    ?> --}}
-                    <select class="form-control form-control-lg" name="petugas">
-                        <option selected>Pilih...</option>
-                        {{-- @foreach ($checkroles as $item) --}}
-                            {{-- {{ $item->name }} --}}
-                            @if ($checkroles->name == 'Front Office kota')
-                                @foreach ($rolebackoffice as $backoffice)
-                                    <option value='{{ $backoffice->id }}'>{{ $backoffice->name }}</option>
-                                    {{-- <option value="Teruskan">Large select</option> --}}
-                                @endforeach
-                            @else
-                                @foreach ($useridpetugas as $idrole)
-                                    <option value={{ $idrole->id }}>{{ $idrole->name }}</option>
-                                    {{-- <option value="Teruskan">Large select</option> --}}
-                                @endforeach
-                            @endif
-                        {{-- @endforeach --}}
+                    <select class="form-control" name="petugas" id="petugas" required>
+                        <option>==Pilih Salah Satu==</option>
                     </select>
                 </div>
             </div>
@@ -388,7 +362,30 @@
     </div>
     {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script> --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
+    <script>
+        $(document).ready(function() {
+            $('#tujuan').on('change', function() {
+                var role = $(this).val();
+                if (role) {
+                    $.ajax({
+                        url: '/get-users-by-role',
+                        type: 'GET',
+                        data: { role: role },
+                        dataType: 'json',
+                        success: function(data) {
+                            var html = '<option value="">-- Pilih User --</option>';
+                            $.each(data, function(index, user) {
+                                html += '<option value="' + user.model_id + '">' + user.name + '</option>';
+                            });
+                            $('#petugas').html(html);
+                        }
+                    });
+                } else {
+                    $('#petugas').empty();
+                }
+            });
+        });
+    </script>
     <script>
         // tambahkan event listener untuk semua radio button dengan nama "options"
         $('input[type=radio][name=memiliki_nik]').change(function() {

@@ -60,14 +60,14 @@
                         <div class="col">
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" id="inlineCheckbox1" value="Diri_Sendiri"
-                                    name="jenis_laporan" required>
+                                    name="jenis_pelapor" required>
                                 <label class="form-check-label" for="inlineCheckbox1">Diri Sendiri</label>
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" id="inlineCheckbox2" value="Orang Lain"
-                                    name="jenis_laporan" required>
+                                    name="jenis_pelapor" required>
                                 <label class="form-check-label" for="inlineCheckbox2">Orang Lain</label>
                             </div>
                         </div>
@@ -263,13 +263,18 @@
                     <input type="text" class="form-control" name="tipe">
                 </div>
             </div>
-
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Masa Berlaku</label>
                 <div class="col-sm-5">
-                    <input type="date" class="form-control" name="masa_berlaku">
+                    <label>Dari tanggal:</label>
+                    <input type="date" class="form-control" name="tgl_mulai">
+                
+                    <label>Sampai tanggal:</label>
+                    <input type="date" class="form-control" name="tgl_selesai">
                 </div>
             </div>
+            
+            
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Draft Permohonan Kebutuhan</label>
                 <div class="col-sm-5">
@@ -328,7 +333,7 @@
             {{-- @include('pengaduans.fields') --}}
             <div class="card-footer">
                 <a href="{{ route('rekomendasi_terdaftar_yayasans.index') }}" class="btn btn-default"> Batal </a>
-                <button class="btn btn-primary" id="btn-submit" type="submit" disabled>Kirim</button>
+                <button class="btn btn-primary" id="btn-submit" type="submit">Kirim</button>
             </div>
 
 

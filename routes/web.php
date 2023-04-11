@@ -14,6 +14,7 @@ use App\Http\Controllers\FormTamuController;
 use App\Http\Controllers\PengaturanWilayahController;
 use App\Http\Controllers\DependantDropdownController;
 use App\Http\Controllers\pdfController;
+use App\Http\Controllers\pdfyayasanController;
 use App\Models\Pengaduan;
 use App\Models\rekomendasi_terdaftar_yayasan;
 use Dompdf\Adapter\PDFLib;
@@ -44,7 +45,9 @@ use App\Http\Controllers\rekomendasi_terdaftar_yayasanController;
 
 // });
 
-Route::get('/pdf/{id}', [pdfController::class, 'show']);
+Route::get('/pdfpengaduan/{id}', [pdfController::class, 'show']);
+Route::get('/pdfyayasan/{id}', [pdfyayasanController::class, 'show']);
+
 
 Route::get('/', function () {
     return view('auth.login');
@@ -95,6 +98,8 @@ Route::resource('rekomendasi_pengangkatan_anaks', App\Http\Controllers\rekomenda
 Route::resource('pengaduans', App\Http\Controllers\PengaduanController::class);
 Route::resource('rekomendasi_terdaftar_yayasans', App\Http\Controllers\rekomendasi_terdaftar_yayasanController::class);
 Route::get('/petugas/{id}', [rekomendasi_terdaftar_yayasanController::class, 'getPetugas'])->name('getPetugas');
+Route::get('/getditeruskan', [rekomendasi_terdaftar_yayasanController::class, 'getDiteruskan'])->name('getDiteruskan');
+Route::post('/delete-data', [rekomendasi_terdaftar_yayasanController::class, 'deleteDiproses']);
 
 Route::resource('rekomendasi_pub', App\Http\Controllers\rekomendasi_pengumpulan_undian_berhadiahController::class);
 Route::resource('rekomendasi_bantuan_pendidikans', App\Http\Controllers\rekomendasi_bantuan_pendidikanController::class);

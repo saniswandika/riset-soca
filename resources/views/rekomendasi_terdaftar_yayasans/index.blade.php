@@ -94,10 +94,10 @@
                                             <th>No</th>
                                             <th>Lembaga</th>
                                             <th>Ketua Yayasan</th>
-                                            <th>NIK</th>
+                                            <th>NIK Terlapor</th>
                                             <th>Nama Terlapor</th>
                                             <th>Alamat</th>
-                                            <th>Status</th>
+                                            <th>Status Alur</th>
                                             <th>Tujuan</th>
                                             <th>Aksi</th>
                                         </tr>
@@ -154,4 +154,51 @@
                         </div>
                     </div>
                 </div>
+
+
+                <script>
+                    //Tab Di Proses 
+                    $(document).ready(function() {
+                        $('#tabteruskan').on('click', function() {
+                            $.ajax({
+                                url: "{{ route('getDitersukan') }}",
+                                type: 'GET',
+                                dataType: 'json',
+                                success: function(data) {
+                                    var table = $('#teruskan').DataTable();
+                                    table.clear().draw();
+                                    $.each(data, function(index, value) {
+                                        table.row.add([
+                                            value.id,
+                                            value.nama_lembaga,
+                                            value.nama_ketua,
+                                            value.nik_ter,
+                                            value.nama_ter,
+                                            value.alamat,
+                                            value.status_alur,
+                                            value.name,
+                                            '<div class="dropdown">' +
+                                            '<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +
+                                            'Kelola' +
+                                            '</button>' +
+                                            '<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">' +
+                                            '<a class="dropdown-item" href="/rekomendasi_terdaftar_yayasans/' +
+                                            value.id + '/edit">Proses</a>' +
+                                            '<a class="dropdown-item" href="/rekomendasi_terdaftar_yayasans/' +
+                                            value.id + '">Detail</a>' +
+                                            '<a class="dropdown-item" href="/pdfyayasan/' +
+                                            value.id + '">Cetak Permohonan Layanan</a>' +
+                                            '</div>' +
+                                            '</div>'
+
+                                        ]).draw(false);
+                                    });
+                                },
+                                error: function() {
+                                    alert('Data tidak ditemukan!');
+                                }
+                            });
+                        });
+                    });
+                </script>
             @endsection

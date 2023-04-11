@@ -15,10 +15,8 @@ use App\Http\Controllers\PengaturanWilayahController;
 use App\Http\Controllers\DependantDropdownController;
 use App\Http\Controllers\pdfController;
 use App\Models\Pengaduan;
-use App\Models\rekomendasi_terdaftar_yayasan;
 use Dompdf\Adapter\PDFLib;
 use Symfony\Component\HttpKernel\Profiler\Profile;
-use App\Http\Controllers\rekomendasi_terdaftar_yayasanController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -94,8 +92,6 @@ Route::resource('pengaduans', App\Http\Controllers\PengaduanController::class);
 Route::resource('rekomendasi_pengangkatan_anaks', App\Http\Controllers\rekomendasi_pengangkatan_anakController::class);
 Route::resource('pengaduans', App\Http\Controllers\PengaduanController::class);
 Route::resource('rekomendasi_terdaftar_yayasans', App\Http\Controllers\rekomendasi_terdaftar_yayasanController::class);
-Route::get('/petugas/{id}', [rekomendasi_terdaftar_yayasanController::class, 'getPetugas'])->name('getPetugas');
-
 Route::resource('rekomendasi_pub', App\Http\Controllers\rekomendasi_pengumpulan_undian_berhadiahController::class);
 Route::resource('rekomendasi_bantuan_pendidikans', App\Http\Controllers\rekomendasi_bantuan_pendidikanController::class);
 Route::resource('rekomendasi_rekativasi_pbi_jks', App\Http\Controllers\rekomendasi_rekativasi_pbi_jkController::class);
@@ -113,14 +109,14 @@ Route::get('/selesai', [PengaduanController::class, 'selesai'])->name('selesai')
 Route::get('/prelistDTKS', [PengaduanController::class, 'prelistDTKS'])->name('prelist_DTKS');
 Route::get('/prelistPage', [PengaduanController::class, 'prelistPage'])->name('prelistPage');
 
-Route::get('/detailpengaduan/{detailpengaduan}', [PengaduanController::class, 'log_detail_pengaduan'])->name('detailpengaduan');
-
+Route::get('/detaillogpengaduan/{detailpengaduan}', [PengaduanController::class, 'log_detail_pengaduan'])->name('detaillogpengaduan');
+Route::get('/detailpengaduan/{id}', [PengaduanController::class, 'detail_pengaduan'])->name('detailpengaduan');
 // Route::get('/pengaduans/create', [PengaduanController::class, 'create'])->name('pengaduans.create');
 Route::get('/pengaduans/search', [PengaduanController::class, 'search'])->name('pengaduans.search');
 Route::get('/pengaduans/{pengaduan}/delete', [PengaduanController::class, 'destroy'])->name('pengaduans.delet2');
 // Route::get('filter-pengaduan', [PengaduanController::class, 'filterPengaduan']);
 // Route::get('/pengaduan/kelurahan/{id}', [PengaduanController::class, 'getKelurahanByKecamatanId']);
-
+Route::get('/get-users-by-role', [PengaduanController::class, 'getuserbyrole']);
 
 // Route::get('/pengaduans/destroy', [PengaduanController::class, 'destroy'])->name('pengaduans.destroy');
 Route::get('/cek-id/{Nik}', function($Nik) {

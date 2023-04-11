@@ -10,8 +10,9 @@ class pdfController extends Controller
 {
     public function show($id)
     {
+        // $pdf->loadHtml(view('pdf', $data));
         $pengaduan = Pengaduan::find($id);
-        $pdf = PDF::loadView('pdfview', compact('pengaduan'));
+        $pdf = PDF::loadHtml(view('pdfview',compact('pengaduan')));
         $filename = 'Resi-Pengaduan_' . $pengaduan->nama . '.pdf';
         return $pdf->stream($filename);
     }

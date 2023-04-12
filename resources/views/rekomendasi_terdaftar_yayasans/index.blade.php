@@ -35,7 +35,7 @@
                             // dd($usersrole);
                             ?>
                             @foreach ($usersrole as $item)
-                                @if ($item->name == 'fasilitator' || $item->name == 'Front Office kota')
+                                @if ($item->name_roles == 'fasilitator' || $item->name_roles == 'Front Office kota')
                                     <li class="nav-item">
                                         <a class="nav-link" id="tabdraft" data-toggle="tab" href="#table1" role="tab"
                                             aria-controls="table1" aria-selected="true">Draft</a>
@@ -55,11 +55,18 @@
                                 <a class="nav-link" id="tabselesai" data-toggle="tab" href="#table3" role="tab"
                                     aria-controls="table3" aria-selected="false">Selesai</a>
                             </li>
-                            @auth
+                           
+                            @php
+                            $user = Auth::user();
+                            $roles = $user->roles()->pluck('name_roles');
+                            @endphp
+                            
+                            @if ($roles->contains('Front Office kota'))
                                 <li class="nav-item ml-auto" style="margin-left: auto">
                                     <a href="rekomendasi_terdaftar_yayasans/create" class="btn btn-primary ml-2">Tambah Data</a>
                                 </li>
-                            @endauth
+                            @endif
+                            
 
                         </ul>
                         <div class="tab-content" id="myTabContent">
@@ -87,8 +94,7 @@
                             </div>
                             <div class="tab-pane fade table-responsive" id="table2" role="tabpanel"
                                 aria-labelledby="tabproses" style="margin-top: 20px;">
-                                <table id="diproses" class="table table-striped dt-responsive table-bordered nowrap"
-                                    style="width:100%">
+                                <table id="diproses" class="table table-striped dt-responsive table-bordered nowrap" style="width:100%">
                                     <thead>
                                         <tr>
                                             <th>No</th>
@@ -159,13 +165,13 @@
                 <script>
                     //Tab Di Proses 
                     $(document).ready(function() {
-                        $('#tabteruskan').on('click', function() {
+                        $('#tabproses').on('click', function() {
                             $.ajax({
-                                url: "{{ route('getDitersukan') }}",
+                                url: "{{ route('getDiproses') }}",
                                 type: 'GET',
                                 dataType: 'json',
                                 success: function(data) {
-                                    var table = $('#teruskan').DataTable();
+                                    var table = $('#diproses').DataTable();
                                     table.clear().draw();
                                     $.each(data, function(index, value) {
                                         table.row.add([
@@ -176,7 +182,7 @@
                                             value.nama_ter,
                                             value.alamat,
                                             value.status_alur,
-                                            value.name,
+                                            value.name_roles,
                                             '<div class="dropdown">' +
                                             '<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +
                                             'Kelola' +

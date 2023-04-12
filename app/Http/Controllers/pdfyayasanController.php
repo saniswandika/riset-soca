@@ -13,7 +13,7 @@ class pdfyayasanController extends Controller
     {
         $rekomendasi_terdaftar_yayasans = DB::table('rekomendasi_terdaftar_yayasans')
             ->join('roles', 'rekomendasi_terdaftar_yayasans.tujuan', '=', 'roles.id')
-            ->select('rekomendasi_terdaftar_yayasans.*', 'roles.name')
+            ->select('rekomendasi_terdaftar_yayasans.*', 'roles.name_roles')
             ->where('rekomendasi_terdaftar_yayasans.id', $id)
             ->first();
         $pdf = PDF::loadView('pdfyayasanview', compact('rekomendasi_terdaftar_yayasans'));

@@ -93,7 +93,7 @@
                     <td>{{$rekomendasi_terdaftar_yayasans->nik_ter}}</td>
                     <td>{{$rekomendasi_terdaftar_yayasans->nama_ter}}</td>
                     <td>{{$rekomendasi_terdaftar_yayasans->status}}</td>
-                    <td>{{$rekomendasi_terdaftar_yayasans->name}}</td>
+                    <td>{{$rekomendasi_terdaftar_yayasans->name_roles}}</td>
                 </tr>
           
             <!-- tambahkan baris sesuai kebutuhan -->

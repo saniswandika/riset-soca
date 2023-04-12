@@ -28,6 +28,7 @@ return array(
     'App\\Http\\Controllers\\UserController' => $baseDir . '/app/Http/Controllers/UserController.php',
     'App\\Http\\Controllers\\jadwalController' => $baseDir . '/app/Http/Controllers/jadwalController.php',
     'App\\Http\\Controllers\\pdfController' => $baseDir . '/app/Http/Controllers/pdfController.php',
+    'App\\Http\\Controllers\\pdfyayasanController' => $baseDir . '/app/Http/Controllers/pdfyayasanController.php',
     'App\\Http\\Controllers\\rekomDtksController' => $baseDir . '/app/Http/Controllers/rekomDtksController.php',
     'App\\Http\\Controllers\\rekomendasi_admin_kependudukanController' => $baseDir . '/app/Http/Controllers/rekomendasi_admin_kependudukanController.php',
     'App\\Http\\Controllers\\rekomendasi_bantuan_pendidikanController' => $baseDir . '/app/Http/Controllers/rekomendasi_bantuan_pendidikanController.php',

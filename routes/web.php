@@ -10,7 +10,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\LaporanTamuController;
 use App\Http\Controllers\PengaduanController;
 use Illuminate\Support\Facades\DB;
-use App\Http\Controllers\FormTamuController;
+// use App\Http\Controllers\rekomendasi_terdaftar_yayasanController;
 use App\Http\Controllers\PengaturanWilayahController;
 use App\Http\Controllers\DependantDropdownController;
 use App\Http\Controllers\pdfController;
@@ -96,12 +96,8 @@ Route::resource('pengaduans', App\Http\Controllers\PengaduanController::class);
 Route::resource('rekomendasi_pengangkatan_anaks', App\Http\Controllers\rekomendasi_pengangkatan_anakController::class);
 Route::resource('pengaduans', App\Http\Controllers\PengaduanController::class);
 Route::resource('rekomendasi_terdaftar_yayasans', App\Http\Controllers\rekomendasi_terdaftar_yayasanController::class);
-Route::get('/petugas/{id}', [rekomendasi_terdaftar_yayasanController::class, 'getPetugas'])->name('getPetugas');
 
-Route::get('/draftyayasan',[rekomendasi_terdaftar_yayasanController::class, 'getDraftyayasan'])->name('getDraftyayasan');
-Route::get('/teruskanyayasan',[rekomendasi_terdaftar_yayasanController::class, 'getTeruskanyayasan'])->name('getTeruskanyayasan');
-Route::get('/prosesyayasan',[rekomendasi_terdaftar_yayasanController::class, 'getProsesyayasan'])->name('getProsesyayasan');
-Route::get('/selesaiyayasan', [rekomendasi_terdaftar_yayasanController::class, 'getSelesaiyayasan'])->name('getSelesaiyayasan');
+Route::get('/petugas/{id}', [rekomendasi_terdaftar_yayasanController::class, 'getPetugas'])->name('getPetugas');
 
 
 Route::resource('rekomendasi_pub', App\Http\Controllers\rekomendasi_pengumpulan_undian_berhadiahController::class);
@@ -120,9 +116,17 @@ Route::get('teruskan', [PengaduanController::class, 'teruskan'])->name('teruskan
 Route::get('/selesai', [PengaduanController::class, 'selesai'])->name('selesai');
 Route::get('/prelistDTKS', [PengaduanController::class, 'prelistDTKS'])->name('prelist_DTKS');
 Route::get('/prelistPage', [PengaduanController::class, 'prelistPage'])->name('prelistPage');
-
-Route::get('/detailpengaduan/{detailpengaduan}', [PengaduanController::class, 'log_detail_pengaduan'])->name('detailpengaduan');
-
+//route menu rekomendasi terdaftar yayasan
+Route::get('/draft-rekomendasi-terdaftar-yayasan', [rekomendasi_terdaftar_yayasanController::class, 'draft'])->name('draft-rekomendasi-terdaftar-yayasan');
+Route::get('/diproses-rekomendasi-terdaftar-yayasan', [rekomendasi_terdaftar_yayasanController::class, 'diproses'])->name('diproses-rekomendasi-terdaftar-yayasan');
+Route::get('/teruskan-rekomendasi-terdaftar-yayasan', [rekomendasi_terdaftar_yayasanController::class, 'teruskan'])->name('teruskan-rekomendasi-terdaftar-yayasan');
+Route::get('/selesai-rekomendasi-terdaftar-yayasan', [rekomendasi_terdaftar_yayasanController::class, 'selesai'])->name('selesai-rekomendasi-terdaftar-yayasan');
+// Route::get('/prelistDTKS', [PengaduanController::class, 'prelistDTKS'])->name('prelist_DTKS');
+// Route::get('/prelistPage', [PengaduanController::class, 'prelistPage'])->name('prelistPage');
+//route menu rekomendasi terdaftar yayasan
+Route::get('/detaillogpengaduan/{detailpengaduan}', [PengaduanController::class, 'log_detail_pengaduan'])->name('detaillogpengaduan');
+Route::get('/detailpengaduan/{id}', [PengaduanController::class, 'detail_pengaduan'])->name('detailpengaduan');
+// Route::get('/prosespengaduan/{id}', [PengaduanController::class, 'detail_pengaduan'])->name('detailpengaduan');
 // Route::get('/pengaduans/create', [PengaduanController::class, 'create'])->name('pengaduans.create');
 Route::get('/pengaduans/search', [PengaduanController::class, 'search'])->name('pengaduans.search');
 Route::get('/pengaduans/{pengaduan}/delete', [PengaduanController::class, 'destroy'])->name('pengaduans.delet2');
@@ -137,6 +141,9 @@ Route::get('/cek-id/{Nik}', function($Nik) {
     if ($table2) {
         $found = true;
         $Id_DTKS = $table2->Id_DTKS; // Ambil data nama jika ID ditemukan
+    }else{
+        $found = false;
+        $Id_DTKS = 'not found data';
     }
     return response()->json([
         'found' => $found,

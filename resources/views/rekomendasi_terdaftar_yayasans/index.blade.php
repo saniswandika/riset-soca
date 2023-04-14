@@ -20,7 +20,7 @@
   <div class="col-12">
     <div class="card mb-4">
       <div class="card-header pb-0">
-        <h6>Table Pengaduan</h6>
+        <h6>Table Rekomendasi Yayasan</h6>
       </div>
       <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
@@ -333,58 +333,48 @@
           @foreach ($usersrole as $item)
               @if ($item->name == 'fasilitator')
                 <li class="nav-item">
-                  <a class="nav-link" id="tab1" data-toggle="tab" href="#table1" role="tab" aria-controls="table1" aria-selected="true" >Draft</a>
+                  <a class="nav-link" id="tabdraft" data-toggle="tab" href="#tabledraft" role="tab" aria-controls="tabledraft" aria-selected="true" >Draft</a>
                 </li>
-            @elseif ($item->name == 'Front Office Kota')
+            @elseif ($item->name == 'Front Office kota')
                 <li class="nav-item">
-                  <a class="nav-link" id="tab1" data-toggle="tab" href="#table1" role="tab" aria-controls="table1" aria-selected="true" >Draft</a>
+                  <a class="nav-link" id="tabdraft" data-toggle="tab" href="#tabledraft" role="tab" aria-controls="tabledraft" aria-selected="true" >Draft</a>
                 </li>
             @elseif ($item->name == 'Front Office Kelurahan')
               <li class="nav-item">
-                <a class="nav-link" id="tab1" data-toggle="tab" href="#table1" role="tab" aria-controls="table1" aria-selected="true" >Draft</a>
+                <a class="nav-link" id="tabdraft" data-toggle="tab" href="#tabledraft" role="tab" aria-controls="tabledraft" aria-selected="true" >Draft</a>
               </li>
               @endif
           @endforeach
           
           <li class="nav-item">
-            <a class="nav-link" id="tab2" data-toggle="tab" href="#table2" role="tab" aria-controls="table2" aria-selected="false">Diproses</a>
+            <a class="nav-link" id="tabproses" data-toggle="tab" href="#tableproses" role="tab" aria-controls="tableproses" aria-selected="false">Diproses</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" id="tab4" data-toggle="tab" href="#table4" role="tab" aria-controls="table4" aria-selected="false">Teruskan</a>
+            <a class="nav-link" id="tabteruskan" data-toggle="tab" href="#tableteruskan" role="tab" aria-controls="tableteruskan" aria-selected="false">Teruskan</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" id="tab3" data-toggle="tab" href="#table3" role="tab" aria-controls="table3" aria-selected="false">Selesai</a>
+            <a class="nav-link" id="tabselesai" data-toggle="tab" href="#tableselesai" role="tab" aria-controls="tableselesai" aria-selected="false">Selesai</a>
           </li>
           @auth
               <li class="nav-item ml-auto" style="margin-left: auto">
-                @foreach ($usersrole as $item)
-                    @if ($item->name == 'fasilitator')
-                      <a href="/pengaduans/create" class="btn btn-primary ml-2">Tambah Data</a>
-                        @elseif ($item->name == 'Front Office Kota')
-                        <a href="/pengaduans/create" class="btn btn-primary ml-2">Tambah Data</a>
-                        @elseif ($item->name == 'Front Office Kelurahan')
-                        <a href="/pengaduans/create" class="btn btn-primary ml-2">Tambah Data</a>
-                    @endif
-                @endforeach
+                <a href="/rekomendasi_terdaftar_yayasans/create" class="btn btn-primary ml-2">Tambah Data</a>
               </li>
           @endauth
         </ul>
         
         <div class="tab-content" id="myTabContent">
-          <div class="tab-pane fade show table-responsive" id="table1" role="tabpanel" aria-labelledby="tab1" style="margin-top: 20px;">
-            <table id="datatable" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
+          <div class="tab-pane fade show table-responsive" id="tabledraft" role="tabpanel" aria-labelledby="tabdraft" style="margin-top: 20px;">
+            <table id="draft" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
                 <thead>
                   <tr>
-                    <th>No Pendaftaran</th>
-                    <th>Tgl Pendaftaran</th>
-                    <th>Layanan</th>
-                    <th>Faskesos</th>
-                    <th>Terlapor</th>
-                    <th>NIK Terlapor</th>
-                    <th>No. KK Terlapor</th>
-                    <th>Sektor Program</th>
-                    <th>Program</th>
-                    <th>Catatan</th>
+                    <th>No</th>
+                    <th>Lembaga</th>
+                    <th>Ketua</th>
+                    <th>NIK</th>
+                    <th>Nama Terlapor</th>
+                    <th>Alamat</th>
+                    <th>Status</th>
+                    <th>Tujuan</th>
                     {{-- <th>Status</th>
                     <th>Durasi (hari)</th> --}}
                     <th>Aksi</th> 
@@ -394,23 +384,23 @@
               </tbody>
             </table>
           </div>
-          <div class="tab-pane fade table-responsive" id="table2" role="tabpanel" aria-labelledby="tab2" style="margin-top: 20px;">
-                <table id="mytable2" class="table table-striped dt-responsive table-bordered nowrap" style="width:100%">
+          <div class="tab-pane fade table-responsive" id="tableproses" role="tabpanel" aria-labelledby="tabproses" style="margin-top: 20px;">
+                <table id="proses" class="table table-striped dt-responsive table-bordered nowrap" style="width:100%">
                   <thead>
                     <tr>
-                        <th>No Pendaftaran</th>
-                        <th>Tgl Pendaftaran</th>
-                        <th>Layanan</th>
-                        <th>Faskesos</th>
-                        <th>Terlapor</th>
-                        <th>NIK Terlapor</th>
-                        <th>No. KK Terlapor</th>
-                        <th>Sektor Program</th>
-                        <th>Program</th>
-                        <th>Catatan</th>
-                        {{-- <th>Status</th>
-                        <th>Durasi (hari)</th> --}}
-                        <th>Aksi</th>
+                        <tr>
+                            <th>No</th>
+                            <th>Lembaga</th>
+                            <th>Ketua</th>
+                            <th>NIK</th>
+                            <th>Nama Terlapor</th>
+                            <th>Alamat</th>
+                            <th>Status</th>
+                            <th>Tujuan</th>
+                            {{-- <th>Status</th>
+                            <th>Durasi (hari)</th> --}}
+                            <th>Aksi</th> 
+                          </tr>
                     </tr>
                   </thead>
                   <tbody>
@@ -418,47 +408,47 @@
                   </tbody>
               </table>
           </div>
-            <div class="tab-pane fade table-responsive" id="table3" role="tabpanel" aria-labelledby="tab3" style="margin-top: 20px;">
-                <table id="selesai" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
-                  <thead>
-                    <tr>
-                        <th>No Pendaftaran</th>
-                        <th>Tgl Pendaftaran</th>
-                        <th>Layanan</th>
-                        <th>Faskesos</th>
-                        <th>Terlapor</th>
-                        <th>NIK Terlapor</th>
-                        <th>No. KK Terlapor</th>
-                        <th>Sektor Program</th>
-                        <th>Program</th>
-                        <th>Catatan</th>
-                        {{-- <th>Status</th>
-                        <th>Durasi (hari)</th> --}}
-                        <th>Aksi</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {{-- di isi di ajax --}}
-                  </tbody>
-              </table>
-          </div>
-           <div class="tab-pane fade table-responsive" id="table4" role="tabpanel" aria-labelledby="tab4" style="margin-top: 20px;">
+            <div class="tab-pane fade table-responsive" id="tableteruskan" role="tabpanel" aria-labelledby="tabteruskan" style="margin-top: 20px;">
                 <table id="teruskan" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
                   <thead>
                     <tr>
-                        <th>No Pendaftaran</th>
-                        <th>Tgl Pendaftaran</th>
-                        <th>Layanan</th>
-                        <th>Faskesos</th>
-                        <th>Terlapor</th>
-                        <th>NIK Terlapor</th>
-                        <th>No. KK Terlapor</th>
-                        <th>Sektor Program</th>
-                        <th>Program</th>
-                        <th>Catatan</th>
-                        {{-- <th>Status</th>
-                        <th>Durasi (hari)</th> --}}
-                        <th>Aksi</th>
+                        <tr>
+                            <th>No</th>
+                            <th>Lembaga</th>
+                            <th>Ketua</th>
+                            <th>NIK</th>
+                            <th>Nama Terlapor</th>
+                            <th>Alamat</th>
+                            <th>Status</th>
+                            <th>Tujuan</th>
+                            {{-- <th>Status</th>
+                            <th>Durasi (hari)</th> --}}
+                            <th>Aksi</th> 
+                          </tr>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {{-- di isi di ajax --}}
+                  </tbody>
+              </table>
+          </div>
+           <div class="tab-pane fade table-responsive" id="tableselesai" role="tabpanel" aria-labelledby="tabselesai" style="margin-top: 20px;">
+                <table id="selesai" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
+                  <thead>
+                    <tr>
+                        <tr>
+                            <th>No</th>
+                            <th>Lembaga</th>
+                            <th>Ketua</th>
+                            <th>NIK</th>
+                            <th>Nama Terlapor</th>
+                            <th>Alamat</th>
+                            <th>Status</th>
+                            <th>Tujuan</th>
+                            {{-- <th>Status</th>
+                            <th>Durasi (hari)</th> --}}
+                            <th>Aksi</th> 
+                          </tr>
                     </tr>
                   </thead>
                   <tbody>
@@ -480,7 +470,7 @@
 <script>
 
     $(document).ready(function () {
-            $('#datatable').DataTable({
+            $('#draft').DataTable({
               processing: true,
               serverSide: true,
               ajax: {
@@ -499,15 +489,13 @@
                 // ajax: "{{ route('getdata') }}",
                 columns: [
                     { data: 'no_pendaftaran', name: 'no_pendaftaran' },
-                    { data: 'created_at', name: 'created_at' },
-                    { data: 'jenis_pelapor', name: 'jenis_pelapor' },
-                    { data: 'name_village', name: 'name_village' },
-                    { data: 'nama', name: 'Terlapor' },
-                    { data: 'nik', name: 'nik' },
-                    { data: 'no_kk', name: 'no_kk' },
-                    { data: 'kepesertaan_program', name: 'kepesertaan_program' },
-                    { data: 'ringkasan_pengaduan', name: 'ringkasan_pengaduan' },
-                    { data: 'tl_catatan', name: 'tl_catatan' },
+                    { data: 'nama_lembaga', name: 'nama_lembaga' },
+                    { data: 'nama_ketua', name: 'nama_ketua' },
+                    { data: 'nik_ter', name: 'nik_ter' },
+                    { data: 'nama_ter', name: 'nama_ter' },
+                    { data: 'alamat_ter', name: 'alamat_ter' },
+                    { data: 'status_alur', name: 'status_alur' },
+                    { data: 'tujuan', name: 'tujuan' },
                     { data : null, 
                       className: "dt-center editor-delete",
                       orderable: false,
@@ -524,7 +512,7 @@
                 ],
             });
       });
-      $('#mytable2').DataTable({
+      $('#proses').DataTable({
               processing: true,
               serverSide: true,
               ajax: {
@@ -534,15 +522,13 @@
               },
               columns: [
                     { data: 'no_pendaftaran', name: 'no_pendaftaran' },
-                    { data: 'created_at', name: 'created_at' },
-                    { data: 'jenis_pelapor', name: 'jenis_pelapor' },
-                    { data: 'name_village', name: 'name_village' },
-                    { data: 'nama', name: 'Terlapor' },
-                    { data: 'nik', name: 'nik' },
-                    { data: 'no_kk', name: 'no_kk' },
-                    { data: 'kepesertaan_program', name: 'kepesertaan_program' },
-                    { data: 'ringkasan_pengaduan', name: 'ringkasan_pengaduan' },
-                    { data: 'tl_catatan', name: 'tl_catatan' },
+                    { data: 'nama_lembaga', name: 'nama_lembaga' },
+                    { data: 'nama_ketua', name: 'nama_ketua' },
+                    { data: 'nik_ter', name: 'nik_ter' },
+                    { data: 'nama_ter', name: 'nama_ter' },
+                    { data: 'alamat_ter', name: 'alamat_ter' },
+                    { data: 'status_alur', name: 'status_alur' },
+                    { data: 'tujuan', name: 'tujuan' },
                     { data : null, 
                       className: "dt-center editor-delete",
                       orderable: false,
@@ -562,22 +548,20 @@
               processing: true,
               serverSide: true,
               ajax: {
-                  url: '/teruskan',
+                  url: '/teruskan-rekomendasi-terdaftar-yayasan',
                   type: 'GET',
                   dataSrc: 'data.data'
               },
                 // ajax: "{{ route('getdata') }}",
                 columns: [
                     { data: 'no_pendaftaran', name: 'no_pendaftaran' },
-                    { data: 'created_at', name: 'created_at' },
-                    { data: 'jenis_pelapor', name: 'jenis_pelapor' },
-                    { data: 'name_village', name: 'name_village' },
-                    { data: 'nama', name: 'nama' },
-                    { data: 'nik', name: 'nik' },
-                    { data: 'no_kk', name: 'no_kk' },
-                    { data: 'kepesertaan_program', name: 'kepesertaan_program' },
-                    { data: 'ringkasan_pengaduan', name: 'ringkasan_pengaduan' },
-                    { data: 'tl_catatan', name: 'tl_catatan' },
+                    { data: 'nama_lembaga', name: 'nama_lembaga' },
+                    { data: 'nama_ketua', name: 'nama_ketua' },
+                    { data: 'nik_ter', name: 'nik_ter' },
+                    { data: 'nama_ter', name: 'nama_ter' },
+                    { data: 'alamat_ter', name: 'alamat_ter' },
+                    { data: 'status_alur', name: 'status_alur' },
+                    { data: 'tujuan', name: 'tujuan' },
                     { data : null, 
                       className: "dt-center editor-delete",
                       orderable: false,
@@ -599,22 +583,20 @@
               processing: true,
               serverSide: true,
               ajax: {
-                  url: '/selesai',
+                  url: '/selesai-rekomendasi-terdaftar-yayasan',
                   type: 'GET',
                   dataSrc: 'data.data'
               },
                 // ajax: "{{ route('getdata') }}",
                 columns: [
                     { data: 'no_pendaftaran', name: 'no_pendaftaran' },
-                    { data: 'created_at', name: 'created_at' },
-                    { data: 'jenis_pelapor', name: 'jenis_pelapor' },
-                    { data: 'name_village', name: 'name_village' },
-                    { data: 'nama', name: 'nama' },
-                    { data: 'nik', name: 'nik' },
-                    { data: 'no_kk', name: 'no_kk' },
-                    { data: 'kepesertaan_program', name: 'kepesertaan_program' },
-                    { data: 'ringkasan_pengaduan', name: 'ringkasan_pengaduan' },
-                    { data: 'tl_catatan', name: 'tl_catatan' },
+                    { data: 'nama_lembaga', name: 'nama_lembaga' },
+                    { data: 'nama_ketua', name: 'nama_ketua' },
+                    { data: 'nik_ter', name: 'nik_ter' },
+                    { data: 'nama_ter', name: 'nama_ter' },
+                    { data: 'alamat_ter', name: 'alamat_ter' },
+                    { data: 'status_alur', name: 'status_alur' },
+                    { data: 'tujuan', name: 'tujuan' },
                     { data : null, 
                       className: "dt-center editor-delete",
                       orderable: false,
@@ -633,36 +615,36 @@
                 ],
             });
          
-            $('#prelistDtks').DataTable({
-              processing: true,
-              serverSide: true,
-              ajax: {
-                  url: 'prelistDTKS',
-                  type: 'GET'
-              },
-                // ajax: "{{ route('getdata') }}",
-                columns: [
-                    { data: 'id_provinsi', name: 'id_provinsi' },
-                    { data: 'id_kabkot', name: 'id_kabkot' },
-                    { data: 'id_kecamatan', name: 'id_kecamatan' },
-                    { data: 'name_village', name: 'name_village' },
-                    { data: 'nik', name: 'nik' },
-                    { data: 'no_kk', name: 'no_kk' },
-                    { data: 'no_kis', name: 'no_kis' },
-                    { data: 'nama', name: 'nama' },
-                    { data: 'tgl_lahir', name: 'tgl_lahir' },
-                    { data: 'alamat', name: 'alamat' },
-                    { data: 'telp', name: 'telp' },
-                    { data: 'email', name: 'email' },
-                    { data : null, 
-                      className: "dt-center editor-delete",
-                      orderable: false,
-                      "mRender" : function ( data, type, row ) {
-                        return '<td><div class="input-group-append d-flex flex-column justify-content-center"><button  onclick="showModal(' + row.id + ')" class="btn btn-success btn-sm"><i class="fas fa-search"></i> View</a><a href="/pengaduans/'+data.id +'/edit" class="btn btn-primary btn-sm"><i class="far fa-edit"></i> Edit</a></div></td>';
-                    }
-                    }
-                ],
-            });
+            // $('#prelistDtks').DataTable({
+            //   processing: true,
+            //   serverSide: true,
+            //   ajax: {
+            //       url: 'prelistDTKS',
+            //       type: 'GET'
+            //   },
+            //     // ajax: "{{ route('getdata') }}",
+            //     columns: [
+            //         { data: 'id_provinsi', name: 'id_provinsi' },
+            //         { data: 'id_kabkot', name: 'id_kabkot' },
+            //         { data: 'id_kecamatan', name: 'id_kecamatan' },
+            //         { data: 'name_village', name: 'name_village' },
+            //         { data: 'nik', name: 'nik' },
+            //         { data: 'no_kk', name: 'no_kk' },
+            //         { data: 'no_kis', name: 'no_kis' },
+            //         { data: 'nama', name: 'nama' },
+            //         { data: 'tgl_lahir', name: 'tgl_lahir' },
+            //         { data: 'alamat', name: 'alamat' },
+            //         { data: 'telp', name: 'telp' },
+            //         { data: 'email', name: 'email' },
+            //         { data : null, 
+            //           className: "dt-center editor-delete",
+            //           orderable: false,
+            //           "mRender" : function ( data, type, row ) {
+            //             return '<td><div class="input-group-append d-flex flex-column justify-content-center"><button  onclick="showModal(' + row.id + ')" class="btn btn-success btn-sm"><i class="fas fa-search"></i> View</a><a href="/pengaduans/'+data.id +'/edit" class="btn btn-primary btn-sm"><i class="far fa-edit"></i> Edit</a></div></td>';
+            //         }
+            //         }
+            //     ],
+            // });
     $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
         var target = $(e.target).attr("href"); // mendapatkan href dari tab aktif
         $(target).find('table').DataTable().columns.adjust().responsive.recalc(); // menyesuaikan ulang lebar kolom dan responsivitas tabel
@@ -708,7 +690,7 @@
                         $('#myModal #tgl_lahir').val(response.data.tgl_lahir);
                         $('#myModal #telp').val(response.data.telp);
                         $('#myModal #email').val(response.data.email);
-                        $('#myModal #hubungan_terlapor').val(response.data.hubungan_terlapor);
+                        $('#myModal #hubungan_nama_ter').val(response.data.hubungan_terlapor);
                         $('#myModal #id_program_sosial').val(response.data.id_program_sosial);
                         $('#myModal #no_peserta').val(response.data.no_peserta);
                         $('#myModal #kepesertaan_program').val(response.data.kepesertaan_program);

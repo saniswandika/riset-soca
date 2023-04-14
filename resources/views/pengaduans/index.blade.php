@@ -622,9 +622,9 @@
                         return '<div class="btn-group" role="group" aria-label="Actions">' +
                                 '<a onclick="showModal(' + row.id + ')" class="btn btn-success btn-sm"><i class="fas fa-eye"></i>   Details </a>' +
                                 '</div>'+
-                                '<div class="btn-group" role="group" aria-label="Actions">'+
-                                '<a class="btn btn-primary btn-sm" href="/pengaduans/'+data.id +'/edit""><i class="far fa-edit"></i></i>   Proses </a>' +
-                                '</div>'+
+                                // '<div class="btn-group" role="group" aria-label="Actions">'+
+                                // '<a class="btn btn-primary btn-sm" href="/pengaduans/'+data.id +'/edit""><i class="far fa-edit"></i></i>   Proses </a>' +
+                                // '</div>'+
                                 '<div class="btn-group" role="group" aria-label="Actions">'+
                                 '<a class="btn btn-info btn-sm" href="/pdf/'+data.id +'"><i class="fas fa-print"></i>   Cetak Pendaftaran </a>' +
                                 '</div>';

@@ -61,7 +61,7 @@
                     <div class="row">
                         <div class="col">
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" id="inlineCheckbox1" value="Diri_Sendiri"
+                                <input class="form-check-input" type="radio" id="inlineCheckbox1" value="Diri Sendiri"
                                     name="jenis_pelapor">
                                 <label class="form-check-label" for="inlineCheckbox1">Diri Sendiri</label>
                             </div>
@@ -110,14 +110,14 @@
                     <div class="row">
                         <div class="col">
                             <div class="form-check form-check-inline">
-                                <input type="radio" class="form-check-input" name="status_dtks" id="status_dtks" value="1" >
+                                <input type="radio" class="form-check-input" name="status_dtks" id="status_dtks" value="Terdaftar" >
                                 <label class="form-check-label" for="inlineCheckbox1">Terdaftar</label>
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-check form-check-inline">
-                                <input type="radio" class="form-check-input" name="status_dtks" id="status_dtks" value="0">
-                                <label class="form-check-label" for="inlineCheckbox2">Tidak Terdaftar</label>
+                                <input type="radio" class="form-check-input" name="status_dtks" id="status_dtks2" value="Tidak Terdaftar" >
+                                <label class="form-check-label" for="inlineCheckbox1">Tidak Terdaftar</label>
                             </div>
                         </div>
                     </div>
@@ -413,14 +413,13 @@
 
                     // Tampilkan pesan berdasarkan hasil dari permintaan
                     if (data.found == true) {
-                        $('#name-input').val(data
-                            .Id_DTKS
-                            ); // Set nilai input kedua ke nama yang diambil dari server jika ID ditemukan
+                        document.getElementById("status_dtks").checked = true;
+                        // Set nilai input kedua ke nama yang diambil dari server jika ID ditemukan
                         alert(' telah ditemukan di tabel DTKS. Dengan NO_DTKS: ' + data.Id_DTKS);
-                    } else {
-                        $('#name-input').val(
-                            ''); // Set nilai input kedua kembali ke kosong jika ID tidak ditemukan
-                        alert('ID tidak ditemukan di tabel lain.');
+                    } else  {
+                        // console.log(Nik);
+                        document.getElementById("status_dtks2").checked = true; // Set nilai input kedua kembali ke kosong jika ID tidak ditemukan
+                        alert( data.Id_DTKS +'ID tidak ditemukan di tabel lain.');
                     }
                 },
                 error: function() {

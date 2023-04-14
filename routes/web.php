@@ -97,8 +97,12 @@ Route::resource('rekomendasi_pengangkatan_anaks', App\Http\Controllers\rekomenda
 Route::resource('pengaduans', App\Http\Controllers\PengaduanController::class);
 Route::resource('rekomendasi_terdaftar_yayasans', App\Http\Controllers\rekomendasi_terdaftar_yayasanController::class);
 Route::get('/petugas/{id}', [rekomendasi_terdaftar_yayasanController::class, 'getPetugas'])->name('getPetugas');
-Route::get('/getdiproses', [rekomendasi_terdaftar_yayasanController::class, 'getDiproses'])->name('getDiproses');
-Route::post('/delete-data', [rekomendasi_terdaftar_yayasanController::class, 'deleteDiproses']);
+
+Route::get('/draftyayasan',[rekomendasi_terdaftar_yayasanController::class, 'getDraftyayasan'])->name('getDraftyayasan');
+Route::get('/teruskanyayasan',[rekomendasi_terdaftar_yayasanController::class, 'getTeruskanyayasan'])->name('getTeruskanyayasan');
+Route::get('/prosesyayasan',[rekomendasi_terdaftar_yayasanController::class, 'getProsesyayasan'])->name('getProsesyayasan');
+Route::get('/selesaiyayasan', [rekomendasi_terdaftar_yayasanController::class, 'getSelesaiyayasan'])->name('getSelesaiyayasan');
+
 
 Route::resource('rekomendasi_pub', App\Http\Controllers\rekomendasi_pengumpulan_undian_berhadiahController::class);
 Route::resource('rekomendasi_bantuan_pendidikans', App\Http\Controllers\rekomendasi_bantuan_pendidikanController::class);

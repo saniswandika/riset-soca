@@ -67,7 +67,7 @@
     </div>
     @endif
     {!! Form::open(array('route' => 'roles.store','method'=>'POST')) !!}
-        {!! Form::text('name', null, array('placeholder' => 'Name','class' => 'form-control')) !!}
+        {!! Form::text('name_roles', null, array('placeholder' => 'Name','class' => 'form-control')) !!}
         <div class="card mt-4">
             <div class="card-header">
                 <div class="d-flex justify-content-between">

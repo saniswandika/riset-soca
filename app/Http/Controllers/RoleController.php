@@ -56,11 +56,11 @@ class RoleController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required|unique:roles,name',
+            'name_roles' => 'required|unique:roles,name_roles',
             'permission' => 'required',
         ]);
     
-        $role = Role::create(['name' => $request->input('name')]);
+        $role = Role::create(['name_roles' => $request->input('name_roles')]);
         $role->syncPermissions($request->input('permission'));
     
         return redirect()->route('roles.index')
@@ -109,12 +109,12 @@ class RoleController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'name' => 'required',
+            'name_roles' => 'required',
             'permission' => 'required',
         ]);
     
         $role = Role::find($id);
-        $role->name = $request->input('name');
+        $role->name_roles = $request->input('name_roles');
         $role->save();
     
         $role->syncPermissions($request->input('permission'));

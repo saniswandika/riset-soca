@@ -70,14 +70,14 @@
                                 ->get();
                             // dd($usersrole);
                             ?>
-                            @if (auth()->user()->role == 'Front Office kota')
-                                <li class="nav-item">
-                                    <a class="nav-link" id="tabdraft" data-toggle="tab" href="#tabledraft" role="tab"
-                                        aria-controls="tabledraft" aria-selected="true">Draft</a>
-                                </li>
-                            @endif
-
-
+                            @foreach ($usersrole as $u)
+                                @if ($u->name_roles == 'Front Office Kelurahan')
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="tabdraft" data-toggle="tab" href="#tabledraft"
+                                            role="tab" aria-controls="tabledraft" aria-selected="true">Draft</a>
+                                    </li>
+                                @endif
+                            @endforeach
                             <li class="nav-item">
                                 <a class="nav-link" id="tabproses" data-toggle="tab" href="#tableproses" role="tab"
                                     aria-controls="tableproses" aria-selected="false">Diproses</a>
@@ -90,12 +90,16 @@
                                 <a class="nav-link" id="tabselesai" data-toggle="tab" href="#tableselesai" role="tab"
                                     aria-controls="tableselesai" aria-selected="false">Selesai</a>
                             </li>
-                            @auth
-                                <li class="nav-item ml-auto" style="margin-left: auto">
-                                    <a href="/rekomendasi_terdaftar_yayasans/create" class="btn btn-primary ml-2">Tambah
-                                        Data</a>
-                                </li>
-                            @endauth
+
+                            @foreach ($usersrole as $ur)
+                                @if ($ur->name_roles == 'Front')
+                                    
+                                @endif
+                            @endforeach
+                            <li class="nav-item ml-auto" style="margin-left: auto">
+                                <a href="/rekomendasi_terdaftar_yayasans/create" class="btn btn-primary ml-2">Tambah
+                                    Data</a>
+                            </li>
                         </ul>
 
                         <div class="tab-content" id="myTabContent">
@@ -217,7 +221,7 @@
                             processing: true,
                             serverSide: true,
                             ajax: {
-                                url: '/getdata',
+                                url: '/draft-rekomendasi-terdaftar-yayasan',
                                 type: 'GET',
                                 dataSrc: 'data.data'
                             },
@@ -272,6 +276,10 @@
                                             '<div class="btn-group" role="group" aria-label="Actions">' +
                                             '<a class="btn btn-primary btn-sm" href="/rekomendasi_terdaftar_yayasans/' +
                                             data.id + '/edit""><i class="far fa-edit"></i></i>   Edit </a>' +
+                                            '</div>' +
+                                            '<div class="btn-group" role="group" aria-label="Actions">' +
+                                            '<a class="btn btn-info btn-sm" href="/pdfyayasan/' + data.id +
+                                            '"><i class="fas fa-print"></i>   Cetak Pendaftaran </a>' +
                                             '</div>';
 
                                     }
@@ -331,6 +339,10 @@
                                         '<div class="btn-group" role="group" aria-label="Actions">' +
                                         '<a class="btn btn-primary btn-sm" href="/rekomendasi_terdaftar_yayasans/' +
                                         data.id + '/edit""><i class="far fa-edit"></i></i>   Proses </a>' +
+                                        '</div>' +
+                                        '<div class="btn-group" role="group" aria-label="Actions">' +
+                                        '<a class="btn btn-info btn-sm" href="/pdfyayasan/' + data.id +
+                                        '"><i class="fas fa-print"></i>   Cetak Pendaftaran </a>' +
                                         '</div>';
                                 }
                             }
@@ -386,10 +398,6 @@
                                     return '<div class="btn-group" role="group" aria-label="Actions">' +
                                         '<a onclick="showModal(' + row.id +
                                         ')" class="btn btn-success btn-sm"><i class="fas fa-eye"></i>   Details </a>' +
-                                        '</div>' +
-                                        '<div class="btn-group" role="group" aria-label="Actions">' +
-                                        '<a class="btn btn-primary btn-sm" href="/rekomendasi_terdaftar_yayasans/' +
-                                        data.id + '/edit""><i class="far fa-edit"></i>   Proses </a>' +
                                         '</div>' +
                                         '<div class="btn-group" role="group" aria-label="Actions">' +
                                         '<a class="btn btn-info btn-sm" href="/pdfyayasan/' + data.id +

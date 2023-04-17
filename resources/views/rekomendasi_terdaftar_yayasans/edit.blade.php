@@ -31,9 +31,17 @@
 
         <div class="card">
             <div class="card-header pb-0">
+                @foreach ($getUsers as $item)
+                @if ($item->status_alur == 'Teruskan')
                 <h2>
                     Ubah Rekomendasi Yayasan
                 </h2>
+                @endif @endforeach
+
+                <h2>
+                    Proses Rekomendasi Yayasan
+                </h2>
+                
                 <a href="{{ route('rekomendasi_terdaftar_yayasans.index') }}" class="btn btn-primary ml-2">Kembali</a>
             </div>
 
@@ -92,7 +100,10 @@
                                     <input type="radio" class="form-check-input" id="option1" name="jenis_laporan"
                                         value="1"
                                         {{ $rekomendasiTerdaftarYayasan->jenis_pelapor == 'Diri_Sendiri' ? 'checked' : '' }}
-                                        checked disabled>
+                                        @foreach ($getUsers as $item)
+                                        @if ($item->status_alur == 'Teruskan')
+                                        disabled
+                                        @endif @endforeach>
                                     <label class="form-check-label" for="inlineCheckbox1">Diri Sendiri</label>
                                 </div>
                             </div>
@@ -101,7 +112,10 @@
                                     <input type="radio" class="form-check-input" id="option1" name="jenis_laporan"
                                         value="0"
                                         {{ $rekomendasiTerdaftarYayasan->jenis_pelapor == 'Orang Lain' ? 'checked' : '' }}
-                                        disabled>
+                                        @foreach ($getUsers as $item)
+                                        @if ($item->status_alur == 'Teruskan')
+                                        disabled
+                                        @endif @endforeach>
                                     <label class="form-check-label" for="inlineCheckbox2">Orang Lain</label>
 
                                 </div>
@@ -114,14 +128,22 @@
                     <label class="col-sm-2 col-form-label">Nama <span class="text-danger">*</label>
                     <div class="col-sm-5">
                         <input type="text" class="form-control" value="{{ $rekomendasiTerdaftarYayasan->nama_ter }}"
-                            name="nama_ter" required readonly>
+                            name="nama_ter" required
+                            @foreach ($getUsers as $item)
+                            @if ($item->status_alur == 'Teruskan')
+                            disabled
+                            @endif @endforeach>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">NIK</label>
                     <div class="col-sm-5">
                         <input type="number" id="id-input-nik" value="{{ $rekomendasiTerdaftarYayasan->nik_ter }}"
-                            class="form-control" name="nik_ter" readonly>
+                            class="form-control" name="nik_ter"
+                            @foreach ($getUsers as $item)
+                            @if ($item->status_alur == 'Teruskan')
+                            disabled
+                            @endif @endforeach>
                         <small id="nikhelper" class="form-text text-muted">
                             Harus angka, 16 digit
                         </small>
@@ -131,15 +153,23 @@
                     <label class="col-sm-2 col-form-label">Tempat Lahir</label>
                     <div class="col-sm-5">
                         <input type="text" class="form-control" value="{{ $rekomendasiTerdaftarYayasan->tempat_lahir }}"
-                            name="tempat_lahir" readonly>
+                            name="tempat_lahir"
+                            @foreach ($getUsers as $item)
+                            @if ($item->status_alur == 'Teruskan')
+                            disabled
+                            @endif @endforeach>
                     </div>
                 </div>
-               
+
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Tanggal Lahir <span class="text-danger">*</label>
                     <div class="col-sm-5">
                         <input type="date" class="form-control" value="{{ $birthdate->format('Y-m-d') }}"
-                            name="tgl_lahir" required readonly>
+                            name="tgl_lahir" required
+                            @foreach ($getUsers as $item)
+                            @if ($item->status_alur == 'Teruskan')
+                            disabled
+                            @endif @endforeach>
                     </div>
                 </div>
                 <div class="form-group row">
@@ -151,7 +181,10 @@
                                     <input type="radio" class="form-check-input" id="option1" name="jenis_kelamin"
                                         value="1"
                                         {{ $rekomendasiTerdaftarYayasan->jenis_pelapor == 'Laki-Laki' ? 'checked' : '' }}
-                                        checked disabled>
+                                        checked  @foreach ($getUsers as $item)
+                                        @if ($item->status_alur == 'Teruskan')
+                                        disabled
+                                        @endif @endforeach>
                                     <label class="form-check-label" for="inlineCheckbox1">Laki - Laki</label>
                                 </div>
                             </div>
@@ -160,7 +193,10 @@
                                     <input type="radio" class="form-check-input" id="option1" name="jenis_kelamin"
                                         value="0"
                                         {{ $rekomendasiTerdaftarYayasan->jenis_pelapor == 'Perempuan' ? 'checked' : '' }}
-                                        disabled>
+                                         @foreach ($getUsers as $item)
+                                        @if ($item->status_alur == 'Teruskan')
+                                        disabled
+                                        @endif @endforeach>
                                     <label class="form-check-label" for="inlineCheckbox2">Perempuan</label>
 
                                 </div>
@@ -172,7 +208,11 @@
                     <label class="col-sm-2 col-form-label">Telepon <span class="text-danger">*</label>
                     <div class="col-sm-5">
                         <input type="tel" class="form-control" value="{{ $rekomendasiTerdaftarYayasan->telp }}"
-                            name="telp" required readonly>
+                            name="telp" required
+                            @foreach ($getUsers as $item)
+                            @if ($item->status_alur == 'Teruskan')
+                            disabled
+                            @endif @endforeach>
                         <small id="nikhelper" class="form-text text-muted">
                             Harus angka, max 13 digit
                         </small>
@@ -182,7 +222,11 @@
                     <label class="col-sm-2 col-form-label">Alamat</label>
                     <div class="col-sm-5">
                         <input type="text" class="form-control" value="{{ $rekomendasiTerdaftarYayasan->alamat }}"
-                            name="alamat" readonly>
+                            name="alamat"
+                            @foreach ($getUsers as $item)
+                            @if ($item->status_alur == 'Teruskan')
+                            disabled
+                            @endif @endforeach>
                     </div>
                 </div>
                 <div form-group row>
@@ -192,14 +236,22 @@
                     <label class="col-sm-2 col-form-label">Nama <span class="text-danger">*</label>
                     <div class="col-sm-5">
                         <input type="text" class="form-control" value="{{ $rekomendasiTerdaftarYayasan->nama_pel }}"
-                            name="nama_pel" required readonly>
+                            name="nama_pel" required
+                            @foreach ($getUsers as $item)
+                            @if ($item->status_alur == 'Teruskan')
+                            disabled
+                            @endif @endforeach>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">NIK</label>
                     <div class="col-sm-5">
                         <input type="number" id="id-input-nik" value="{{ $rekomendasiTerdaftarYayasan->nik_pel }}"
-                            class="form-control" name="nik_pel" readonly>
+                            class="form-control" name="nik_pel"
+                            @foreach ($getUsers as $item)
+                            @if ($item->status_alur == 'Teruskan')
+                            disabled
+                            @endif @endforeach>
                         <small id="nikhelper" class="form-text text-muted">
                             Harus angka, 16 digit
                         </small>
@@ -208,16 +260,24 @@
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Tempat Lahir</label>
                     <div class="col-sm-5">
-                        <input type="text" class="form-control" value="{{ $rekomendasiTerdaftarYayasan->tempat_lahirpel }}"
-                            name="tempat_lahirpel" readonly>
+                        <input type="text" class="form-control"
+                            value="{{ $rekomendasiTerdaftarYayasan->tempat_lahirpel }}" name="tempat_lahirpel"
+                            @foreach ($getUsers as $item)
+                            @if ($item->status_alur == 'Teruskan')
+                            disabled
+                            @endif @endforeach>
                     </div>
                 </div>
-               
+
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Tanggal Lahir <span class="text-danger">*</label>
                     <div class="col-sm-5">
                         <input type="date" class="form-control" value="{{ $birthdate->format('Y-m-d') }}"
-                            name="tgl_lahirpel" required readonly>
+                            name="tgl_lahirpel" required
+                            @foreach ($getUsers as $item)
+                            @if ($item->status_alur == 'Teruskan')
+                            disabled
+                            @endif @endforeach>
                     </div>
                 </div>
                 <div class="form-group row">
@@ -226,19 +286,25 @@
                         <div class="row">
                             <div class="col">
                                 <div class="form-check form-check-inline">
-                                    <input type="radio" class="form-check-input" id="option1" name="jenis_kelaminpel"
-                                        value="1"
+                                    <input type="radio" class="form-check-input" id="option1"
+                                        name="jenis_kelaminpel" value="1"
                                         {{ $rekomendasiTerdaftarYayasan->jenis_pelapor == 'Laki-Laki' ? 'checked' : '' }}
-                                        checked disabled>
+                                        @foreach ($getUsers as $item)
+                                        @if ($item->status_alur == 'Teruskan')
+                                        disabled
+                                        @endif @endforeach>
                                     <label class="form-check-label" for="inlineCheckbox1">Laki - Laki</label>
                                 </div>
                             </div>
                             <div class="col">
                                 <div class="form-check form-check-inline">
-                                    <input type="radio" class="form-check-input" id="option1" name="jenis_kelaminpel"
-                                        value="0"
+                                    <input type="radio" class="form-check-input" id="option1"
+                                        name="jenis_kelaminpel" value="0"
                                         {{ $rekomendasiTerdaftarYayasan->jenis_pelapor == 'Perempuan' ? 'checked' : '' }}
-                                        disabled>
+                                         @foreach ($getUsers as $item)
+                                        @if ($item->status_alur == 'Teruskan')
+                                        disabled
+                                        @endif @endforeach>
                                     <label class="form-check-label" for="inlineCheckbox2">Perempuan</label>
 
                                 </div>
@@ -250,7 +316,11 @@
                     <label class="col-sm-2 col-form-label">Telepon<span class="text-danger">*</label>
                     <div class="col-sm-5">
                         <input type="tel" class="form-control" value="{{ $rekomendasiTerdaftarYayasan->telp_pel }}"
-                            name="telp_pel" required readonly>
+                            name="telp_pel" required
+                            @foreach ($getUsers as $item)
+                            @if ($item->status_alur == 'Teruskan')
+                            disabled
+                            @endif @endforeach>
                         <small id="nikhelper" class="form-text text-muted">
                             Harus angka, max 13 digit
                         </small>
@@ -259,57 +329,102 @@
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Alamat</label>
                     <div class="col-sm-5">
-                        <input type="text" class="form-control" value="{{ $rekomendasiTerdaftarYayasan->alamat_pel }}"
-                            name="alamat_pel" readonly>
+                        <input type="text" class="form-control"
+                            value="{{ $rekomendasiTerdaftarYayasan->alamat_pel }}" name="alamat_pel"
+                            @foreach ($getUsers as $item)
+                            @if ($item->status_alur == 'Teruskan')
+                            disabled
+                            @endif @endforeach>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Nama Lembaga</label>
                     <div class="col-sm-5">
-                        <input type="text" id="id-input-nik" value="{{$rekomendasiTerdaftarYayasan->nama_lembaga}}" class="form-control" name="nama_lembaga">
+                        <input type="text" id="id-input-nik" value="{{ $rekomendasiTerdaftarYayasan->nama_lembaga }}"
+                            class="form-control" name="nama_lembaga" 
+                            @foreach ($getUsers as $item)
+                            @if ($item->status_alur == 'Teruskan')
+                            disabled
+                            @endif @endforeach>
                     </div>
                 </div>
-    
+
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Alamat</label>
                     <div class="col-sm-5">
-                        <input type="text" class="form-control" value="{{$rekomendasiTerdaftarYayasan->alamat_lembaga}}" name="alamat_lembaga">
+                        <input type="text" class="form-control"
+                            value="{{ $rekomendasiTerdaftarYayasan->alamat_lembaga }}" name="alamat_lembaga"
+                            @foreach ($getUsers as $item)
+                            @if ($item->status_alur == 'Teruskan')
+                            disabled
+                            @endif @endforeach>
                         </small>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Akta Notaris</label>
                     <div class="col-sm-5">
-                        <input type="text" class="form-control" value="{{$rekomendasiTerdaftarYayasan->akta_notaris}}"name="akta_notaris" required>
+                        <input type="text" class="form-control"
+                            value="{{ $rekomendasiTerdaftarYayasan->akta_notaris }}"name="akta_notaris" required
+                            @foreach ($getUsers as $item)
+                            @if ($item->status_alur == 'Teruskan')
+                            disabled
+                            @endif @endforeach>
                     </div>
-                </div>  <div class="form-group row">
+                </div>
+                <div class="form-group row">
                     <label class="col-sm-2 col-form-label">No Akta</label>
                     <div class="col-sm-5">
-                        <input type="text" class="form-control" value="{{$rekomendasiTerdaftarYayasan->no_akta}}" name="no_akta" required>
+                        <input type="text" class="form-control" value="{{ $rekomendasiTerdaftarYayasan->no_akta }}"
+                            name="no_akta"  
+                            @foreach ($getUsers as $item)
+                            @if ($item->status_alur == 'Teruskan')
+                            disabled
+                            @endif @endforeach>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Jenis Penyelenggaraan Kesos</label>
                     <div class="col-sm-5">
-                        <input type="text" class="form-control" value="{{$rekomendasiTerdaftarYayasan->jenis_kesos}}" name="jenis_kesos" required>
+                        <input type="text" class="form-control"
+                            value="{{ $rekomendasiTerdaftarYayasan->jenis_kesos }}" name="jenis_kesos"  
+                            @foreach ($getUsers as $item)
+                            @if ($item->status_alur == 'Teruskan')
+                            disabled
+                            @endif @endforeach>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Nama Ketua</label>
                     <div class="col-sm-5">
-                        <input type="text" class="form-control" value="{{$rekomendasiTerdaftarYayasan->nama_ketua}}" name="nama_ketua" required>
+                        <input type="text" class="form-control"
+                            value="{{ $rekomendasiTerdaftarYayasan->nama_ketua }}" name="nama_ketua"  
+                            @foreach ($getUsers as $item)
+                            @if ($item->status_alur == 'Teruskan')
+                            disabled
+                            @endif @endforeach>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Jenis Penyelenggaraan Kesos<span class="text-danger">*</label>
                     <div class="col-sm-5">
-                        <input type="text" class="form-control" value="{{$rekomendasiTerdaftarYayasan->jenis_kesos}} "name="jenis_kesos" required>
+                        <input type="text" class="form-control"
+                            value="{{ $rekomendasiTerdaftarYayasan->jenis_kesos }} "name="jenis_kesos"  
+                            @foreach ($getUsers as $item)
+                            @if ($item->status_alur == 'Teruskan')
+                            disabled
+                            @endif @endforeach>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Status <span class="text-danger">*</label>
                     <div class="col-sm-5">
-                        <input type="tel" class="form-control" value="{{$rekomendasiTerdaftarYayasan->status}}" name="status" required>
+                        <input type="tel" class="form-control" value="{{ $rekomendasiTerdaftarYayasan->status }}"
+                            name="status"  
+                            @foreach ($getUsers as $item)
+                            @if ($item->status_alur == 'Teruskan')
+                            disabled
+                            @endif @endforeach>
                         <small id="nikhelper" class="form-text text-muted">
                             Harus angka, max 13 digit
                         </small>
@@ -318,66 +433,114 @@
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Lingkup Wilayah Kerja</label>
                     <div class="col-sm-5">
-                        <input type="text" class="form-control" value="{{$rekomendasiTerdaftarYayasan->wil_kerja}}" name="wil_kerja">
+                        <input type="text" class="form-control" value="{{ $rekomendasiTerdaftarYayasan->wil_kerja }}"
+                            name="wil_kerja"  
+                            @foreach ($getUsers as $item)
+                            @if ($item->status_alur == 'Teruskan')
+                            disabled
+                            @endif @endforeach>
                     </div>
                 </div>
-    
+
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Tipe</label>
                     <div class="col-sm-5">
-                        <input type="text" class="form-control" value="{{$rekomendasiTerdaftarYayasan->tipe}}" name="tipe">
+                        <input type="text" class="form-control" value="{{ $rekomendasiTerdaftarYayasan->tipe }}"
+                            name="tipe" 
+                            @foreach ($getUsers as $item)
+                            @if ($item->status_alur == 'Teruskan')
+                            disabled
+                            @endif @endforeach>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Masa Berlaku</label>
                     <div class="col-sm-5">
                         <label>Dari tanggal:</label>
-                        <input type="date" class="form-control" value="{{$rekomendasiTerdaftarYayasan->tgl_mulai}}" name="tgl_mulai">
-    
+                        <input type="date" class="form-control" value="{{ $rekomendasiTerdaftarYayasan->tgl_mulai }}"
+                            name="tgl_mulai"
+                            @foreach ($getUsers as $item)
+                            @if ($item->status_alur == 'Teruskan')
+                            disabled
+                            @endif @endforeach>
+
                         <label>Sampai tanggal:</label>
-                        <input type="date" class="form-control" value="{{$rekomendasiTerdaftarYayasan->tgl_selesai}}"   name="tgl_selesai">
+                        <input type="date" class="form-control"
+                            value="{{ $rekomendasiTerdaftarYayasan->tgl_selesai }}" name="tgl_selesai"
+                            @foreach ($getUsers as $item)
+                            @if ($item->status_alur == 'Teruskan')
+                            disabled
+                            @endif @endforeach>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Akta Notaris Pendirian</label>
                     <div class="col-sm-5">
-                        <input type="file" id="file-upload" name="">
+                        <input type="file" id="file-upload" name=""
+                        @foreach ($getUsers as $item)
+                        @if ($item->status_alur == 'Teruskan')
+                        disabled
+                        @endif @endforeach>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Anggaran Dasar/Rumah Tangga </label>
                     <div class="col-sm-5">
-                        <input type="file" id="file-upload" name="">
+                        <input type="file" id="file-upload" name="" 
+                        @foreach ($getUsers as $item)
+                        @if ($item->status_alur == 'Teruskan')
+                        disabled
+                        @endif @endforeach>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Struktur Organisasi Lembaga</label>
                     <div class="col-sm-5">
-                        <input type="file" id="file-upload" name="">
+                        <input type="file" id="file-upload" name="" 
+                        @foreach ($getUsers as $item)
+                        @if ($item->status_alur == 'Teruskan')
+                        disabled
+                        @endif @endforeach>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Nomor Pokok Wajib Pajak</label>
                     <div class="col-sm-5">
-                        <input type="file" id="file-upload" name="">
+                        <input type="file" id="file-upload" name="" 
+                        @foreach ($getUsers as $item)
+                        @if ($item->status_alur == 'Teruskan')
+                        disabled
+                        @endif @endforeach>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Data Penerima Layanan</label>
                     <div class="col-sm-5">
-                        <input type="file" id="file-upload" name="">
+                        <input type="file" id="file-upload" name=""
+                        @foreach ($getUsers as $item)
+                        @if ($item->status_alur == 'Teruskan')
+                        disabled
+                        @endif @endforeach>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Kelengkapan Sarana Prasarana</label>
                     <div class="col-sm-5">
-                        <input type="file" id="file-upload" name="">
+                        <input type="file" id="file-upload" name=""
+                        @foreach ($getUsers as $item)
+                        @if ($item->status_alur == 'Teruskan')
+                        disabled
+                        @endif @endforeach>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Formulir Kelengkapan Berkas</label>
                     <div class="col-sm-5">
-                        <input type="file" id="file-upload" name="">
+                        <input type="file" id="file-upload" name=""
+                        @foreach ($getUsers as $item)
+                        @if ($item->status_alur == 'Teruskan')
+                        disabled
+                        @endif @endforeach>
                     </div>
                 </div>
                 <div class="form-group row">
@@ -389,7 +552,11 @@
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Upload File Permohonan Kebutuhan</label>
                     <div class="col-sm-5">
-                        <input type="file" id="file-upload" name="file_permohonan">
+                        <input type="file" id="file-upload" name="file_permohonan"
+                        @foreach ($getUsers as $item)
+                        @if ($item->status_alur == 'Teruskan')
+                        disabled
+                        @endif @endforeach>
                     </div>
                 </div>
                 <div class="form-group row">
@@ -398,13 +565,13 @@
                         <textarea class="form-control" name="detail_rekomendasiTerdaftarYayasan">{{ $rekomendasiTerdaftarYayasan->catatan }}</textarea>
                     </div>
                 </div>
-              
+
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Status Aksi</label>
                     <div class="col-sm-5">
                         <select class="form-control form-control-lg" name="status_aksi" required>
                             <option selected value="{{ $rekomendasiTerdaftarYayasan->status_aksi }}">
-                              Pilih...  {{ $rekomendasiTerdaftarYayasan->status_aksi }}</option>
+                                Pilih... {{ $rekomendasiTerdaftarYayasan->status_aksi }}</option>
                             @foreach ($alur as $a)
                                 <option value="{{ $a->id_alur }}">{{ $a->name }}</option>
                             @endforeach
@@ -448,8 +615,8 @@
             $(document).ready(function() {
                 $('#tujuan').on('change', function() {
                     var tujuan = $(this).val();
-                    var route = '{{ route('getPetugas','temp') }}';
-                    var url = route.replace('temp',tujuan); 
+                    var route = '{{ route('getPetugas', 'temp') }}';
+                    var url = route.replace('temp', tujuan);
                     if (tujuan) {
                         $.ajax({
                             url: url,
@@ -462,15 +629,15 @@
 
                                 $.each(data, function(key, value) {
                                     $('#petugas').append('<option value="' + value.id +
-                                        '">'+ value.name + '</option>');
+                                        '">' + value.name + '</option>');
                                 });
                             }
                         });
                     } else {
-                       
+
                         $('#petugas').empty();
                         $('#petugas').append('<option value="">Pilih...</option>');
-                    } 
+                    }
                 });
             });
             window.onload = function() {

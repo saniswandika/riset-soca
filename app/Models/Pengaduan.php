@@ -67,7 +67,7 @@ class Pengaduan extends Model
         'hubungan_terlapor' => 'string',
         'file_penunjang' => 'string',
         'keluhan_tipe' => 'string',
-        'keluhan_id_program' => 'string',
+        'keluhan_id_program' => 'Text',
         'keluhan_detail' => 'string',
         'keluhan_foto' => 'string',
         'tl_catatan' => 'string',

@@ -123,15 +123,8 @@
                     </div>
                 </div>
             </div>
-            <div class="form-group row">
-                <label class="col-sm-2 col-form-label"></label>
-                <div class="col-sm-5">
-                    <div class="row">
-                        <div class="col">
-                            <a class="btn btn-info" id="btn-check-id"><i class="fa fa-database"></i> Cek DTKS</a>
-                        </div>
-                    </div>
-                </div>
+            <div class="mx-auto p-2" style="width: 200px;">
+                <button type="button" class="btn btn-info" id="btn-check-id"><i class="fa fa-database"></i> Cek DTKS</button>
             </div>
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">No. KK</label>
@@ -202,27 +195,25 @@
             <div form-group row>
                 <h4><b>CATATAN KEPESERTAAN</b></h4>
             </div>
-            <div class="form-group row">
-                <label class="col-sm-2 col-form-label">Program</label>
-                <div class="col-sm-5">
-                    <input type="text" class="form-control" name="id_program_sosial">
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-sm-2 col-form-label">No Peserta</label>
-                <div class="col-sm-5">
-                    <input type="text" class="form-control" name="no_peserta">
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-sm-2 col-form-label"></label>
-                <div class="col-sm-5">
-                    <div class="row">
-                        <div class="col">
-                            <button class="btn btn-info" id="btn-check-id"><i class="fa fa-file"></i>  Tambah Kepesertaan</button>
+           
+            <div id="form-container">
+                <div class="form-group-wrapper">
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Program</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" name="id_program_sosial[]">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">No Peserta</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" name="no_peserta[]">
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="mx-auto p-2" style="width: 200px;">
+                <button type="button" class="btn btn-primary" onclick="addFormWrapper()">Tambah Form</button>
             </div>
 
             {{-- Pengaduan Program --}}
@@ -357,11 +348,35 @@
 
 
             {!! Form::close() !!}
-
+            <form id="">
+              
+                <button type="submit" class="btn btn-success">Submit</button>
+              </form>
         </div>
     </div>
     {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script> --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+    function addFormWrapper() {
+        // Ambil elemen form-group-wrapper terakhir
+        var lastFormGroupWrapper = document.querySelector("#form-container .form-group-wrapper:last-of-type");
+
+        // Salin elemen form-group-wrapper terakhir
+        var clonedFormGroupWrapper = lastFormGroupWrapper.cloneNode(true);
+
+        // Bersihkan nilai input pada elemen salinan
+        var inputElements = clonedFormGroupWrapper.querySelectorAll("input");
+        inputElements.forEach(function (inputElement) {
+            inputElement.value = "";
+        });
+
+        // Tambahkan elemen salinan setelah elemen terakhir
+        lastFormGroupWrapper.parentNode.insertBefore(clonedFormGroupWrapper, lastFormGroupWrapper.nextSibling);
+    }
+
+
+
+    </script>
     <script>
         $(document).ready(function() {
             $('#tujuan').on('change', function() {

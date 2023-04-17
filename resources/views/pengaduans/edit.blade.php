@@ -302,30 +302,47 @@
                 <div form-group row>
                     <h4><b>Catatan Kepesertaan</b></h4>
                 </div>
-                <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">Program</label>
-                    <div class="col-sm-5">
-                        <input type="text" class="form-control" value="{{ $pengaduan->id_program_sosial }}"
-                            name="id_program_sosial" 
-                           @foreach ($checkroles2 as $item)
-                                            @if ($item->status_aksi == 'Teruskan')
-                                            disabled
-                                            @endif
-                                        @endforeach>
+                @php
+                    // $data = explode(',', $pengaduan->id_program_sosial); // Membuat array dari data yang dipisahkan dengan koma
+                    $id_program_sosial = json_decode($pengaduan->id_program_sosial);
+                    $no_peserta = json_decode($pengaduan->no_peserta);
+                    // dd($no_peserta);
+                    // dd($array1);
+                @endphp
+                @foreach ($id_program_sosial as $item)
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Program</label>
+                        <div class="col-sm-5">
+                        
+                                <input type="text" class="form-control" value="{{ $item }}"
+                                name="id_program_sosial" 
+                                    @foreach ($checkroles2 as $item)
+                                        @if ($item->status_aksi == 'Teruskan')
+                                        disabled
+                                        @endif
+                                    @endforeach>
+                          
+                        
+                        </div>
                     </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">No Peserta</label>
-                    <div class="col-sm-5">
-                        <input type="text" class="form-control" value="{{ $pengaduan->no_peserta }}"
-                            name="no_peserta" 
-                           @foreach ($checkroles2 as $item)
-                                            @if ($item->status_aksi == 'Teruskan')
-                                            disabled
-                                            @endif
-                                        @endforeach> 
+                @endforeach
+                @foreach ($no_peserta as $item)
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Program</label>
+                        <div class="col-sm-5">
+                        
+                                <input type="text" class="form-control" value="{{ $item }}"
+                                name="no_peserta" 
+                                    @foreach ($checkroles2 as $item)
+                                        @if ($item->status_aksi == 'Teruskan')
+                                        disabled
+                                        @endif
+                                    @endforeach>
+                        
+                        
+                        </div>
                     </div>
-                </div>
+                @endforeach
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label"></label>
                     <div class="col-sm-5">

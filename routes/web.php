@@ -46,7 +46,7 @@ use App\Http\Controllers\rekomendasi_terdaftar_yayasanController;
 // });
 
 Route::get('/pdfpengaduan/{id}', [pdfController::class, 'show']);
-Route::get('/pdfpengaduan/{id}', [pdfyayasanController::class, 'show']);
+Route::get('/pdfyayasan/{id}', [pdfyayasanController::class, 'show']);
 
 
 Route::get('/', function () {

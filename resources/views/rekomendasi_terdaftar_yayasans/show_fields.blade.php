@@ -23,34 +23,34 @@
 <div class="form-group row">
     <label class="col-sm-2 col-form-label">Provinsi</label>
     <div class="col-sm-5">
-        {{-- <input type="text" required class="form-control" value="{{ $item->name_prov }}"
+        <input type="text" required class="form-control" value="{{ $item->name_prov }}"
             name="nama_provinsi" readonly>
-        <input type="hidden" value="{{ $item->province_id }}" name="id_provinsi"> --}}
+        <input type="hidden" value="{{ $item->province_id }}" name="id_provinsi">
     </div>
 </div>
 <div class="form-group row">
     <label class="col-sm-2 col-form-label">Kab/Kota</label>
     <div class="col-sm-5">
-        {{-- <input type="text" required class="form-control" value="{{ $item->name_cities }}"
+        <input type="text" required class="form-control" value="{{ $item->name_cities }}"
             name="id_kabkot" readonly>
-        <input type="hidden" value="{{ $item->kota_id }}" name="id_kabkot" id="id_kabkot"> --}}
+        <input type="hidden" value="{{ $item->kota_id }}" name="id_kabkot" id="id_kabkot">
 
     </div>
 </div>
 <div class="form-group row">
     <label class="col-sm-2 col-form-label">Kecamatan</label>
     <div class="col-sm-5">
-        {{-- <input type="text" required class="form-control" value="{{ $item->name_districts }}"
+        <input type="text" required class="form-control" value="{{ $item->name_districts }}"
             name="name_kecamatan" readonly>
-        <input type="hidden" value="{{ $item->kecamatan_id }}" name="id_kecamatan" id="id_kecamatan"> --}}
+        <input type="hidden" value="{{ $item->kecamatan_id }}" name="id_kecamatan" id="id_kecamatan">
     </div>
 </div>
 <div class="form-group row">
     <label class="col-sm-2 col-form-label">Kelurahan</label>
     <div class="col-sm-5">
-        {{-- <input type="text" required class="form-control" value="{{ $item->name_village }}"
+        <input type="text" required class="form-control" value="{{ $item->name_village }}"
             name="name_kelurahan" readonly>
-        <input type="hidden" value="{{ $item->kelurahan_id }}" name="id_kelurahan" id="id_kabkot"> --}}
+        <input type="hidden" value="{{ $item->kelurahan_id }}" name="id_kelurahan" id="id_kabkot">
     </div>
 </div>
 @endforeach
@@ -60,7 +60,7 @@
 <div class="form-group row">
     <label class="col-sm-2 col-form-label">Jenis Laporan</label>
     <div class="col-sm-5">
-        <input type="number" id="id-input-nik" value="{{ $rekomendasiTerdaftarYayasan->jenis_laporan }}" class="form-control"
+        <input type="number" id="id-input-nik" value="{{ $rekomendasiTerdaftarYayasan->jenis_pelapor }}" class="form-control"
             name="nik_ter" readonly>
     </div>
 </div>
@@ -245,7 +245,7 @@
 <div class="form-group row">
     <label class="col-sm-2 col-form-label">Catatan <span class="text-danger">*</label>
     <div class="col-sm-5">
-        <textarea class="form-control" name="detail_rekomendasiTerdaftarYayasan">{{ $rekomendasiTerdaftarYayasan->catatan }}</textarea>
+        <textarea class="form-control" name="detail_rekomendasiTerdaftarYayasan" readonly>{{ $rekomendasiTerdaftarYayasan->catatan }}</textarea>
     </div>
 </div>
 

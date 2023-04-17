@@ -74,12 +74,12 @@ class rekomendasi_terdaftar_yayasanController extends AppBaseController
         $user = Auth::user();
         $roles = $user->roles()->pluck('name_roles');
 
-        if ($roles->contains('Front Office kota')) {
+        if ($roles->contains('Front Office Kelurahan')) {
             // Jika user memiliki role 'FO-Kota', maka tampilkan alur dengan nama 'Draft' dan 'Teruskan'
             $alur = DB::table('alur')
                 ->whereIn('name', ['Draft', 'Teruskan'])
                 ->get();
-        } else if ($roles->contains('Back Ofiice Kota') || $roles->contains('SekertarisDinas')|| $roles -> contains('kepala bidang')) {
+        } else if ($roles->contains('Back Ofiice Kota') || $roles->contains('SekertarisDinas') || $roles->contains('kepala bidang')|| $roles->contains('Front Office kota')) {
             // Jika user memiliki role 'BO-Kota' atau 'SekertarisDinas', maka tampilkan alur dengan nama 'Kembalikan', 'Tolak', dan 'Teruskan'
             $alur = DB::table('alur')
                 ->whereIn('name', ['Kembalikan', 'Tolak', 'Teruskan'])
@@ -97,16 +97,19 @@ class rekomendasi_terdaftar_yayasanController extends AppBaseController
 
         $user = Auth::user();
         $roles = $user->roles()->pluck('name_roles');
-
-        if ($roles->contains('Front Office kota')) {
+        if ($roles->contains('Front Office Kelurahan')) {
             $roleid = DB::table('roles')
-                ->where('name_roles', 'Back Ofiice Kota')
+                ->where('name_roles', 'Front Office kota')
+                ->get();
+        } else if ($roles->contains('Front Office kota')) {
+            $roleid = DB::table('roles')
+                ->where('name_roles', ['Back Ofiice Kota', 'Front Ofiice Kelurahan'])
                 ->get();
         } else if ($roles->contains('Back Ofiice Kota')) {
             $roleid = DB::table('roles')
                 ->whereIn('name_roles', ['Front Office kota', 'kepala bidang'])
                 ->get();
-        }else if ($roles->contains('kepala bidang')) {
+        } else if ($roles->contains('kepala bidang')) {
             $roleid = DB::table('roles')
                 ->whereIn('name_roles', ['Back Ofiice kota', 'SekertarisDinas'])
                 ->get();
@@ -118,7 +121,6 @@ class rekomendasi_terdaftar_yayasanController extends AppBaseController
             $roleid = DB::table('roles')
                 ->where('name_roles', 'Front Office kota')
                 ->get();
-        
         }
         $checkroles = Roles::where('name_roles', 'Front Office kota')
             ->orWhere('name_roles', 'SekertarisDinas')
@@ -229,7 +231,7 @@ class rekomendasi_terdaftar_yayasanController extends AppBaseController
         $logpengaduan->save();
         // dd($logpengaduan);
 
-        return redirect('rekomendasi_terdafar_yayasans.index')->withSuccess('Data Berhasil Disimpan');
+        return redirect('rekomendasi_terdaftar_yayasans.index')->withSuccess('Data Berhasil Disimpan');
     }
 
     /**
@@ -270,7 +272,7 @@ class rekomendasi_terdaftar_yayasanController extends AppBaseController
 
         $logyayasan = logYayasan::where('id_trx_yayasan', $id)->get();
 
-        return view('rekomendasi_terdaftar_yayasans.show', compact('rekomendasiTerdaftarYayasan', 'roleid', 'wilayah', 'checkroles','logyayasan'));
+        return view('rekomendasi_terdaftar_yayasans.show', compact('rekomendasiTerdaftarYayasan', 'roleid', 'wilayah', 'checkroles', 'logyayasan'));
     }
 
 
@@ -298,11 +300,14 @@ class rekomendasi_terdaftar_yayasanController extends AppBaseController
             ->where('w.createdby', $userid)->get();
 
 
-        $checkuserrole = DB::table('model_has_roles')
+            $getUsers = DB::table('model_has_roles')
             ->leftjoin('roles', 'roles.id', '=', 'model_has_roles.role_id')
-            ->where('model_id', '=', $userid)
-            ->first();
-
+            ->leftjoin('rekomendasi_terdaftar_yayasans', 'rekomendasi_terdaftar_yayasans.createdby', '=', 'model_has_roles.model_id')
+            ->where('rekomendasi_terdaftar_yayasans.id', '=', $id)
+            // ->where('status_aksi', '=', 'Draft')
+            // ->orwhere('status_aksi', '=', 'Teruskan')
+            ->get();
+            // dd($checkroles2);
         //Tujuan
         $createdby = DB::table('rekomendasi_terdaftar_yayasans')
             ->join('users', 'rekomendasi_terdaftar_yayasans.createdby', '=', 'users.name')
@@ -345,12 +350,12 @@ class rekomendasi_terdaftar_yayasanController extends AppBaseController
         $user = Auth::user();
         $roles = $user->roles()->pluck('name_roles');
 
-        if ($roles->contains('Front Office kota')) {
+        if ($roles->contains('Front Office kelurahan')) {
             // Jika user memiliki role 'FO-Kota', maka tampilkan alur dengan nama 'Draft' dan 'Teruskan'
             $alur = DB::table('alur')
                 ->whereIn('name', ['Draft', 'Teruskan'])
                 ->get();
-        } else if ($roles->contains('Back Ofiice Kota') || $roles->contains('SekertarisDinas')|| $roles ->contains('kepala bidang')) {
+        } else if ($roles->contains('Back Ofiice Kota') || $roles->contains('SekertarisDinas') || $roles->contains('kepala bidang') || $roles->contains('Front Office kota')) {
             // Jika user memiliki role 'BO-Kota' atau 'SekertarisDinas', maka tampilkan alur dengan nama 'Kembalikan', 'Tolak', dan 'Teruskan'
             $alur = DB::table('alur')
                 ->whereIn('name', ['Kembalikan', 'Tolak', 'Teruskan'])
@@ -369,15 +374,19 @@ class rekomendasi_terdaftar_yayasanController extends AppBaseController
         $user = Auth::user();
         $roles = $user->roles()->pluck('name_roles');
 
-        if ($roles->contains('Front Office kota')) {
+        if ($roles->contains('Front Office Kelurahan')) {
             $roleid = DB::table('roles')
-                ->where('name_roles', 'Back Ofiice Kota')
+                ->where('name_roles', 'Front Office kota')
+                ->get();
+        } elseif ($roles->contains('Front Office kota')) {
+            $roleid = DB::table('roles')
+                ->where('name_roles', ['Back Office kota', 'Front Office kelurahan'])
                 ->get();
         } else if ($roles->contains('Back Ofiice Kota')) {
             $roleid = DB::table('roles')
                 ->whereIn('name_roles', ['Front Office kota', 'kepala bidang'])
                 ->get();
-        }else if ($roles->contains('kepala bidang')) {
+        } else if ($roles->contains('kepala bidang')) {
             $roleid = DB::table('roles')
                 ->whereIn('name_roles', ['Back Ofiice kota', 'SekertarisDinas'])
                 ->get();
@@ -403,7 +412,7 @@ class rekomendasi_terdaftar_yayasanController extends AppBaseController
         $rekomendasiTerdaftarYayasan = $this->rekomendasiTerdaftarYayasanRepository->find($id);
 
 
-        return view('rekomendasi_terdaftar_yayasans.edit', compact('wilayah', 'rekomendasiTerdaftarYayasan', 'roleid', 'getdata', 'alur', 'createdby'));
+        return view('rekomendasi_terdaftar_yayasans.edit', compact('wilayah', 'rekomendasiTerdaftarYayasan', 'roleid', 'getdata', 'alur', 'createdby','getUsers'));
     }
     public function getPetugas($id)
     {
@@ -489,6 +498,71 @@ class rekomendasi_terdaftar_yayasanController extends AppBaseController
         return redirect()->route('rekomendasi-terdaftar.index')
             ->with('success', 'Rekomendasi terdaftar yayasan berhasil dihapus.');
     }
+
+
+    public function draft(Request $request)
+    {
+        $user_name = Auth::user()->name;
+        $query = DB::table('rekomendasi_terdaftar_yayasans')
+            ->leftjoin('users', 'users.id', '=', 'rekomendasi_terdaftar_yayasans.createdby')
+            ->leftjoin('wilayahs', 'wilayahs.createdby', '=', 'rekomendasi_terdaftar_yayasans.createdby')
+            ->leftjoin('model_has_roles', 'model_has_roles.model_id', '=', 'rekomendasi_terdaftar_yayasans.tujuan')
+            ->leftjoin('indonesia_villages as b', 'b.code', '=', 'rekomendasi_terdaftar_yayasans.id_kelurahan')
+            ->select('rekomendasi_terdaftar_yayasans.*', 'b.name_village')
+            ->distinct();
+        $user_id = Auth::user()->id;
+        $user_wilayah = DB::table('wilayahs')
+        ->leftJoin('model_has_roles', 'model_has_roles.model_id', '=', 'wilayahs.createdby')
+        ->leftJoin('users', 'users.id', '=', 'model_has_roles.model_id')
+        ->leftJoin('roles', 'roles.id', '=', 'model_has_roles.role_id')
+        ->where('createdby', $user_id)
+        ->where(function ($query) {
+            $query->where('status_wilayah', 1);
+        })
+        ->first();
+        // dd($user_wilayah);
+            if ($user_wilayah->name_roles == 'fasilitator' ) {
+                 $query->Where(function($query) use ($user_wilayah) {
+                            $query->where('rekomendasi_terdaftar_yayasans.id_kelurahan', $user_wilayah->kelurahan_id);
+                            $query->where('rekomendasi_terdaftar_yayasans.status_alur', 'Draft');     
+                            $query->where('rekomendasi_terdaftar_yayasans.createdby',  Auth::user()->id);
+                });
+            }elseif ($user_wilayah->name_roles == 'Front Office Kelurahan' ) {
+                $query->orWhere(function($query) use ($user_wilayah) {
+                    $query->where('rekomendasi_terdaftar_yayasans.id_kelurahan', $user_wilayah->kelurahan_id);
+                    $query->where('rekomendasi_terdaftar_yayasans.status_alur', 'Draft');     
+                    $query->where('rekomendasi_terdaftar_yayasans.createdby',  Auth::user()->id);
+                    //  dd($va);
+                 });
+
+            }
+        if ($request->has('search')) {
+            // dd($query);
+            $search = $request->search['value'];
+            $query->where(function ($query) use ($search) {
+                $query->where('rekomendasi_terdaftar_yayasans.no_pendaftaran', 'like', "%$search%");
+            });
+        }
+        // Get total count of filtered items
+        $total_filtered_items = $query->count();
+        // Add ordering
+        if ($request->has('order')) {
+            $order_column = $request->order[0]['column'];
+            $order_direction = $request->order[0]['dir'];
+            $query->orderBy($request->input('columns.' . $order_column . '.data'), $order_direction);
+        }
+        // Get paginated data
+        $data = $query->paginate($request->input('length'));
+        // mengubah data JSON menjadi objek PHP
+    
+        return response()->json([
+            'draw' => $request->input('draw'),
+            'recordsTotal' => rekomendasi_terdaftar_yayasan::count(),
+            'recordsFiltered' => $total_filtered_items,
+            'data' => $data,
+        ]);
+      
+    }
     public function diproses(Request $request)
     {
 
@@ -502,9 +576,15 @@ class rekomendasi_terdaftar_yayasanController extends AppBaseController
                 $query->where('status_wilayah', 1);
             })
             ->first();
-        
+
         // dd($user_wilayah);
-        if ($user_wilayah->name_roles == 'Front Office kota') {
+        if ($user_wilayah->name_roles == 'Front Office Kelurahan') {
+            $query = DB::table('rekomendasi_terdaftar_yayasans')
+                ->join('users', 'users.id', '=', 'rekomendasi_terdaftar_yayasans.createdby')
+                ->join('indonesia_districts as d', 'd.code', '=', 'rekomendasi_terdaftar_yayasans.id_kecamatan')
+                ->join('indonesia_villages as b', 'b.code', '=', 'rekomendasi_terdaftar_yayasans.id_kelurahan')
+                ->select('rekomendasi_terdaftar_yayasans.*', 'b.name_village', 'd.name_districts');
+        } elseif ($user_wilayah->name_roles == 'Front Office kota') {
             $query = DB::table('rekomendasi_terdaftar_yayasans')
                 ->join('users', 'users.id', '=', 'rekomendasi_terdaftar_yayasans.createdby')
                 ->join('indonesia_districts as d', 'd.code', '=', 'rekomendasi_terdaftar_yayasans.id_kecamatan')
@@ -521,6 +601,18 @@ class rekomendasi_terdaftar_yayasanController extends AppBaseController
                 ->join('users', 'users.id', '=', 'rekomendasi_terdaftar_yayasans.createdby')
                 ->join('indonesia_villages as b', 'b.code', '=', 'rekomendasi_terdaftar_yayasans.id_kelurahan')
                 ->select('rekomendasi_terdaftar_yayasans.*', 'b.name_village');
+        }
+        if ($user_wilayah->name_roles == 'Front Office kelurahan') {
+            //  dd($user_wilayah->role_id);
+
+            $query->orWhere(function ($query) use ($user_wilayah) {
+                $query->where('rekomendasi_terdaftar_yayasans.id_kelurahan', '=', $user_wilayah->kelurahan_id)
+                    ->where('rekomendasi_terdaftar_yayasans.tujuan', '=', $user_wilayah->role_id)
+                    ->where(function ($query) {
+                        $query->where('rekomendasi_terdaftar_yayasans.status_alur', '=', 'Teruskan')
+                            ->orWhere('rekomendasi_terdaftar_yayasans.status_alur', '=', 'kembalikan');
+                    });
+            });
         }
         if ($user_wilayah->name_roles == 'Front Office kota') {
             //  dd($user_wilayah->role_id);
@@ -641,6 +733,26 @@ class rekomendasi_terdaftar_yayasanController extends AppBaseController
             })
             ->first();
         // dd($user_wilayah);
+        //Front Office kelurahan
+        if ($user_wilayah->name_roles == 'Front Office Kelurahan') {
+            $query = DB::table('rekomendasi_terdaftar_yayasans')
+                ->join('users', 'users.id', '=', 'rekomendasi_terdaftar_yayasans.createdby')
+                ->join('log_yayasan', 'log_yayasan.id_trx_yayasan', '=', 'rekomendasi_terdaftar_yayasans.id')
+                // ->join('model_has_roles', 'model_has_roles.model_id', '=', 'rekomendasi_terdaftar_yayasans.tujuan')
+                ->join('indonesia_villages as b', 'b.code', '=', 'rekomendasi_terdaftar_yayasans.id_kelurahan')
+                ->select('rekomendasi_terdaftar_yayasans.*', 'b.name_village', 'log_yayasan.tujuan', 'log_yayasan.petugas')
+                ->orWhere(function ($query) use ($user_wilayah) {
+                    $query->where('rekomendasi_terdaftar_yayasans.id_kelurahan', $user_wilayah->kelurahan_id)
+                        ->where('rekomendasi_terdaftar_yayasans.tujuan', '!=', $user_wilayah->role_id)
+                        ->where('log_yayasan.created_by', '=', auth::user()->id)
+                        // ->where('rekomendasi_terdaftar_yayasans.petugas','!=', $user_wilayah->model_id)
+                        ->where(function ($query) {
+                            $query->where('rekomendasi_terdaftar_yayasans.status_alur', '=', 'Teruskan')
+                                ->orWhere('rekomendasi_terdaftar_yayasans.status_alur', '=', 'kembalikan');
+                        });
+                })->distinct();
+        }
+        //Front Office Kota
         if ($user_wilayah->name_roles == 'Front Office kota') {
             $query = DB::table('rekomendasi_terdaftar_yayasans')
                 ->join('users', 'users.id', '=', 'rekomendasi_terdaftar_yayasans.createdby')
@@ -861,8 +973,24 @@ class rekomendasi_terdaftar_yayasanController extends AppBaseController
         // //                                 ->orWhere('rekomendasi_terdaftar_yayasans.status_aksi', '=', 'Selesai');
         // //                         });
         // //         });
-
-        if ($user_wilayah->name_roles == 'Front Office kota') {
+        if ($user_wilayah->name_roles == 'Front Office Kelurahan') {
+            //  dd($user_wilayah->role_id);
+            $query = DB::table('rekomendasi_terdaftar_yayasans')
+                ->join('users', 'users.id', '=', 'rekomendasi_terdaftar_yayasans.createdby')
+                ->join('log_yayasan', 'log_yayasan.id_trx_yayasan', '=', 'rekomendasi_terdaftar_yayasans.id')
+                ->join('indonesia_villages', 'indonesia_villages.code', '=', 'rekomendasi_terdaftar_yayasans.id_kelurahan')
+                ->join('indonesia_districts as d', 'd.code', '=', 'rekomendasi_terdaftar_yayasans.id_kecamatan')
+                ->select('rekomendasi_terdaftar_yayasans.*', 'd.name_districts', 'indonesia_villages.name_village', 'log_yayasan.tujuan', 'log_yayasan.petugas')
+                ->orWhere(function ($query) use ($user_wilayah) {
+                    $query->where('rekomendasi_terdaftar_yayasans.id_kelurahan', $user_wilayah->kelurahan_id)
+                        ->where('log_yayasan.tujuan', '=', $user_wilayah->role_id)
+                        ->where('log_yayasan.created_by', '!=', $user_wilayah->model_id)
+                        ->where(function ($query) {
+                            $query->where('rekomendasi_terdaftar_yayasans.status_alur', '=', 'Tolak')
+                                ->orWhere('rekomendasi_terdaftar_yayasans.status_alur', '=', 'Selesai');
+                        });
+                })->distinct();
+        } elseif ($user_wilayah->name_roles == 'Front Office kota') {
             //  dd($user_wilayah->role_id);
             $query = DB::table('rekomendasi_terdaftar_yayasans')
                 ->join('users', 'users.id', '=', 'rekomendasi_terdaftar_yayasans.createdby')

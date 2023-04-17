@@ -10,10 +10,11 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\LaporanTamuController;
 use App\Http\Controllers\PengaduanController;
 use Illuminate\Support\Facades\DB;
-use App\Http\Controllers\rekomendasi_terdaftar_yayasanController;
+// use App\Http\Controllers\rekomendasi_terdaftar_yayasanController;
 use App\Http\Controllers\PengaturanWilayahController;
 use App\Http\Controllers\DependantDropdownController;
 use App\Http\Controllers\pdfController;
+use App\Http\Controllers\pdfyayasanController;
 use App\Models\Pengaduan;
 use App\Models\rekomendasi_terdaftar_yayasan;
 use Dompdf\Adapter\PDFLib;
@@ -96,9 +97,9 @@ Route::resource('pengaduans', App\Http\Controllers\PengaduanController::class);
 Route::resource('rekomendasi_pengangkatan_anaks', App\Http\Controllers\rekomendasi_pengangkatan_anakController::class);
 Route::resource('pengaduans', App\Http\Controllers\PengaduanController::class);
 Route::resource('rekomendasi_terdaftar_yayasans', App\Http\Controllers\rekomendasi_terdaftar_yayasanController::class);
+
 Route::get('/petugas/{id}', [rekomendasi_terdaftar_yayasanController::class, 'getPetugas'])->name('getPetugas');
-Route::get('/getdiproses', [rekomendasi_terdaftar_yayasanController::class, 'getDiproses'])->name('getDiproses');
-Route::post('/delete-data', [rekomendasi_terdaftar_yayasanController::class, 'deleteDiproses']);
+
 
 Route::resource('rekomendasi_pub', App\Http\Controllers\rekomendasi_pengumpulan_undian_berhadiahController::class);
 Route::resource('rekomendasi_bantuan_pendidikans', App\Http\Controllers\rekomendasi_bantuan_pendidikanController::class);
@@ -119,7 +120,7 @@ Route::get('/prelistPage', [PengaduanController::class, 'prelistPage'])->name('p
 //route menu rekomendasi terdaftar yayasan
 Route::get('/draft-rekomendasi-terdaftar-yayasan', [rekomendasi_terdaftar_yayasanController::class, 'draft'])->name('draft-rekomendasi-terdaftar-yayasan');
 Route::get('/diproses-rekomendasi-terdaftar-yayasan', [rekomendasi_terdaftar_yayasanController::class, 'diproses'])->name('diproses-rekomendasi-terdaftar-yayasan');
-Route::get('/teruskan-rekomendasi-terdaftar-yayasan', [PengaduanCrekomendasi_terdaftar_yayasanControllerontroller::class, 'teruskan'])->name('teruskan-rekomendasi-terdaftar-yayasan');
+Route::get('/teruskan-rekomendasi-terdaftar-yayasan', [rekomendasi_terdaftar_yayasanController::class, 'teruskan'])->name('teruskan-rekomendasi-terdaftar-yayasan');
 Route::get('/selesai-rekomendasi-terdaftar-yayasan', [rekomendasi_terdaftar_yayasanController::class, 'selesai'])->name('selesai-rekomendasi-terdaftar-yayasan');
 // Route::get('/prelistDTKS', [PengaduanController::class, 'prelistDTKS'])->name('prelist_DTKS');
 // Route::get('/prelistPage', [PengaduanController::class, 'prelistPage'])->name('prelistPage');

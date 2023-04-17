@@ -14,11 +14,11 @@
             justify-content: space-between;
             align-items: center;
         }
-    
+
         .card-header h3 {
             margin: 0;
         }
-    
+
         .card-header a {
             margin-left: 10px;
         }
@@ -46,7 +46,8 @@
                         <h2>
                             Detail Rekomendasi Yayasan
                         </h2>
-                        <a href="{{ route('rekomendasi_terdaftar_yayasans.index') }}" class="btn btn-primary ml-2">Kembali</a>
+                        <a href="{{ route('rekomendasi_terdaftar_yayasans.index') }}"
+                            class="btn btn-primary ml-2">Kembali</a>
                     </div>
                     <div class="card-body">
                         @include('rekomendasi_terdaftar_yayasans.show_fields')
@@ -67,7 +68,15 @@
                                 </tr>
                             </thead>
                             <tbody class="text-center">
-                                suu
+                                @foreach ($logyayasan as $log)
+                                    <tr>
+                                        <td>{{ $log->updated_at }}</td>
+                                        <td>{{ $log->created_by }}</td>
+                                        <td>{{ $log->id_alur }}</td>
+                                        <td>{{ $log->catatan }}</td>
+                                        <td>{{ $log->file_permohonan }}</td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                         <br>

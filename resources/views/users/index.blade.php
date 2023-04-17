@@ -85,7 +85,7 @@
                                         @endif --}}
                                       </option>
                                       @foreach ($roles as $role )
-                                        <option value="{{ $role->name }}">{{ $role->name }}</option>
+                                        <option value="{{ $role->name_roles }}">{{ $role->name_roles }}</option>
                                       @endforeach
                                   </select> 
                                     
@@ -213,7 +213,7 @@
                                 @endif --}}
                               </option>
                               @foreach ($roles as $role )
-                                <option value="{{ $role->name }}">{{ $role->name }}</option>
+                                <option value="{{ $role->name_roles }}">{{ $role->name_roles }}</option>
                               @endforeach
                           </select> 
                             

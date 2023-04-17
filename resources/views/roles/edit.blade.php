@@ -18,7 +18,7 @@
         <div class="card mt-4">
             <div class="card-header">
                 <div class="d-flex justify-content-between">
-                    <div class="p-2 bd-highlight">Edit Role {{ $role->name }}</div>
+                    <div class="p-2 bd-highlight">Edit Role {{ $role->name_roles }}</div>
                     
                     <div class="p-2 bd-highlight">
                         <ul class="list-group list-group-unbordered center">
@@ -34,10 +34,10 @@
                     src="{{asset('images/pp.png')}}"
                     alt="User profile picture">
                 </div>
-                <h3 class="profile-username text-center"> Role {{ $role->name }}</h3>
+                <h3 class="profile-username text-center"> Role {{ $role->name_roles }}</h3>
                 <div class="form-group">
                     <strong>Role :</strong>
-                    <input class="form-control" name="name" placeholder="Masukan Nama" value="{{ $role->name }}">
+                    <input class="form-control" name="name_roles" placeholder="Masukan Nama" value="{{ $role->name_roles }}">
                 </div>
                 <div class="row">
                  

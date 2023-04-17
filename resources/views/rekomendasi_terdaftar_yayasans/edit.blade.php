@@ -1,6 +1,21 @@
 @extends('layouts.masterTemplate')
 
 @section('title', 'ubah rekomendasiTerdaftarYayasan')
+<style>
+    .card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .card-header h3 {
+        margin: 0;
+    }
+
+    .card-header a {
+        margin-left: 10px;
+    }
+</style>
 
 @section('content')
     <?php
@@ -19,6 +34,7 @@
                 <h2>
                     Ubah Rekomendasi Yayasan
                 </h2>
+                <a href="{{ route('rekomendasi_terdaftar_yayasans.index') }}" class="btn btn-primary ml-2">Kembali</a>
             </div>
 
             {!! Form::model($rekomendasiTerdaftarYayasan, [
@@ -97,14 +113,14 @@
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Nama <span class="text-danger">*</label>
                     <div class="col-sm-5">
-                        <input type="text" class="form-control" value="{{ $rekomendasiTerdaftarYayasan->nama }}"
+                        <input type="text" class="form-control" value="{{ $rekomendasiTerdaftarYayasan->nama_ter }}"
                             name="nama_ter" required readonly>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">NIK</label>
                     <div class="col-sm-5">
-                        <input type="number" id="id-input-nik" value="{{ $rekomendasiTerdaftarYayasan->nik }}"
+                        <input type="number" id="id-input-nik" value="{{ $rekomendasiTerdaftarYayasan->nik_ter }}"
                             class="form-control" name="nik_ter" readonly>
                         <small id="nikhelper" class="form-text text-muted">
                             Harus angka, 16 digit
@@ -231,7 +247,7 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">Telepon <span class="text-danger">*</label>
+                    <label class="col-sm-2 col-form-label">Telepon<span class="text-danger">*</label>
                     <div class="col-sm-5">
                         <input type="tel" class="form-control" value="{{ $rekomendasiTerdaftarYayasan->telp_pel }}"
                             name="telp_pel" required readonly>
@@ -247,42 +263,53 @@
                             name="alamat_pel" readonly>
                     </div>
                 </div>
-                <div form-group row>
-                    <h5><b>PERMOHONAN</b></h5>
-                </div>
-
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Nama Lembaga</label>
                     <div class="col-sm-5">
-                        <input type="text" id="id-input-nik" class="form-control" value="{{$rekomendasiTerdaftarYayasan->nama_lembaga}}" name="nama_lembaga" readonly>
+                        <input type="text" id="id-input-nik" value="{{$rekomendasiTerdaftarYayasan->nama_lembaga}}" class="form-control" name="nama_lembaga">
                     </div>
                 </div>
-               
+    
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Alamat</label>
                     <div class="col-sm-5">
-                        <input type="number" class="form-control" value="{{$rekomendasiTerdaftarYayasan->alamat_lembaga}}"  name="alamat_lembaga" readonly>
-                        <small id="kkhelper" class="form-text text-muted">
-                            Harus angka, 16 digit
+                        <input type="text" class="form-control" value="{{$rekomendasiTerdaftarYayasan->alamat_lembaga}}" name="alamat_lembaga">
                         </small>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">Nama Ketua <span class="text-danger">*</label>
+                    <label class="col-sm-2 col-form-label">Akta Notaris</label>
                     <div class="col-sm-5">
-                        <input type="text" class="form-control" value="{{$rekomendasiTerdaftarYayasan->nama_ketua}}" name="nama_ketua" readonly>
+                        <input type="text" class="form-control" value="{{$rekomendasiTerdaftarYayasan->akta_notaris}}"name="akta_notaris" required>
+                    </div>
+                </div>  <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">No Akta</label>
+                    <div class="col-sm-5">
+                        <input type="text" class="form-control" value="{{$rekomendasiTerdaftarYayasan->no_akta}}" name="no_akta" required>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Jenis Penyelenggaraan Kesos</label>
+                    <div class="col-sm-5">
+                        <input type="text" class="form-control" value="{{$rekomendasiTerdaftarYayasan->jenis_kesos}}" name="jenis_kesos" required>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Nama Ketua</label>
+                    <div class="col-sm-5">
+                        <input type="text" class="form-control" value="{{$rekomendasiTerdaftarYayasan->nama_ketua}}" name="nama_ketua" required>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Jenis Penyelenggaraan Kesos<span class="text-danger">*</label>
                     <div class="col-sm-5">
-                        <input type="text" class="form-control" value="{{$rekomendasiTerdaftarYayasan->jenis_kesos}}" name="jenis_kesos" readonly>
+                        <input type="text" class="form-control" value="{{$rekomendasiTerdaftarYayasan->jenis_kesos}} "name="jenis_kesos" required>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Status <span class="text-danger">*</label>
                     <div class="col-sm-5">
-                        <input type="tel" class="form-control"  value="{{$rekomendasiTerdaftarYayasan->status}}"  name="status" readonly>
+                        <input type="tel" class="form-control" value="{{$rekomendasiTerdaftarYayasan->status}}" name="status" required>
                         <small id="nikhelper" class="form-text text-muted">
                             Harus angka, max 13 digit
                         </small>
@@ -291,37 +318,80 @@
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Lingkup Wilayah Kerja</label>
                     <div class="col-sm-5">
-                        <input type="text" class="form-control" value="{{$rekomendasiTerdaftarYayasan->wil_kerja}}"  name="wil_kerja" readonly>
+                        <input type="text" class="form-control" value="{{$rekomendasiTerdaftarYayasan->wil_kerja}}" name="wil_kerja">
                     </div>
                 </div>
     
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Tipe</label>
                     <div class="col-sm-5">
-                        <input type="text" class="form-control" value="{{$rekomendasiTerdaftarYayasan->tipe}}" name="tipe" readonly>
+                        <input type="text" class="form-control" value="{{$rekomendasiTerdaftarYayasan->tipe}}" name="tipe">
                     </div>
                 </div>
-    
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Masa Berlaku</label>
                     <div class="col-sm-5">
-                        <input type="date" class="form-control" value="{{$rekomendasiTerdaftarYayasan->masa_berlaku}}"  name="masa_berlaku" readonly>
+                        <label>Dari tanggal:</label>
+                        <input type="date" class="form-control" value="{{$rekomendasiTerdaftarYayasan->tgl_mulai}}" name="tgl_mulai">
+    
+                        <label>Sampai tanggal:</label>
+                        <input type="date" class="form-control" value="{{$rekomendasiTerdaftarYayasan->tgl_selesai}}"   name="tgl_selesai">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Akta Notaris Pendirian</label>
+                    <div class="col-sm-5">
+                        <input type="file" id="file-upload" name="">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Anggaran Dasar/Rumah Tangga </label>
+                    <div class="col-sm-5">
+                        <input type="file" id="file-upload" name="">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Struktur Organisasi Lembaga</label>
+                    <div class="col-sm-5">
+                        <input type="file" id="file-upload" name="">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Nomor Pokok Wajib Pajak</label>
+                    <div class="col-sm-5">
+                        <input type="file" id="file-upload" name="">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Data Penerima Layanan</label>
+                    <div class="col-sm-5">
+                        <input type="file" id="file-upload" name="">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Kelengkapan Sarana Prasarana</label>
+                    <div class="col-sm-5">
+                        <input type="file" id="file-upload" name="">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Formulir Kelengkapan Berkas</label>
+                    <div class="col-sm-5">
+                        <input type="file" id="file-upload" name="">
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Draft Permohonan Kebutuhan</label>
                     <div class="col-sm-5">
-                       <button> <a href="{{ url('draft/Draft_Rekomendasi') }}" target="_blank">Lihat File</a></button>
+                        <a href="{{ url('draft/Draft_Rekomendasi') }}" download>Download File</a>
                     </div>
                 </div>
-
                 <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">Upload File Draft Rekomendasi Yayasan</label>
+                    <label class="col-sm-2 col-form-label">Upload File Permohonan Kebutuhan</label>
                     <div class="col-sm-5">
-                        <input type="file" id="file-upload" name="draft_rekomendasi">
+                        <input type="file" id="file-upload" name="file_permohonan">
                     </div>
                 </div>
-
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Catatan <span class="text-danger">*</label>
                     <div class="col-sm-5">
@@ -348,7 +418,7 @@
                         <select class="form-control form-control-lg" name="tujuan" id="tujuan">
                             <option selected>Pilih...</option>
                             @foreach ($roleid as $idrole)
-                                <option value={{ $idrole->id }}>{{ $idrole->name }}</option>
+                                <option value={{ $idrole->id }}>{{ $idrole->name_roles }}</option>
                             @endforeach
                         </select>
                     </div>

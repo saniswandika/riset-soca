@@ -1,6 +1,3 @@
-<div>
-    <h3>Detail Data Rekomendasi Yayasan</h3>
-</div>
 <div form-group row>
     <h4><b>Pendaftaran</b></h4>
 </div>
@@ -114,6 +111,55 @@
 </div>
 <br>    
 <div form-group row>
+    <h4><b>Pelapor</b></h4>
+</div>
+<div class="form-group row">
+    <label class="col-sm-2 col-form-label">Nama<span class="text-danger">*</label>
+    <div class="col-sm-5">
+        <input type="text" class="form-control" value="{{ $rekomendasiTerdaftarYayasan->nama_pel }}" name="nama_pel"
+            readonly>
+    </div>  
+</div>
+<div class="form-group row">
+    <label class="col-sm-2 col-form-label">NIK</label>
+    <div class="col-sm-5">
+        <input type="number" id="id-input-nik" value="{{ $rekomendasiTerdaftarYayasan->nik_pel }}" class="form-control"
+            name="nik_pel" readonly>
+    </div>
+</div>
+
+<div class="form-group row">
+    <label class="col-sm-2 col-form-label">Tempat Lahir <span class="text-danger">*</label>
+    <div class="col-sm-5">
+        <input type="text" class="form-control" value="{{ $rekomendasiTerdaftarYayasan->tempat_lahirpel }}"
+            name="tempat_lahirpel" readonly>
+    </div>
+</div>
+<div class="form-group row">
+    <label class="col-sm-2 col-form-label">Tanggal Lahir <span class="text-danger">*</label>
+    <div class="col-sm-5">
+        <input type="date" class="form-control" value="{{ $birthdate->format('Y-m-d') }}" name="tgl_lahirpel" readonly>
+    </div>
+</div>
+<div class="form-group row">
+    <label class="col-sm-2 col-form-label">Telpon <span class="text-danger">*</label>
+    <div class="col-sm-5">
+        <input type="tel" class="form-control" value="{{ $rekomendasiTerdaftarYayasan->telp_pel }}" name="telpon"
+            readonly>
+        <small id="nikhelper" class="form-text text-muted">
+            Harus angka, max 13 digit
+        </small>
+    </div>
+</div>
+<div class="form-group row">
+    <label class="col-sm-2 col-form-label">Alamat</label>
+    <div class="col-sm-5">
+        <input type="text" class="form-control" value="{{ $rekomendasiTerdaftarYayasan->alamat_pel }}" name="alamat_pel"
+            readonly>
+    </div>
+</div>
+<br>   
+<div form-group row>
     <h4><b>Permohonan</b></h4>
 </div>
 <div class="form-group row">
@@ -206,26 +252,24 @@
 <div class="form-group row">
     <label class="col-sm-2 col-form-label">Status Aksi</label>
     <div class="col-sm-5">
-        <select class="form-control form-control-lg" name="status_aksi" disabled>
-            <option selected value="{{ $rekomendasiTerdaftarYayasan->status_alur}}">
-        </select>
+        <div class="col-sm-5">
+            <input type="text" class="form-control" value="{{ $rekomendasiTerdaftarYayasan->status_alur }}" name="status_alur"
+            readonly>
+        </div>
     </div>
 </div>
 <div class="form-group row">
     <label class="col-sm-2 col-form-label">Tujuan</label>
     <div class="col-sm-5">
-        <select class="form-control form-control-lg" name="tujuan" id="tujuan" disabled>
-            <option selected>Pilih...</option>
-                <option value={{ $rekomendasiTerdaftarYayasan->id }}>{{ $rekomendasiTerdaftarYayasan->tujuan }}</option>
-        </select>
+        <input type="text" class="form-control" value="{{ $rekomendasiTerdaftarYayasan->tujuan }}" name="tujuan"
+        readonly>
     </div>
 </div>
 <div class="form-group row">
     <label class="col-sm-2 col-form-label">Petugas <span class="text-danger">*</label>
     <div class="col-sm-5">
-        <select class="form-control form-control-lg" name="petugas" id="petugas">
-            <option value="{{ $rekomendasiTerdaftarYayasan->id }}>{{ $rekomendasiTerdaftarYayasan->petugas }}"></option>
-        </select>
+        <input type="text" class="form-control" value="{{ $rekomendasiTerdaftarYayasan->petugas }}" name="petugas"
+            readonly>
     </div>
 </div>
 </div>

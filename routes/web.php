@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\PengaturanWilayahController;
 use App\Http\Controllers\DependantDropdownController;
 use App\Http\Controllers\pdfController;
+use App\Http\Controllers\pdfyayasanController;
 use App\Models\Pengaduan;
 use App\Models\rekomendasi_terdaftar_yayasan;
 use Dompdf\Adapter\PDFLib;

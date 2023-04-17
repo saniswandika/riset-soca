@@ -91,11 +91,7 @@
                                     aria-controls="tableselesai" aria-selected="false">Selesai</a>
                             </li>
 
-                            @foreach ($usersrole as $ur)
-                                @if ($ur->name_roles == 'Front')
-                                    
-                                @endif
-                            @endforeach
+
                             <li class="nav-item ml-auto" style="margin-left: auto">
                                 <a href="/rekomendasi_terdaftar_yayasans/create" class="btn btn-primary ml-2">Tambah
                                     Data</a>
@@ -270,8 +266,8 @@
                                     orderable: false,
                                     "mRender": function(data, type, row) {
                                         return '<div class="btn-group" role="group" aria-label="Actions">' +
-                                            '<a onclick="showModal(' + row.id +
-                                            ')" class="btn btn-success btn-sm"><i class="fas fa-eye"></i>   Details </a>' +
+                                            '<a class="btn btn-success btn-sm" href="/rekomendasi_terdaftar_yayasans/' +
+                                            data.id + '"><i class="fas fa-eye"></i>   Details </a>' +
                                             '</div>' +
                                             '<div class="btn-group" role="group" aria-label="Actions">' +
                                             '<a class="btn btn-primary btn-sm" href="/rekomendasi_terdaftar_yayasans/' +
@@ -333,8 +329,8 @@
                                 orderable: false,
                                 "mRender": function(data, type, row) {
                                     return '<div class="btn-group" role="group" aria-label="Actions">' +
-                                        '<a onclick="showModal(' + row.id +
-                                        ')" class="btn btn-success btn-sm"><i class="fas fa-eye"></i>   Details  </a>' +
+                                        '<a class="btn btn-success btn-sm" href="/rekomendasi_terdaftar_yayasans/' +
+                                        data.id + '"><i class="fas fa-eye"></i>   Details </a>' +
                                         '</div>' +
                                         '<div class="btn-group" role="group" aria-label="Actions">' +
                                         '<a class="btn btn-primary btn-sm" href="/rekomendasi_terdaftar_yayasans/' +
@@ -396,8 +392,8 @@
                                 orderable: false,
                                 "mRender": function(data, type, row) {
                                     return '<div class="btn-group" role="group" aria-label="Actions">' +
-                                        '<a onclick="showModal(' + row.id +
-                                        ')" class="btn btn-success btn-sm"><i class="fas fa-eye"></i>   Details </a>' +
+                                        '<a class="btn btn-success btn-sm" href="/rekomendasi_terdaftar_yayasans/' +
+                                        data.id + '"><i class="fas fa-eye"></i>   Details </a>' +
                                         '</div>' +
                                         '<div class="btn-group" role="group" aria-label="Actions">' +
                                         '<a class="btn btn-info btn-sm" href="/pdfyayasan/' + data.id +
@@ -454,8 +450,8 @@
                                 orderable: false,
                                 "mRender": function(data, type, row) {
                                     return '<div class="btn-group" role="group" aria-label="Actions">' +
-                                        '<a onclick="showModal(' + row.id +
-                                        ')" class="btn btn-success btn-sm"><i class="fas fa-eye"></i>   Details </a>' +
+                                        '<a class="btn btn-success btn-sm" href="/rekomendasi_terdaftar_yayasans/' +
+                                        data.id + '"><i class="fas fa-eye"></i>   Details </a>' +
                                         '</div>' +
                                         '<div class="btn-group" role="group" aria-label="Actions">' +
                                         '<a class="btn btn-primary btn-sm" href="/rekomendasi_terdaftar_yayasans/' +

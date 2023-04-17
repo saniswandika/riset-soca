@@ -204,8 +204,8 @@
     <div class="form-group row">
         <label class="col-sm-2 col-form-label">Program</label>
         <div class="col-sm-5">
-            <input type="text" class="form-control" value="{{ $pengaduan->id_program_sosial }}"
-                name="id_program_sosial" readonly>
+         
+          
         </div>
     </div>
     <div class="form-group row">

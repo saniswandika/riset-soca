@@ -49,6 +49,8 @@ class PengaduanController extends AppBaseController
     }
     public function index(Request $request)
     {
+
+
         $userid = Auth::user()->id;
         $wilayah = DB::table('wilayahs as w')->select(
             'w.*',
@@ -75,7 +77,7 @@ class PengaduanController extends AppBaseController
     public function create()
     {
         $v = Pengaduan::latest()->first();
-        // dd($v);
+      
         $userid = Auth::user()->id;
         $wilayah = DB::table('wilayahs as w')->select(
             'w.*',
@@ -137,55 +139,59 @@ class PengaduanController extends AppBaseController
      */
     public function store(Request $request)
     {
-
+       // Output: apple,banana,orange
+       
         if ($request->get('nik') != null) {
-            if ($request->get('status_dtks') == 0) {
+        
+            if ($request->get('status_dtks') == 'Terdaftar') {
                 //nik dan dtks ada
+                // dd($request->all());
                 $data = new Pengaduan;
                 if($request->file('tl_file')){
                     // dd($request->file('tl_file'));
-                  
+                   
                     $path = $request->file('tl_file');
                     $filname = 'gambar-baru/'.$path->getClientOriginalName();
                     // dd($filname);
                     // $update['filename'] = $filname;
                     $return = Storage::disk('imagekit')->put($filname, fopen($path->getRealPath(), 'r') );
-                    $data['tl_file'] =  Storage::disk('imagekit')->url($filname);
+                    $data->tl_file =  Storage::disk('imagekit')->url($filname);
                     // dd($data);
                 }
-                $data['id_alur'] = $request->get('id_alur');
-                $data['no_pendaftaran'] = mt_rand(100, 1000);
-                $data['id_provinsi'] = $request->get('id_provinsi');
-                $data['id_kabkot'] = $request->get('id_kabkot');
-                $data['id_kecamatan'] = $request->get('id_kecamatan');
-                $data['id_kelurahan'] = $request->get('id_kelurahan');
-                $data['jenis_pelapor'] = $request->get('jenis_pelapor');
-                $data['ada_nik'] = $request->get('memiliki_nik');
-                $data['nik'] = $request->get('nik');
-                $data['no_kk'] = $request->get('no_kk');
-                // $data['no_kis'] = $request->get('no_kis');
-                $data['nama'] = $request->get('nama');
-                $data['tgl_lahir'] = $request->get('tgl_lahir');
-                $data['tempat_lahir'] = $request->get('tempat_lahir');
-                // $data['alamat'] = $request->get('alamat');
-                $data['telp'] = $request->get('telpon');
-                $data['email'] = $request->get('email');
-                $data['hubungan_terlapor'] = $request->get('hubungan_terlapor');
-                $data['id_program_sosial'] = $request->get('id_program_sosial');
-                $data['kepesertaan_program'] = $request->get('kepesertaan_program');
-                $data['no_peserta'] = $request->get('no_peserta');
-                $data['level_program'] = $request->get('level_program');
-                $data['sektor_program'] = $request->get('sektor_program');
-                $data['no_kartu_program'] = $request->get('no_kartu_program');
-                $data['ringkasan_pengaduan']  = $request->get('ringkasan_pengaduan');
-                $data['detail_pengaduan']  = $request->get('detail_pengaduan');
-                // $data['tl_file']  = $request->get('detail_pengaduan');
-                $data['status_dtks'] = $request->get('status_dtks');
-                $data['tujuan'] = $request->get('tujuan');
-                $data['status_aksi'] = $request->get('status_aksi'); 
-                $data['petugas'] = $request->get('petugas'); 
-                $data['createdby'] = Auth::user()->id;
-                $data['updatedby'] = Auth::user()->id;
+                $data->id_alur = $request->get('id_alur');
+                $data->no_pendaftaran = mt_rand(100, 1000);
+                $data->id_provinsi = $request->get('id_provinsi');
+                $data->id_kabkot = $request->get('id_kabkot');
+                $data->id_kecamatan = $request->get('id_kecamatan');
+                $data->id_kelurahan = $request->get('id_kelurahan');
+                $data->jenis_pelapor = $request->get('jenis_pelapor');
+                $data->ada_nik = $request->get('memiliki_nik');
+                $data->nik = $request->get('nik');
+                $data->no_kk = $request->get('no_kk');
+                // $data->no_kis = $request->get('no_kis');
+                $data->nama = $request->get('nama');
+                $data->tgl_lahir = $request->get('tgl_lahir');
+                $data->tempat_lahir = $request->get('tempat_lahir');
+                // $data->alamat = $request->get('alamat');
+                $data->telp = $request->get('telpon');
+                $data->email = $request->get('email');
+                $data->hubungan_terlapor = $request->get('hubungan_terlapor');
+                // $data->id_program_sosial = $request->get('id_program_sosial');
+                $data->id_program_sosial = json_encode($request->input('id_program_sosial'));            
+                $data->kepesertaan_program = $request->get('kepesertaan_program');
+                $data->no_peserta = json_encode($request->input('no_peserta'));
+                $data->level_program = $request->get('level_program');
+                $data->sektor_program = $request->get('sektor_program');
+                $data->no_kartu_program = $request->get('no_kartu_program');
+                $data->ringkasan_pengaduan  = $request->get('ringkasan_pengaduan');
+                $data->detail_pengaduan  = $request->get('detail_pengaduan');
+                // $data->tl_file  = $request->get('detail_pengaduan');
+                $data->status_dtks = $request->get('status_dtks');
+                $data->tujuan = $request->get('tujuan');
+                $data->status_aksi = $request->get('status_aksi'); 
+                $data->petugas = $request->get('petugas'); 
+                $data->createdby = Auth::user()->id;
+                $data->updatedby = Auth::user()->id;
                 // dd($data);
                 $data->save();
                 // dd($data);
@@ -409,7 +415,8 @@ class PengaduanController extends AppBaseController
             ->first();
         
         
-        $pengaduans = Pengaduan::where('createdby', $userid)->get();
+        $pengaduan = Pengaduan::where('id', $id)->first();
+     
         $getdata = DB::table('model_has_roles')
             ->leftjoin('pengaduans as b', 'b.tujuan', '=', 'model_has_roles.role_id')
             ->where('b.id', $id)
@@ -598,7 +605,7 @@ class PengaduanController extends AppBaseController
             // ->where('name', 'supervisor')
             // ->orWhere('name', 'supervisor')
             ->get();
-        $pengaduan = $this->pengaduanRepository->find($id);
+
         return view('pengaduans.edit', compact('wilayah', 'pengaduan', 'roleid', 'getdata', 'alur', 'checkroles', 'rolebackoffice', 'createdby','checkroles2'));
     }
     /**

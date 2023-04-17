@@ -369,7 +369,6 @@
               </li>
           @endauth
         </ul>
-        
         <div class="tab-content" id="myTabContent">
           <div class="tab-pane fade show table-responsive" id="table1" role="tabpanel" aria-labelledby="tab1" style="margin-top: 20px;">
             <table id="datatable" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
